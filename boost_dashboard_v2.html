@@ -14,24 +14,32 @@
   .status.error { color: #D85A30; background: #FCEBEB; border-color: #D85A30; }
   .status.ok    { color: #1D9E75; background: #E1F5EE; border-color: #1D9E75; }
 
-  .period-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: start; margin-bottom: 20px; }
+  /* Filtros globales */
+  .filters { background: #fff; border: 1px solid #D3D1C7; border-radius: 10px; padding: 14px 16px; margin-bottom: 16px; }
+  .filters-title { font-size: 11px; font-weight: 700; color: #888780; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 10px; }
+  .filters-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .filter-field label { font-size: 10px; font-weight: 700; color: #888780; letter-spacing: 0.06em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+  .filter-field select { width: 100%; font-size: 12px; padding: 6px 8px; border-radius: 6px; border: 1px solid #D3D1C7; background: #FAFAF8; color: #2C2C2A; font-family: Arial, sans-serif; }
+  .filter-field select:focus { outline: none; border-color: #534AB7; }
+
+  /* Períodos */
+  .period-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: start; margin-bottom: 14px; }
   .period-card { background: #fff; border: 1px solid #D3D1C7; border-radius: 10px; padding: 14px 16px; }
   .period-title { font-size: 11px; font-weight: 700; color: #888780; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 6px; }
   .p1-badge { display:inline-block; font-size:10px; padding:2px 8px; border-radius:20px; background:#EEEDFE; color:#534AB7; font-weight:600; margin-bottom:10px; }
   .p2-badge { display:inline-block; font-size:10px; padding:2px 8px; border-radius:20px; background:#E1F5EE; color:#085041; font-weight:600; margin-bottom:10px; }
-
-  .date-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+  .date-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px; }
   .date-field label { font-size: 10px; font-weight: 700; color: #888780; letter-spacing: 0.06em; text-transform: uppercase; display: block; margin-bottom: 4px; }
   .date-field input { width: 100%; font-size: 12px; padding: 6px 8px; border-radius: 6px; border: 1px solid #D3D1C7; background: #FAFAF8; color: #2C2C2A; font-family: Arial, sans-serif; }
   .date-field input:focus { outline: none; border-color: #534AB7; }
   .date-field input.error { border-color: #D85A30; }
-
-  .apply-btn { width: 100%; font-size: 12px; font-weight: 700; padding: 7px; border-radius: 6px; border: none; background: #534AB7; color: #fff; cursor: pointer; margin-top: 4px; }
-  .apply-btn:hover { background: #3C3489; }
-
-  .period-info { font-size: 10px; color: #888780; margin-top: 6px; }
   .vs { font-size: 18px; font-weight: 700; color: #D3D1C7; text-align: center; padding-top: 48px; }
+  .apply-btn { display: block; width: 200px; margin: 0 auto 20px; font-size: 12px; font-weight: 700; padding: 8px; border-radius: 6px; border: none; background: #534AB7; color: #fff; cursor: pointer; }
+  .apply-btn:hover { background: #3C3489; }
+  .period-info { font-size: 10px; color: #888780; margin-top: 6px; }
+  .warn { font-size: 11px; color: #D85A30; margin-top: 4px; min-height: 16px; }
 
+  /* KPIs */
   .kpi-row { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:20px; }
   .kpi { background:#fff; border:1px solid #D3D1C7; border-radius:10px; padding:14px 16px; }
   .kpi-label { font-size:10px; font-weight:700; color:#888780; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:6px; }
@@ -39,6 +47,7 @@
   .kpi-delta { font-size:11px; font-weight:600; }
   .up { color:#1D9E75; } .down { color:#D85A30; } .neu { color:#888780; }
 
+  /* Charts */
   .charts-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px; }
   .card { background:#fff; border:1px solid #D3D1C7; border-radius:10px; padding:16px 18px; }
   .card-title { font-size:13px; font-weight:700; color:#2C2C2A; margin-bottom:4px; }
@@ -48,7 +57,6 @@
   .leg-sq { width:10px; height:10px; border-radius:2px; flex-shrink:0; }
   .insight { background:#EEEDFE; border-left:3px solid #534AB7; border-radius:0 8px 8px 0; padding:12px 16px; font-size:12px; color:#3C3489; line-height:1.6; }
   .note { font-size:10px; color:#888780; margin-top:10px; font-style:italic; }
-  .warn { font-size:11px; color:#D85A30; margin-top:6px; }
 </style>
 </head>
 <body>
@@ -59,6 +67,26 @@
 
 <div id="app" style="display:none;">
 
+  <!-- Filtros globales -->
+  <div class="filters">
+    <div class="filters-title">Filtros globales — aplican a ambos períodos</div>
+    <div class="filters-row">
+      <div class="filter-field">
+        <label>Cliente</label>
+        <select id="f-client"><option value="">Todos</option></select>
+      </div>
+      <div class="filter-field">
+        <label>Categoría</label>
+        <select id="f-category" onchange="updateSubcat()"><option value="">Todas</option></select>
+      </div>
+      <div class="filter-field">
+        <label>Subcategoría</label>
+        <select id="f-subcat"><option value="">Todas</option></select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Selectores de período -->
   <div class="period-row">
     <div class="period-card">
       <div class="period-title">Período 1</div>
@@ -76,9 +104,7 @@
       <div class="warn" id="p1-warn"></div>
       <div class="period-info" id="p1-info"></div>
     </div>
-
     <div class="vs">vs</div>
-
     <div class="period-card">
       <div class="period-title">Período 2</div>
       <span class="p2-badge">P2 — Con boost</span>
@@ -97,9 +123,7 @@
     </div>
   </div>
 
-  <div style="display:flex;justify-content:center;margin-bottom:20px;">
-    <button class="apply-btn" style="width:200px;" onclick="applyRanges()">Aplicar períodos</button>
-  </div>
+  <button class="apply-btn" onclick="applyRanges()">Aplicar períodos</button>
 
   <div class="kpi-row">
     <div class="kpi">
@@ -149,7 +173,7 @@ const URL_REDENCIONES = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS7RDuE
 const URL_BOOST       = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS7RDuEY3wswKsF0uiXd7u_YYoOEupSVmUhZi_oHMKGREenfvdmXc1T1twiw_SizFlLK9xqg6gvFx5_/pub?gid=697415038&single=true&output=csv';
 
 const PURPLE='#534AB7', GRAY='#B4B2A9', tick='#888780', gridC='rgba(0,0,0,0.06)';
-let allTagged=[], cMg, cMix;
+let allTagged=[], subcatMap={}, cMg, cMix;
 
 function parseCSV(text){
   const lines=text.trim().split('\n');
@@ -168,26 +192,29 @@ function parseCSV(text){
   }).filter(r=>r[headers[0]]);
 }
 
-function parseFecha(str){
+// Convierte DD/MM/YYYY o YYYY-MM-DD a número YYYYMMDD para comparación sin zona horaria
+function fechaNum(str){
   if(!str||str.trim()==='')return null;
+  let d,m,y;
   if(str.includes('/')){
-    const parts=str.split('/');
-    if(parts.length===3){
-      const[d,m,y]=parts;
-      const f=new Date(`${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`);
-      return isNaN(f.getTime())?null:f;
-    }
-  }
-  const f=new Date(str);
-  return isNaN(f.getTime())?null:f;
+    const p=str.split('/');
+    if(p.length!==3)return null;
+    [d,m,y]=p;
+  } else if(str.includes('-')){
+    const p=str.split('-');
+    if(p.length!==3)return null;
+    [y,m,d]=p;
+  } else return null;
+  const num=parseInt(y)*10000+parseInt(m)*100+parseInt(d);
+  return isNaN(num)?null:num;
 }
 
-// Normaliza fecha a medianoche para comparaciones correctas
-function normFecha(str){
-  const f=parseFecha(str);
-  if(!f)return null;
-  f.setHours(0,0,0,0);
-  return f;
+function fmtCorta(num){
+  const y=Math.floor(num/10000);
+  const m=Math.floor((num%10000)/100);
+  const d=num%100;
+  const ms=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  return `${String(d).padStart(2,'0')} ${ms[m-1]} ${y}`;
 }
 
 async function loadData(){
@@ -198,15 +225,35 @@ async function loadData(){
     ]);
     const redenciones=parseCSV(r1);
     const boosts=parseCSV(r2);
+
+    // Normalizar fechas boost a número
     boosts.forEach(b=>{
-      b._ini=normFecha(b.fecha_inicio);
-      b._fin=normFecha(b.fecha_fin);
+      b._ini=fechaNum(b.fecha_inicio);
+      b._fin=fechaNum(b.fecha_fin);
     });
 
-    // Taggear todas las redenciones una sola vez
+    // Poblar filtros
+    const clients=new Set(), cats=new Set();
+    subcatMap={};
+    redenciones.forEach(r=>{
+      if(r.client)clients.add(r.client.trim());
+      if(r.category){
+        cats.add(r.category.trim());
+        if(r.subcategory){
+          if(!subcatMap[r.category.trim()])subcatMap[r.category.trim()]=new Set();
+          subcatMap[r.category.trim()].add(r.subcategory.trim());
+        }
+      }
+    });
+    const fClient=document.getElementById('f-client');
+    [...clients].sort().forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;fClient.appendChild(o);});
+    const fCat=document.getElementById('f-category');
+    [...cats].sort().forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;fCat.appendChild(o);});
+
+    // Taggear todas las redenciones
     allTagged=redenciones.map(row=>{
-      const fecha=normFecha(row.redemption_date);
-      if(!fecha)return null;
+      const fnum=fechaNum(row.redemption_date);
+      if(!fnum)return null;
       const sku=row.part_number?.trim();
       const client=row.client?.trim();
       const venta=parseFloat(row.precio_venta)||0;
@@ -218,10 +265,16 @@ async function loadData(){
       const match=boosts.find(b=>
         b._ini&&b._fin&&
         b.part_number?.trim()===sku&&
-        fecha>=b._ini&&fecha<=b._fin&&
+        fnum>=b._ini&&fnum<=b._fin&&
         (b.alcance==='GLOBAL'||b.cliente?.trim()===client)
       );
-      return{fecha,mg_pesos:mg_p,mg_pct,estado:match?'Boosteado':'Base'};
+      return{
+        fnum, mg_pesos:mg_p, mg_pct,
+        estado:match?'Boosteado':'Base',
+        client:client||'',
+        category:(row.category||'').trim(),
+        subcategory:(row.subcategory||'').trim(),
+      };
     }).filter(r=>r!==null);
 
     const ignoradas=redenciones.length-allTagged.length;
@@ -232,32 +285,41 @@ async function loadData(){
     document.getElementById('app').style.display='block';
 
   }catch(err){
-    document.getElementById('status').textContent=`Error: ${err.message}. Verifica que las URLs de Google Sheets estén publicadas.`;
+    document.getElementById('status').textContent=`Error: ${err.message}`;
     document.getElementById('status').className='status error';
   }
 }
 
-function statsForRange(ini, fin){
-  const subset=allTagged.filter(r=>r.fecha>=ini&&r.fecha<=fin);
-  const b=subset.filter(r=>r.estado==='Boosteado');
-  const n=subset.filter(r=>r.estado==='Base');
-  const tot=subset.length;
-  if(tot===0)return null;
-  const mgB=b.length?b.reduce((s,r)=>s+r.mg_pct,0)/b.length:0;
-  const mgN=n.length?n.reduce((s,r)=>s+r.mg_pct,0)/n.length:0;
-  const wB=b.length/tot, wN=n.length/tot;
+function updateSubcat(){
+  const cat=document.getElementById('f-category').value;
+  const sel=document.getElementById('f-subcat');
+  sel.innerHTML='<option value="">Todas</option>';
+  if(cat&&subcatMap[cat]){
+    [...subcatMap[cat]].sort().forEach(s=>{
+      const o=document.createElement('option');o.value=s;o.textContent=s;sel.appendChild(o);
+    });
+  }
+}
+
+function getFilters(){
   return{
-    vB:b.length, vN:n.length, tot,
-    mgB, mgN,
-    mgTot:wB*mgB+wN*mgN,
-    mixB:wB*100, mixN:wN*100,
-    contribB:wB*mgB, contribN:wN*mgN,
+    client: document.getElementById('f-client').value,
+    category: document.getElementById('f-category').value,
+    subcat: document.getElementById('f-subcat').value,
   };
 }
 
-function validarCampos(iniId, finId, warnId){
-  const ini=normFecha(document.getElementById(iniId).value);
-  const fin=normFecha(document.getElementById(finId).value);
+function applyFilters(rows, filters){
+  return rows.filter(r=>
+    (!filters.client   || r.client===filters.client) &&
+    (!filters.category || r.category===filters.category) &&
+    (!filters.subcat   || r.subcategory===filters.subcat)
+  );
+}
+
+function validarInput(iniId, finId, warnId){
+  const ini=fechaNum(document.getElementById(iniId).value);
+  const fin=fechaNum(document.getElementById(finId).value);
   const warn=document.getElementById(warnId);
   document.getElementById(iniId).classList.remove('error');
   document.getElementById(finId).classList.remove('error');
@@ -268,35 +330,46 @@ function validarCampos(iniId, finId, warnId){
   return{ini,fin};
 }
 
-function fmt(n,u){return(n>=0?'+':'')+n.toFixed(1)+u;}
-function cls(n){return n>0.05?'up':n<-0.05?'down':'neu';}
-function fmtFechaCorta(f){
-  const d=String(f.getDate()).padStart(2,'0');
-  const ms=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
-  return `${d} ${ms[f.getMonth()]} ${f.getFullYear()}`;
+function statsForRange(ini, fin, filters){
+  const filtered=applyFilters(allTagged, filters);
+  const subset=filtered.filter(r=>r.fnum>=ini&&r.fnum<=fin);
+  const b=subset.filter(r=>r.estado==='Boosteado');
+  const n=subset.filter(r=>r.estado==='Base');
+  const tot=subset.length;
+  if(tot===0)return null;
+  const mgB=b.length?b.reduce((s,r)=>s+r.mg_pct,0)/b.length:0;
+  const mgN=n.length?n.reduce((s,r)=>s+r.mg_pct,0)/n.length:0;
+  const wB=b.length/tot, wN=n.length/tot;
+  return{vB:b.length,vN:n.length,tot,mgB,mgN,mgTot:wB*mgB+wN*mgN,mixB:wB*100,mixN:wN*100,contribB:wB*mgB,contribN:wN*mgN};
 }
 
+function fmt(n,u){return(n>=0?'+':'')+n.toFixed(1)+u;}
+function cls(n){return n>0.05?'up':n<-0.05?'down':'neu';}
+
 function applyRanges(){
-  const r1=validarCampos('p1-ini','p1-fin','p1-warn');
-  const r2=validarCampos('p2-ini','p2-fin','p2-warn');
+  const r1=validarInput('p1-ini','p1-fin','p1-warn');
+  const r2=validarInput('p2-ini','p2-fin','p2-warn');
   if(!r1||!r2)return;
 
-  const s1=statsForRange(r1.ini,r1.fin);
-  const s2=statsForRange(r2.ini,r2.fin);
+  const filters=getFilters();
+  const s1=statsForRange(r1.ini,r1.fin,filters);
+  const s2=statsForRange(r2.ini,r2.fin,filters);
 
-  if(!s1){document.getElementById('p1-warn').textContent='Sin redenciones en ese rango.';return;}
-  if(!s2){document.getElementById('p2-warn').textContent='Sin redenciones en ese rango.';return;}
+  if(!s1){document.getElementById('p1-warn').textContent='Sin redenciones en ese rango con los filtros seleccionados.';return;}
+  if(!s2){document.getElementById('p2-warn').textContent='Sin redenciones en ese rango con los filtros seleccionados.';return;}
 
   document.getElementById('p1-info').textContent=`${s1.tot} redenciones · ${s1.vB} boost (${s1.mixB.toFixed(1)}%)`;
   document.getElementById('p2-info').textContent=`${s2.tot} redenciones · ${s2.vB} boost (${s2.mixB.toFixed(1)}%)`;
 
   const dMix=s2.mixB-s1.mixB, dMg=s2.mgTot-s1.mgTot;
-  const mgBoostAvg=((s1.mgB+s2.mgB)/2);
+  const mgBoostAvg=(s1.mgB+s2.mgB)/2;
 
   const km=document.getElementById('k-mix');km.textContent=fmt(dMix,' pp');km.className='kpi-val '+cls(dMix);
-  const kms=document.getElementById('k-mix-sub');kms.textContent=`P1 ${s1.mixB.toFixed(1)}% → P2 ${s2.mixB.toFixed(1)}%`;kms.className='kpi-delta '+cls(dMix);
+  document.getElementById('k-mix-sub').textContent=`P1 ${s1.mixB.toFixed(1)}% → P2 ${s2.mixB.toFixed(1)}%`;
+  document.getElementById('k-mix-sub').className='kpi-delta '+cls(dMix);
   const km2=document.getElementById('k-mg');km2.textContent=fmt(dMg,' pp');km2.className='kpi-val '+cls(dMg);
-  const km2s=document.getElementById('k-mg-sub');km2s.textContent=`P1 ${s1.mgTot.toFixed(1)}% → P2 ${s2.mgTot.toFixed(1)}%`;km2s.className='kpi-delta '+cls(dMg);
+  document.getElementById('k-mg-sub').textContent=`P1 ${s1.mgTot.toFixed(1)}% → P2 ${s2.mgTot.toFixed(1)}%`;
+  document.getElementById('k-mg-sub').className='kpi-delta '+cls(dMg);
   document.getElementById('k-mg-boost').textContent=mgBoostAvg.toFixed(1)+'%';
 
   let msg='';
@@ -307,8 +380,8 @@ function applyRanges(){
   document.getElementById('insight').textContent=msg;
 
   const labels=[
-    `P1: ${fmtFechaCorta(r1.ini)} – ${fmtFechaCorta(r1.fin)}`,
-    `P2: ${fmtFechaCorta(r2.ini)} – ${fmtFechaCorta(r2.fin)}`
+    `P1: ${fmtCorta(r1.ini)} – ${fmtCorta(r1.fin)}`,
+    `P2: ${fmtCorta(r2.ini)} – ${fmtCorta(r2.fin)}`
   ];
 
   if(cMg)cMg.destroy();
