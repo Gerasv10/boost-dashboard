@@ -13,20 +13,32 @@
   .status { font-size: 12px; color: #888780; margin-bottom: 20px; padding: 8px 12px; background: #fff; border-radius: 8px; border: 1px solid #D3D1C7; }
   .status.error { color: #D85A30; background: #FCEBEB; border-color: #D85A30; }
   .status.ok    { color: #1D9E75; background: #E1F5EE; border-color: #1D9E75; }
-  .period-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: center; margin-bottom: 20px; }
+
+  .period-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: start; margin-bottom: 20px; }
   .period-card { background: #fff; border: 1px solid #D3D1C7; border-radius: 10px; padding: 14px 16px; }
   .period-title { font-size: 11px; font-weight: 700; color: #888780; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 6px; }
-  .p1-badge { display:inline-block; font-size:10px; padding:2px 8px; border-radius:20px; background:#EEEDFE; color:#534AB7; font-weight:600; margin-bottom:8px; }
-  .p2-badge { display:inline-block; font-size:10px; padding:2px 8px; border-radius:20px; background:#E1F5EE; color:#085041; font-weight:600; margin-bottom:8px; }
-  select { width:100%; font-size:12px; padding:6px 8px; border-radius:6px; border:1px solid #D3D1C7; background:#FAFAF8; color:#2C2C2A; margin-bottom:4px; }
-  .period-info { font-size:10px; color:#888780; }
-  .vs { font-size:18px; font-weight:700; color:#D3D1C7; text-align:center; }
+  .p1-badge { display:inline-block; font-size:10px; padding:2px 8px; border-radius:20px; background:#EEEDFE; color:#534AB7; font-weight:600; margin-bottom:10px; }
+  .p2-badge { display:inline-block; font-size:10px; padding:2px 8px; border-radius:20px; background:#E1F5EE; color:#085041; font-weight:600; margin-bottom:10px; }
+
+  .date-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+  .date-field label { font-size: 10px; font-weight: 700; color: #888780; letter-spacing: 0.06em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+  .date-field input { width: 100%; font-size: 12px; padding: 6px 8px; border-radius: 6px; border: 1px solid #D3D1C7; background: #FAFAF8; color: #2C2C2A; font-family: Arial, sans-serif; }
+  .date-field input:focus { outline: none; border-color: #534AB7; }
+  .date-field input.error { border-color: #D85A30; }
+
+  .apply-btn { width: 100%; font-size: 12px; font-weight: 700; padding: 7px; border-radius: 6px; border: none; background: #534AB7; color: #fff; cursor: pointer; margin-top: 4px; }
+  .apply-btn:hover { background: #3C3489; }
+
+  .period-info { font-size: 10px; color: #888780; margin-top: 6px; }
+  .vs { font-size: 18px; font-weight: 700; color: #D3D1C7; text-align: center; padding-top: 48px; }
+
   .kpi-row { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:20px; }
   .kpi { background:#fff; border:1px solid #D3D1C7; border-radius:10px; padding:14px 16px; }
   .kpi-label { font-size:10px; font-weight:700; color:#888780; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:6px; }
   .kpi-val { font-size:24px; font-weight:700; color:#2C2C2A; line-height:1; margin-bottom:4px; }
   .kpi-delta { font-size:11px; font-weight:600; }
   .up { color:#1D9E75; } .down { color:#D85A30; } .neu { color:#888780; }
+
   .charts-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px; }
   .card { background:#fff; border:1px solid #D3D1C7; border-radius:10px; padding:16px 18px; }
   .card-title { font-size:13px; font-weight:700; color:#2C2C2A; margin-bottom:4px; }
@@ -36,6 +48,7 @@
   .leg-sq { width:10px; height:10px; border-radius:2px; flex-shrink:0; }
   .insight { background:#EEEDFE; border-left:3px solid #534AB7; border-radius:0 8px 8px 0; padding:12px 16px; font-size:12px; color:#3C3489; line-height:1.6; }
   .note { font-size:10px; color:#888780; margin-top:10px; font-style:italic; }
+  .warn { font-size:11px; color:#D85A30; margin-top:6px; }
 </style>
 </head>
 <body>
@@ -45,20 +58,47 @@
 <div class="status" id="status">⏳ Cargando datos desde Google Sheets...</div>
 
 <div id="app" style="display:none;">
+
   <div class="period-row">
     <div class="period-card">
       <div class="period-title">Período 1</div>
       <span class="p1-badge">P1 — Referencia</span>
-      <select id="sel-p1" onchange="update()"></select>
+      <div class="date-row">
+        <div class="date-field">
+          <label>Inicio</label>
+          <input type="text" id="p1-ini" placeholder="DD/MM/YYYY">
+        </div>
+        <div class="date-field">
+          <label>Fin</label>
+          <input type="text" id="p1-fin" placeholder="DD/MM/YYYY">
+        </div>
+      </div>
+      <div class="warn" id="p1-warn"></div>
       <div class="period-info" id="p1-info"></div>
     </div>
+
     <div class="vs">vs</div>
+
     <div class="period-card">
       <div class="period-title">Período 2</div>
       <span class="p2-badge">P2 — Con boost</span>
-      <select id="sel-p2" onchange="update()"></select>
+      <div class="date-row">
+        <div class="date-field">
+          <label>Inicio</label>
+          <input type="text" id="p2-ini" placeholder="DD/MM/YYYY">
+        </div>
+        <div class="date-field">
+          <label>Fin</label>
+          <input type="text" id="p2-fin" placeholder="DD/MM/YYYY">
+        </div>
+      </div>
+      <div class="warn" id="p2-warn"></div>
       <div class="period-info" id="p2-info"></div>
     </div>
+  </div>
+
+  <div style="display:flex;justify-content:center;margin-bottom:20px;">
+    <button class="apply-btn" style="width:200px;" onclick="applyRanges()">Aplicar períodos</button>
   </div>
 
   <div class="kpi-row">
@@ -109,7 +149,7 @@ const URL_REDENCIONES = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS7RDuE
 const URL_BOOST       = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS7RDuEY3wswKsF0uiXd7u_YYoOEupSVmUhZi_oHMKGREenfvdmXc1T1twiw_SizFlLK9xqg6gvFx5_/pub?gid=697415038&single=true&output=csv';
 
 const PURPLE='#534AB7', GRAY='#B4B2A9', tick='#888780', gridC='rgba(0,0,0,0.06)';
-let byDate={}, cMg, cMix;
+let allTagged=[], cMg, cMix;
 
 function parseCSV(text){
   const lines=text.trim().split('\n');
@@ -130,7 +170,6 @@ function parseCSV(text){
 
 function parseFecha(str){
   if(!str||str.trim()==='')return null;
-  // DD/MM/YYYY
   if(str.includes('/')){
     const parts=str.split('/');
     if(parts.length===3){
@@ -139,9 +178,16 @@ function parseFecha(str){
       return isNaN(f.getTime())?null:f;
     }
   }
-  // YYYY-MM-DD
   const f=new Date(str);
   return isNaN(f.getTime())?null:f;
+}
+
+// Normaliza fecha a medianoche para comparaciones correctas
+function normFecha(str){
+  const f=parseFecha(str);
+  if(!f)return null;
+  f.setHours(0,0,0,0);
+  return f;
 }
 
 async function loadData(){
@@ -152,13 +198,15 @@ async function loadData(){
     ]);
     const redenciones=parseCSV(r1);
     const boosts=parseCSV(r2);
-    boosts.forEach(b=>{b._ini=parseFecha(b.fecha_inicio);b._fin=parseFecha(b.fecha_fin);});
+    boosts.forEach(b=>{
+      b._ini=normFecha(b.fecha_inicio);
+      b._fin=normFecha(b.fecha_fin);
+    });
 
-    // Taggear y calcular margen — ignorar filas con fecha inválida
-    const tagged=redenciones.map(row=>{
-      const fecha=parseFecha(row.redemption_date);
+    // Taggear todas las redenciones una sola vez
+    allTagged=redenciones.map(row=>{
+      const fecha=normFecha(row.redemption_date);
       if(!fecha)return null;
-
       const sku=row.part_number?.trim();
       const client=row.client?.trim();
       const venta=parseFloat(row.precio_venta)||0;
@@ -167,58 +215,21 @@ async function loadData(){
       const neto=venta-flete;
       const mg_p=venta-flete-costo;
       const mg_pct=neto>0?(mg_p/neto*100):0;
-
       const match=boosts.find(b=>
         b._ini&&b._fin&&
         b.part_number?.trim()===sku&&
         fecha>=b._ini&&fecha<=b._fin&&
         (b.alcance==='GLOBAL'||b.cliente?.trim()===client)
       );
-
-      const fechaStr=fecha.toISOString().slice(0,10);
-      return{fechaStr,mg_pesos:mg_p,mg_pct,estado:match?'Boosteado':'Base'};
+      return{fecha,mg_pesos:mg_p,mg_pct,estado:match?'Boosteado':'Base'};
     }).filter(r=>r!==null);
 
-    // Agrupar por fecha
-    byDate={};
-    tagged.forEach(r=>{
-      if(!byDate[r.fechaStr])byDate[r.fechaStr]={b:[],n:[]};
-      if(r.estado==='Boosteado')byDate[r.fechaStr].b.push(r);
-      else byDate[r.fechaStr].n.push(r);
-    });
-
-    // Stats por fecha
-    Object.keys(byDate).forEach(f=>{
-      const b=byDate[f].b,n=byDate[f].n;
-      const tot=b.length+n.length;
-      const mgB=b.length?b.reduce((s,r)=>s+r.mg_pct,0)/b.length:0;
-      const mgN=n.length?n.reduce((s,r)=>s+r.mg_pct,0)/n.length:0;
-      const wB=b.length/tot,wN=n.length/tot;
-      byDate[f].s={
-        vB:b.length,vN:n.length,tot,
-        mgB,mgN,
-        mgTot:wB*mgB+wN*mgN,
-        mixB:wB*100,mixN:wN*100,
-        contribB:wB*mgB,contribN:wN*mgN,
-      };
-    });
-
-    // Poblar selectores
-    const fechas=Object.keys(byDate).sort();
-    ['sel-p1','sel-p2'].forEach((id,idx)=>{
-      const sel=document.getElementById(id);
-      sel.innerHTML=fechas.map((f,i)=>
-        `<option value="${f}"${i===(idx===0?0:Math.min(1,fechas.length-1))?'selected':''}>${fmtFecha(f)}</option>`
-      ).join('');
-    });
-
-    const filasSinFecha=redenciones.length-tagged.length;
-    let msg=`✓ Datos cargados: ${tagged.length} redenciones · ${boosts.length} SKUs en boost catalog`;
-    if(filasSinFecha>0)msg+=` · ${filasSinFecha} filas ignoradas por fecha inválida`;
+    const ignoradas=redenciones.length-allTagged.length;
+    let msg=`✓ Datos cargados: ${allTagged.length} redenciones · ${boosts.length} SKUs en boost catalog`;
+    if(ignoradas>0)msg+=` · ${ignoradas} filas ignoradas por fecha inválida`;
     document.getElementById('status').textContent=msg;
     document.getElementById('status').className='status ok';
     document.getElementById('app').style.display='block';
-    update();
 
   }catch(err){
     document.getElementById('status').textContent=`Error: ${err.message}. Verifica que las URLs de Google Sheets estén publicadas.`;
@@ -226,24 +237,60 @@ async function loadData(){
   }
 }
 
-function fmtFecha(f){
-  const[y,m,d]=f.split('-');
-  const ms=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
-  return `${d} ${ms[parseInt(m)-1]} ${y}`;
+function statsForRange(ini, fin){
+  const subset=allTagged.filter(r=>r.fecha>=ini&&r.fecha<=fin);
+  const b=subset.filter(r=>r.estado==='Boosteado');
+  const n=subset.filter(r=>r.estado==='Base');
+  const tot=subset.length;
+  if(tot===0)return null;
+  const mgB=b.length?b.reduce((s,r)=>s+r.mg_pct,0)/b.length:0;
+  const mgN=n.length?n.reduce((s,r)=>s+r.mg_pct,0)/n.length:0;
+  const wB=b.length/tot, wN=n.length/tot;
+  return{
+    vB:b.length, vN:n.length, tot,
+    mgB, mgN,
+    mgTot:wB*mgB+wN*mgN,
+    mixB:wB*100, mixN:wN*100,
+    contribB:wB*mgB, contribN:wN*mgN,
+  };
 }
+
+function validarCampos(iniId, finId, warnId){
+  const ini=normFecha(document.getElementById(iniId).value);
+  const fin=normFecha(document.getElementById(finId).value);
+  const warn=document.getElementById(warnId);
+  document.getElementById(iniId).classList.remove('error');
+  document.getElementById(finId).classList.remove('error');
+  warn.textContent='';
+  if(!ini){document.getElementById(iniId).classList.add('error');warn.textContent='Fecha inicio inválida. Usa DD/MM/YYYY.';return null;}
+  if(!fin){document.getElementById(finId).classList.add('error');warn.textContent='Fecha fin inválida. Usa DD/MM/YYYY.';return null;}
+  if(fin<ini){document.getElementById(finId).classList.add('error');warn.textContent='La fecha fin debe ser mayor o igual al inicio.';return null;}
+  return{ini,fin};
+}
+
 function fmt(n,u){return(n>=0?'+':'')+n.toFixed(1)+u;}
 function cls(n){return n>0.05?'up':n<-0.05?'down':'neu';}
+function fmtFechaCorta(f){
+  const d=String(f.getDate()).padStart(2,'0');
+  const ms=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  return `${d} ${ms[f.getMonth()]} ${f.getFullYear()}`;
+}
 
-function update(){
-  const p1=document.getElementById('sel-p1').value;
-  const p2=document.getElementById('sel-p2').value;
-  if(!byDate[p1]||!byDate[p2])return;
-  const s1=byDate[p1].s,s2=byDate[p2].s;
+function applyRanges(){
+  const r1=validarCampos('p1-ini','p1-fin','p1-warn');
+  const r2=validarCampos('p2-ini','p2-fin','p2-warn');
+  if(!r1||!r2)return;
+
+  const s1=statsForRange(r1.ini,r1.fin);
+  const s2=statsForRange(r2.ini,r2.fin);
+
+  if(!s1){document.getElementById('p1-warn').textContent='Sin redenciones en ese rango.';return;}
+  if(!s2){document.getElementById('p2-warn').textContent='Sin redenciones en ese rango.';return;}
 
   document.getElementById('p1-info').textContent=`${s1.tot} redenciones · ${s1.vB} boost (${s1.mixB.toFixed(1)}%)`;
   document.getElementById('p2-info').textContent=`${s2.tot} redenciones · ${s2.vB} boost (${s2.mixB.toFixed(1)}%)`;
 
-  const dMix=s2.mixB-s1.mixB,dMg=s2.mgTot-s1.mgTot;
+  const dMix=s2.mixB-s1.mixB, dMg=s2.mgTot-s1.mgTot;
   const mgBoostAvg=((s1.mgB+s2.mgB)/2);
 
   const km=document.getElementById('k-mix');km.textContent=fmt(dMix,' pp');km.className='kpi-val '+cls(dMix);
@@ -259,27 +306,30 @@ function update(){
   else msg=`Cambio marginal en mix (${fmt(dMix,' pp')}) con impacto de ${fmt(dMg,' pp')} en margen total. Se necesita más volumen boosteado para ver el efecto completo.`;
   document.getElementById('insight').textContent=msg;
 
-  const labels=[fmtFecha(p1),fmtFecha(p2)];
+  const labels=[
+    `P1: ${fmtFechaCorta(r1.ini)} – ${fmtFechaCorta(r1.fin)}`,
+    `P2: ${fmtFechaCorta(r2.ini)} – ${fmtFechaCorta(r2.fin)}`
+  ];
 
   if(cMg)cMg.destroy();
   cMg=new Chart(document.getElementById('chart-mg'),{type:'bar',data:{labels,datasets:[
-    {label:'Boosteado',data:[s1.contribB,s2.contribB],backgroundColor:PURPLE,stack:'s',borderRadius:0},
-    {label:'No boosteado',data:[s1.contribN,s2.contribN],backgroundColor:GRAY,stack:'s',borderRadius:4},
+    {label:'Boosteado',   data:[s1.contribB,s2.contribB],backgroundColor:PURPLE,stack:'s',borderRadius:0},
+    {label:'No boosteado',data:[s1.contribN,s2.contribN],backgroundColor:GRAY,  stack:'s',borderRadius:4},
   ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{
     label:ctx=>` ${ctx.dataset.label}: ${ctx.raw.toFixed(2)} pp`,
     footer:items=>` Total: ${items.reduce((a,i)=>a+i.raw,0).toFixed(2)}%`
   }}},scales:{
-    x:{stacked:true,grid:{display:false},ticks:{color:tick,font:{size:11}}},
+    x:{stacked:true,grid:{display:false},ticks:{color:tick,font:{size:10}}},
     y:{stacked:true,grid:{color:gridC},ticks:{color:tick,font:{size:10},callback:v=>v+'%'}}
   }}});
 
   if(cMix)cMix.destroy();
   cMix=new Chart(document.getElementById('chart-mix'),{type:'bar',data:{labels,datasets:[
-    {label:'Boosteado',data:[s1.mixB,s2.mixB],backgroundColor:PURPLE,stack:'s',borderRadius:0},
-    {label:'No boosteado',data:[s1.mixN,s2.mixN],backgroundColor:GRAY,stack:'s',borderRadius:4},
+    {label:'Boosteado',   data:[s1.mixB,s2.mixB],backgroundColor:PURPLE,stack:'s',borderRadius:0},
+    {label:'No boosteado',data:[s1.mixN,s2.mixN],backgroundColor:GRAY,  stack:'s',borderRadius:4},
   ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.raw.toFixed(1)}%`}}},
   scales:{
-    x:{stacked:true,grid:{display:false},ticks:{color:tick,font:{size:11}}},
+    x:{stacked:true,grid:{display:false},ticks:{color:tick,font:{size:10}}},
     y:{stacked:true,min:0,max:100,grid:{color:gridC},ticks:{color:tick,font:{size:10},callback:v=>v+'%'}}
   }}});
 }
