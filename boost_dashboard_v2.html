@@ -10,19 +10,15 @@
   body { font-family: Arial, sans-serif; background: #F4F2EB; color: #2C2C2A; padding: 24px; }
   h1 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
   .sub { font-size: 12px; color: #888780; margin-bottom: 20px; }
-  .status { font-size: 12px; color: #888780; margin-bottom: 20px; padding: 8px 12px; background: #fff; border-radius: 8px; border: 1px solid #D3D1C7; }
-  .status.error { color: #D85A30; background: #FCEBEB; border-color: #D85A30; }
+  .status { font-size: 12px; margin-bottom: 20px; padding: 8px 12px; background: #fff; border-radius: 8px; border: 1px solid #D3D1C7; color: #888780; }
   .status.ok    { color: #1D9E75; background: #E1F5EE; border-color: #1D9E75; }
-
-  /* Filtros globales */
+  .status.error { color: #D85A30; background: #FCEBEB; border-color: #D85A30; }
   .filters { background: #fff; border: 1px solid #D3D1C7; border-radius: 10px; padding: 14px 16px; margin-bottom: 16px; }
   .filters-title { font-size: 11px; font-weight: 700; color: #888780; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 10px; }
   .filters-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
   .filter-field label { font-size: 10px; font-weight: 700; color: #888780; letter-spacing: 0.06em; text-transform: uppercase; display: block; margin-bottom: 4px; }
-  .filter-field select { width: 100%; font-size: 12px; padding: 6px 8px; border-radius: 6px; border: 1px solid #D3D1C7; background: #FAFAF8; color: #2C2C2A; font-family: Arial, sans-serif; }
+  .filter-field select { width: 100%; font-size: 12px; padding: 6px 8px; border-radius: 6px; border: 1px solid #D3D1C7; background: #FAFAF8; color: #2C2C2A; }
   .filter-field select:focus { outline: none; border-color: #534AB7; }
-
-  /* Períodos */
   .period-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: start; margin-bottom: 14px; }
   .period-card { background: #fff; border: 1px solid #D3D1C7; border-radius: 10px; padding: 14px 16px; }
   .period-title { font-size: 11px; font-weight: 700; color: #888780; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 6px; }
@@ -30,33 +26,29 @@
   .p2-badge { display:inline-block; font-size:10px; padding:2px 8px; border-radius:20px; background:#E1F5EE; color:#085041; font-weight:600; margin-bottom:10px; }
   .date-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px; }
   .date-field label { font-size: 10px; font-weight: 700; color: #888780; letter-spacing: 0.06em; text-transform: uppercase; display: block; margin-bottom: 4px; }
-  .date-field input { width: 100%; font-size: 12px; padding: 6px 8px; border-radius: 6px; border: 1px solid #D3D1C7; background: #FAFAF8; color: #2C2C2A; font-family: Arial, sans-serif; }
+  .date-field input { width: 100%; font-size: 12px; padding: 6px 8px; border-radius: 6px; border: 1px solid #D3D1C7; background: #FAFAF8; color: #2C2C2A; font-family: Arial; }
   .date-field input:focus { outline: none; border-color: #534AB7; }
-  .date-field input.error { border-color: #D85A30; }
-  .vs { font-size: 18px; font-weight: 700; color: #D3D1C7; text-align: center; padding-top: 48px; }
+  .date-field input.err { border-color: #D85A30; }
+  .vs { font-size: 18px; font-weight: 700; color: #D3D1C7; text-align: center; padding-top: 50px; }
   .apply-btn { display: block; width: 200px; margin: 0 auto 20px; font-size: 12px; font-weight: 700; padding: 8px; border-radius: 6px; border: none; background: #534AB7; color: #fff; cursor: pointer; }
   .apply-btn:hover { background: #3C3489; }
-  .period-info { font-size: 10px; color: #888780; margin-top: 6px; }
+  .period-info { font-size: 10px; color: #888780; margin-top: 6px; min-height: 14px; }
   .warn { font-size: 11px; color: #D85A30; margin-top: 4px; min-height: 16px; }
-
-  /* KPIs */
-  .kpi-row { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:20px; }
-  .kpi { background:#fff; border:1px solid #D3D1C7; border-radius:10px; padding:14px 16px; }
-  .kpi-label { font-size:10px; font-weight:700; color:#888780; letter-spacing:0.07em; text-transform:uppercase; margin-bottom:6px; }
-  .kpi-val { font-size:24px; font-weight:700; color:#2C2C2A; line-height:1; margin-bottom:4px; }
-  .kpi-delta { font-size:11px; font-weight:600; }
-  .up { color:#1D9E75; } .down { color:#D85A30; } .neu { color:#888780; }
-
-  /* Charts */
-  .charts-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px; }
-  .card { background:#fff; border:1px solid #D3D1C7; border-radius:10px; padding:16px 18px; }
-  .card-title { font-size:13px; font-weight:700; color:#2C2C2A; margin-bottom:4px; }
-  .card-sub { font-size:11px; color:#888780; margin-bottom:14px; }
-  .legend { display:flex; gap:14px; margin-bottom:10px; }
-  .leg { display:flex; align-items:center; gap:5px; font-size:11px; color:#888780; }
-  .leg-sq { width:10px; height:10px; border-radius:2px; flex-shrink:0; }
-  .insight { background:#EEEDFE; border-left:3px solid #534AB7; border-radius:0 8px 8px 0; padding:12px 16px; font-size:12px; color:#3C3489; line-height:1.6; }
-  .note { font-size:10px; color:#888780; margin-top:10px; font-style:italic; }
+  .kpi-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 20px; }
+  .kpi { background: #fff; border: 1px solid #D3D1C7; border-radius: 10px; padding: 14px 16px; }
+  .kpi-label { font-size: 10px; font-weight: 700; color: #888780; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 6px; }
+  .kpi-val { font-size: 24px; font-weight: 700; color: #2C2C2A; line-height: 1; margin-bottom: 4px; }
+  .kpi-delta { font-size: 11px; font-weight: 600; }
+  .up { color: #1D9E75; } .down { color: #D85A30; } .neu { color: #888780; }
+  .charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+  .card { background: #fff; border: 1px solid #D3D1C7; border-radius: 10px; padding: 16px 18px; }
+  .card-title { font-size: 13px; font-weight: 700; color: #2C2C2A; margin-bottom: 4px; }
+  .card-sub { font-size: 11px; color: #888780; margin-bottom: 14px; }
+  .legend { display: flex; gap: 14px; margin-bottom: 10px; flex-wrap: wrap; }
+  .leg { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #888780; }
+  .leg-sq { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+  .insight { background: #EEEDFE; border-left: 3px solid #534AB7; border-radius: 0 8px 8px 0; padding: 12px 16px; font-size: 12px; color: #3C3489; line-height: 1.6; }
+  .note { font-size: 10px; color: #888780; margin-top: 10px; font-style: italic; }
 </style>
 </head>
 <body>
@@ -66,40 +58,22 @@
 <div class="status" id="status">⏳ Cargando datos desde Google Sheets...</div>
 
 <div id="app" style="display:none;">
-
-  <!-- Filtros globales -->
   <div class="filters">
     <div class="filters-title">Filtros globales — aplican a ambos períodos</div>
     <div class="filters-row">
-      <div class="filter-field">
-        <label>Cliente</label>
-        <select id="f-client"><option value="">Todos</option></select>
-      </div>
-      <div class="filter-field">
-        <label>Categoría</label>
-        <select id="f-category" onchange="updateSubcat()"><option value="">Todas</option></select>
-      </div>
-      <div class="filter-field">
-        <label>Subcategoría</label>
-        <select id="f-subcat"><option value="">Todas</option></select>
-      </div>
+      <div class="filter-field"><label>Cliente</label><select id="f-client"><option value="">Todos</option></select></div>
+      <div class="filter-field"><label>Categoría</label><select id="f-category" onchange="updateSubcat()"><option value="">Todas</option></select></div>
+      <div class="filter-field"><label>Subcategoría</label><select id="f-subcat"><option value="">Todas</option></select></div>
     </div>
   </div>
 
-  <!-- Selectores de período -->
   <div class="period-row">
     <div class="period-card">
       <div class="period-title">Período 1</div>
       <span class="p1-badge">P1 — Referencia</span>
       <div class="date-row">
-        <div class="date-field">
-          <label>Inicio</label>
-          <input type="text" id="p1-ini" placeholder="DD/MM/YYYY">
-        </div>
-        <div class="date-field">
-          <label>Fin</label>
-          <input type="text" id="p1-fin" placeholder="DD/MM/YYYY">
-        </div>
+        <div class="date-field"><label>Inicio</label><input type="text" id="p1-ini" placeholder="DD/MM/YYYY"></div>
+        <div class="date-field"><label>Fin</label><input type="text" id="p1-fin" placeholder="DD/MM/YYYY"></div>
       </div>
       <div class="warn" id="p1-warn"></div>
       <div class="period-info" id="p1-info"></div>
@@ -109,14 +83,8 @@
       <div class="period-title">Período 2</div>
       <span class="p2-badge">P2 — Con boost</span>
       <div class="date-row">
-        <div class="date-field">
-          <label>Inicio</label>
-          <input type="text" id="p2-ini" placeholder="DD/MM/YYYY">
-        </div>
-        <div class="date-field">
-          <label>Fin</label>
-          <input type="text" id="p2-fin" placeholder="DD/MM/YYYY">
-        </div>
+        <div class="date-field"><label>Inicio</label><input type="text" id="p2-ini" placeholder="DD/MM/YYYY"></div>
+        <div class="date-field"><label>Fin</label><input type="text" id="p2-fin" placeholder="DD/MM/YYYY"></div>
       </div>
       <div class="warn" id="p2-warn"></div>
       <div class="period-info" id="p2-info"></div>
@@ -127,7 +95,7 @@
 
   <div class="kpi-row">
     <div class="kpi">
-      <div class="kpi-label">Δ Mix boosteado</div>
+      <div class="kpi-label">Δ Mix SKUs boosteados</div>
       <div class="kpi-val" id="k-mix">—</div>
       <div class="kpi-delta" id="k-mix-sub"></div>
     </div>
@@ -137,43 +105,44 @@
       <div class="kpi-delta" id="k-mg-sub"></div>
     </div>
     <div class="kpi">
-      <div class="kpi-label">Margen % boosteados</div>
+      <div class="kpi-label">Margen % SKUs boosteados</div>
       <div class="kpi-val" id="k-mg-boost">—</div>
-      <div class="kpi-delta neu">Constante entre períodos</div>
+      <div class="kpi-delta neu">Promedio P1 + P2</div>
     </div>
   </div>
 
   <div class="charts-row">
     <div class="card">
       <div class="card-title">Margen % total ponderado</div>
-      <div class="card-sub">Si el boost mueve el mix → la barra sube</div>
+      <div class="card-sub">Contribución de cada grupo al margen total del período</div>
       <div class="legend">
-        <div class="leg"><div class="leg-sq" style="background:#534AB7;"></div>Boosteado</div>
-        <div class="leg"><div class="leg-sq" style="background:#B4B2A9;"></div>No boosteado</div>
+        <div class="leg"><div class="leg-sq" style="background:#534AB7;"></div>SKUs boosteados</div>
+        <div class="leg"><div class="leg-sq" style="background:#B4B2A9;"></div>Resto</div>
       </div>
-      <div style="height:220px;position:relative;"><canvas id="chart-mg"></canvas></div>
+      <div style="height:240px;position:relative;"><canvas id="chart-mg"></canvas></div>
     </div>
     <div class="card">
-      <div class="card-title">Mix de redenciones</div>
-      <div class="card-sub">Si el boost funciona → franja morada crece en P2</div>
+      <div class="card-title">Mix de redenciones — SKUs boosteados</div>
+      <div class="card-sub">P1 muestra participación de esos mismos SKUs sin boost · P2 con boost activo</div>
       <div class="legend">
-        <div class="leg"><div class="leg-sq" style="background:#534AB7;"></div>Boosteado</div>
-        <div class="leg"><div class="leg-sq" style="background:#B4B2A9;"></div>No boosteado</div>
+        <div class="leg"><div class="leg-sq" style="background:#AFA9EC;"></div>SKUs boost en P1 (sin boost)</div>
+        <div class="leg"><div class="leg-sq" style="background:#534AB7;"></div>SKUs boost en P2 (con boost)</div>
+        <div class="leg"><div class="leg-sq" style="background:#B4B2A9;"></div>Resto</div>
       </div>
-      <div style="height:220px;position:relative;"><canvas id="chart-mix"></canvas></div>
+      <div style="height:240px;position:relative;"><canvas id="chart-mix"></canvas></div>
     </div>
   </div>
 
   <div class="insight" id="insight"></div>
-  <p class="note">* Margen total ponderado = (% vol boost × mg% boost) + (% vol base × mg% base). El margen de cada SKU es constante; lo que cambia es su peso en el mix.</p>
+  <p class="note">* Margen total ponderado = suma(margen $) / suma(precio neto). Mix P1 muestra qué % del volumen representaban los SKUs boosteados antes del boost, para comparar su participación natural vs con boost activo.</p>
 </div>
 
 <script>
 const URL_REDENCIONES = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS7RDuEY3wswKsF0uiXd7u_YYoOEupSVmUhZi_oHMKGREenfvdmXc1T1twiw_SizFlLK9xqg6gvFx5_/pub?gid=0&single=true&output=csv';
 const URL_BOOST       = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS7RDuEY3wswKsF0uiXd7u_YYoOEupSVmUhZi_oHMKGREenfvdmXc1T1twiw_SizFlLK9xqg6gvFx5_/pub?gid=697415038&single=true&output=csv';
 
-const PURPLE='#534AB7', GRAY='#B4B2A9', tick='#888780', gridC='rgba(0,0,0,0.06)';
-let allTagged=[], subcatMap={}, cMg, cMix;
+const PURPLE='#534AB7', PURPLE_LT='#AFA9EC', GRAY='#B4B2A9', tick='#888780', gridC='rgba(0,0,0,0.06)';
+let allTagged=[], boostedSkus=new Set(), subcatMap={}, cMg, cMix;
 
 function parseCSV(text){
   const lines=text.trim().split('\n');
@@ -192,27 +161,22 @@ function parseCSV(text){
   }).filter(r=>r[headers[0]]);
 }
 
-// Convierte DD/MM/YYYY o YYYY-MM-DD a número YYYYMMDD para comparación sin zona horaria
-function fechaNum(str){
+function toFnum(str){
   if(!str||str.trim()==='')return null;
-  let d,m,y;
+  str=str.trim();
   if(str.includes('/')){
     const p=str.split('/');
-    if(p.length!==3)return null;
-    [d,m,y]=p;
-  } else if(str.includes('-')){
+    if(p.length===3){const n=parseInt(p[2])*10000+parseInt(p[1])*100+parseInt(p[0]);return isNaN(n)?null:n;}
+  }
+  if(str.includes('-')){
     const p=str.split('-');
-    if(p.length!==3)return null;
-    [y,m,d]=p;
-  } else return null;
-  const num=parseInt(y)*10000+parseInt(m)*100+parseInt(d);
-  return isNaN(num)?null:num;
+    if(p.length===3){const n=parseInt(p[0])*10000+parseInt(p[1])*100+parseInt(p[2]);return isNaN(n)?null:n;}
+  }
+  return null;
 }
 
-function fmtCorta(num){
-  const y=Math.floor(num/10000);
-  const m=Math.floor((num%10000)/100);
-  const d=num%100;
+function fmtCorta(n){
+  const y=Math.floor(n/10000),m=Math.floor((n%10000)/100),d=n%100;
   const ms=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
   return `${String(d).padStart(2,'0')} ${ms[m-1]} ${y}`;
 }
@@ -226,23 +190,30 @@ async function loadData(){
     const redenciones=parseCSV(r1);
     const boosts=parseCSV(r2);
 
-    // Normalizar fechas boost a número
+    // Índice de boosts y set de SKUs boosteados
+    const boostIdx={};
+    boostedSkus=new Set();
     boosts.forEach(b=>{
-      b._ini=fechaNum(b.fecha_inicio);
-      b._fin=fechaNum(b.fecha_fin);
+      const sku=b.part_number?.trim();
+      if(!sku)return;
+      boostedSkus.add(sku);
+      if(!boostIdx[sku])boostIdx[sku]=[];
+      boostIdx[sku].push({
+        ini:toFnum(b.fecha_inicio), fin:toFnum(b.fecha_fin),
+        alcance:b.alcance, cliente:(b.cliente||'').trim(),
+      });
     });
 
-    // Poblar filtros
+    // Filtros
     const clients=new Set(), cats=new Set();
     subcatMap={};
     redenciones.forEach(r=>{
       if(r.client)clients.add(r.client.trim());
-      if(r.category){
-        cats.add(r.category.trim());
-        if(r.subcategory){
-          if(!subcatMap[r.category.trim()])subcatMap[r.category.trim()]=new Set();
-          subcatMap[r.category.trim()].add(r.subcategory.trim());
-        }
+      const cat=(r.category||'').trim();
+      const sub=(r.subcategory||'').trim();
+      if(cat){
+        cats.add(cat);
+        if(sub){if(!subcatMap[cat])subcatMap[cat]=new Set();subcatMap[cat].add(sub);}
       }
     });
     const fClient=document.getElementById('f-client');
@@ -250,36 +221,41 @@ async function loadData(){
     const fCat=document.getElementById('f-category');
     [...cats].sort().forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;fCat.appendChild(o);});
 
-    // Taggear todas las redenciones
+    // Taggear — estado_boost es si estuvo ACTIVAMENTE boosteado en su fecha
+    // es_sku_boost es si el SKU pertenece al catálogo de boosts (independiente de fecha)
+    let ignoradas=0;
     allTagged=redenciones.map(row=>{
-      const fnum=fechaNum(row.redemption_date);
-      if(!fnum)return null;
-      const sku=row.part_number?.trim();
-      const client=row.client?.trim();
+      const fnum=toFnum(row.redemption_date);
+      if(!fnum){ignoradas++;return null;}
+      const sku=(row.part_number||'').trim();
+      const client=(row.client||'').trim();
       const venta=parseFloat(row.precio_venta)||0;
       const flete=parseFloat(row.precio_flete)||0;
       const costo=parseFloat(row.costo_final)||0;
       const neto=venta-flete;
-      const mg_p=venta-flete-costo;
-      const mg_pct=neto>0?(mg_p/neto*100):0;
-      const match=boosts.find(b=>
-        b._ini&&b._fin&&
-        b.part_number?.trim()===sku&&
-        fnum>=b._ini&&fnum<=b._fin&&
-        (b.alcance==='GLOBAL'||b.cliente?.trim()===client)
-      );
+      const mgP=venta-flete-costo;
+      const mgPct=neto!==0?(mgP/neto*100):0;
+
+      // ¿Está activamente boosteado en esta fecha?
+      let esBoosteado=false;
+      if(boostIdx[sku]){
+        for(const b of boostIdx[sku]){
+          if(b.ini&&b.fin&&fnum>=b.ini&&fnum<=b.fin&&(b.alcance==='GLOBAL'||b.cliente===client)){
+            esBoosteado=true; break;
+          }
+        }
+      }
+
       return{
-        fnum, mg_pesos:mg_p, mg_pct,
-        estado:match?'Boosteado':'Base',
-        client:client||'',
-        category:(row.category||'').trim(),
-        subcategory:(row.subcategory||'').trim(),
+        fnum, mgP, mgPct, neto,
+        esBoosteado,                        // activamente boosteado en su fecha
+        esSkuBoost: boostedSkus.has(sku),   // pertenece al catálogo de boosts
+        client, category:(row.category||'').trim(),
+        subcategory:(row.subcategory||'').trim()
       };
     }).filter(r=>r!==null);
 
-    const ignoradas=redenciones.length-allTagged.length;
-    let msg=`✓ Datos cargados: ${allTagged.length} redenciones · ${boosts.length} SKUs en boost catalog`;
-    if(ignoradas>0)msg+=` · ${ignoradas} filas ignoradas por fecha inválida`;
+    const msg=`✓ Datos cargados: ${allTagged.length} redenciones · ${boosts.length} SKUs en boost catalog${ignoradas>0?' · '+ignoradas+' ignoradas':''}`;
     document.getElementById('status').textContent=msg;
     document.getElementById('status').className='status ok';
     document.getElementById('app').style.display='block';
@@ -295,116 +271,185 @@ function updateSubcat(){
   const sel=document.getElementById('f-subcat');
   sel.innerHTML='<option value="">Todas</option>';
   if(cat&&subcatMap[cat]){
-    [...subcatMap[cat]].sort().forEach(s=>{
-      const o=document.createElement('option');o.value=s;o.textContent=s;sel.appendChild(o);
-    });
+    [...subcatMap[cat]].sort().forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;sel.appendChild(o);});
   }
 }
 
 function getFilters(){
   return{
-    client: document.getElementById('f-client').value,
-    category: document.getElementById('f-category').value,
-    subcat: document.getElementById('f-subcat').value,
+    client:document.getElementById('f-client').value,
+    category:document.getElementById('f-category').value,
+    subcat:document.getElementById('f-subcat').value,
   };
 }
 
-function applyFilters(rows, filters){
-  return rows.filter(r=>
-    (!filters.client   || r.client===filters.client) &&
-    (!filters.category || r.category===filters.category) &&
-    (!filters.subcat   || r.subcategory===filters.subcat)
-  );
-}
-
-function validarInput(iniId, finId, warnId){
-  const ini=fechaNum(document.getElementById(iniId).value);
-  const fin=fechaNum(document.getElementById(finId).value);
-  const warn=document.getElementById(warnId);
-  document.getElementById(iniId).classList.remove('error');
-  document.getElementById(finId).classList.remove('error');
-  warn.textContent='';
-  if(!ini){document.getElementById(iniId).classList.add('error');warn.textContent='Fecha inicio inválida. Usa DD/MM/YYYY.';return null;}
-  if(!fin){document.getElementById(finId).classList.add('error');warn.textContent='Fecha fin inválida. Usa DD/MM/YYYY.';return null;}
-  if(fin<ini){document.getElementById(finId).classList.add('error');warn.textContent='La fecha fin debe ser mayor o igual al inicio.';return null;}
-  return{ini,fin};
-}
-
 function statsForRange(ini, fin, filters){
-  const filtered=applyFilters(allTagged, filters);
-  const subset=filtered.filter(r=>r.fnum>=ini&&r.fnum<=fin);
-  const b=subset.filter(r=>r.estado==='Boosteado');
-  const n=subset.filter(r=>r.estado==='Base');
-  const tot=subset.length;
-  if(tot===0)return null;
-  const mgB=b.length?b.reduce((s,r)=>s+r.mg_pct,0)/b.length:0;
-  const mgN=n.length?n.reduce((s,r)=>s+r.mg_pct,0)/n.length:0;
-  const wB=b.length/tot, wN=n.length/tot;
-  return{vB:b.length,vN:n.length,tot,mgB,mgN,mgTot:wB*mgB+wN*mgN,mixB:wB*100,mixN:wN*100,contribB:wB*mgB,contribN:wN*mgN};
+  const subset=allTagged.filter(r=>{
+    if(r.fnum<ini||r.fnum>fin)return false;
+    if(filters.client&&r.client!==filters.client)return false;
+    if(filters.category&&r.category!==filters.category)return false;
+    if(filters.subcat&&r.subcategory!==filters.subcat)return false;
+    return true;
+  });
+  if(!subset.length)return null;
+
+  // Grupos para margen
+  const actBoost = subset.filter(r=>r.esBoosteado);    // activamente boosteados
+  const resto    = subset.filter(r=>!r.esBoosteado);
+  const tot      = subset.length;
+
+  // Margen ponderado por pesos reales
+  const mg = arr => {
+    const sP=arr.reduce((s,r)=>s+r.mgP,0);
+    const sN=arr.reduce((s,r)=>s+r.neto,0);
+    return sN!==0?(sP/sN*100):0;
+  };
+  const mgTot = mg(subset);
+  const mgB   = mg(actBoost);
+  const mgN   = mg(resto);
+
+  const wB=actBoost.length/tot, wN=resto.length/tot;
+
+  // Mix de SKUs boost (incluyendo los que no estaban activos en este período)
+  const skuBoostEnRango = subset.filter(r=>r.esSkuBoost);
+  const mixSkuBoost     = skuBoostEnRango.length/tot*100;
+  const mixResto        = (tot - skuBoostEnRango.length)/tot*100;
+
+  return{
+    vActBoost:actBoost.length, vResto:resto.length, tot,
+    vSkuBoost: skuBoostEnRango.length,
+    mgB, mgN, mgTot,
+    mixB: wB*100, mixN: wN*100,
+    contribB: wB*mgB, contribN: wN*mgN,
+    mixSkuBoost, mixResto,
+  };
+}
+
+function validar(iniId, finId, warnId){
+  const ini=toFnum(document.getElementById(iniId).value);
+  const fin=toFnum(document.getElementById(finId).value);
+  const w=document.getElementById(warnId);
+  [iniId,finId].forEach(id=>document.getElementById(id).classList.remove('err'));
+  w.textContent='';
+  if(!ini){document.getElementById(iniId).classList.add('err');w.textContent='Fecha inicio inválida. Usa DD/MM/YYYY.';return null;}
+  if(!fin){document.getElementById(finId).classList.add('err');w.textContent='Fecha fin inválida. Usa DD/MM/YYYY.';return null;}
+  if(fin<ini){document.getElementById(finId).classList.add('err');w.textContent='La fecha fin debe ser >= al inicio.';return null;}
+  return{ini,fin};
 }
 
 function fmt(n,u){return(n>=0?'+':'')+n.toFixed(1)+u;}
 function cls(n){return n>0.05?'up':n<-0.05?'down':'neu';}
 
+// Plugin para mostrar etiqueta encima de barra apilada
+const topLabelPlugin = {
+  id: 'topLabel',
+  afterDatasetsDraw(chart){
+    const{ctx, data, scales:{x,y}}=chart;
+    const nDatasets=data.datasets.length;
+    const nLabels=data.labels.length;
+    ctx.save();
+    for(let i=0;i<nLabels;i++){
+      let total=0;
+      for(let d=0;d<nDatasets;d++){
+        total+=data.datasets[d].data[i]||0;
+      }
+      const xPos=x.getPixelForValue(i);
+      const yPos=y.getPixelForValue(total);
+      ctx.fillStyle='#2C2C2A';
+      ctx.font='bold 11px Arial';
+      ctx.textAlign='center';
+      ctx.fillText(total.toFixed(1)+'%', xPos, yPos-6);
+    }
+    ctx.restore();
+  }
+};
+
 function applyRanges(){
-  const r1=validarInput('p1-ini','p1-fin','p1-warn');
-  const r2=validarInput('p2-ini','p2-fin','p2-warn');
+  const r1=validar('p1-ini','p1-fin','p1-warn');
+  const r2=validar('p2-ini','p2-fin','p2-warn');
   if(!r1||!r2)return;
 
   const filters=getFilters();
   const s1=statsForRange(r1.ini,r1.fin,filters);
   const s2=statsForRange(r2.ini,r2.fin,filters);
 
-  if(!s1){document.getElementById('p1-warn').textContent='Sin redenciones en ese rango con los filtros seleccionados.';return;}
-  if(!s2){document.getElementById('p2-warn').textContent='Sin redenciones en ese rango con los filtros seleccionados.';return;}
+  if(!s1){document.getElementById('p1-warn').textContent='Sin redenciones en ese rango.';return;}
+  if(!s2){document.getElementById('p2-warn').textContent='Sin redenciones en ese rango.';return;}
 
-  document.getElementById('p1-info').textContent=`${s1.tot} redenciones · ${s1.vB} boost (${s1.mixB.toFixed(1)}%)`;
-  document.getElementById('p2-info').textContent=`${s2.tot} redenciones · ${s2.vB} boost (${s2.mixB.toFixed(1)}%)`;
+  document.getElementById('p1-info').textContent=`${s1.tot} redenciones · ${s1.vActBoost} activ. boost (${s1.mixB.toFixed(1)}%) · ${s1.vSkuBoost} SKUs boost en rango (${s1.mixSkuBoost.toFixed(1)}%)`;
+  document.getElementById('p2-info').textContent=`${s2.tot} redenciones · ${s2.vActBoost} activ. boost (${s2.mixB.toFixed(1)}%)`;
 
-  const dMix=s2.mixB-s1.mixB, dMg=s2.mgTot-s1.mgTot;
+  // KPI mix usa SKUs boost en P1 vs activamente boosteados en P2
+  const dMix=s2.mixB - s1.mixSkuBoost;
+  const dMg =s2.mgTot - s1.mgTot;
   const mgBoostAvg=(s1.mgB+s2.mgB)/2;
 
   const km=document.getElementById('k-mix');km.textContent=fmt(dMix,' pp');km.className='kpi-val '+cls(dMix);
-  document.getElementById('k-mix-sub').textContent=`P1 ${s1.mixB.toFixed(1)}% → P2 ${s2.mixB.toFixed(1)}%`;
-  document.getElementById('k-mix-sub').className='kpi-delta '+cls(dMix);
+  const kms=document.getElementById('k-mix-sub');kms.textContent=`P1 ${s1.mixSkuBoost.toFixed(1)}% natural → P2 ${s2.mixB.toFixed(1)}% con boost`;kms.className='kpi-delta '+cls(dMix);
   const km2=document.getElementById('k-mg');km2.textContent=fmt(dMg,' pp');km2.className='kpi-val '+cls(dMg);
-  document.getElementById('k-mg-sub').textContent=`P1 ${s1.mgTot.toFixed(1)}% → P2 ${s2.mgTot.toFixed(1)}%`;
-  document.getElementById('k-mg-sub').className='kpi-delta '+cls(dMg);
-  document.getElementById('k-mg-boost').textContent=mgBoostAvg.toFixed(1)+'%';
+  const km2s=document.getElementById('k-mg-sub');km2s.textContent=`P1 ${s1.mgTot.toFixed(1)}% → P2 ${s2.mgTot.toFixed(1)}%`;km2s.className='kpi-delta '+cls(dMg);
+  document.getElementById('k-mg-boost').textContent=s2.mgB.toFixed(1)+'%';
 
   let msg='';
-  if(dMix>1&&dMg>0.05)msg=`El mix de boosteados subió ${dMix.toFixed(1)} pp de P1 a P2, jalando el margen total ${fmt(dMg,' pp')}. El boost está funcionando.`;
-  else if(dMix>0.5&&dMg<=0.05)msg=`El mix de boosteados subió ${dMix.toFixed(1)} pp pero el impacto en margen total es mínimo (${fmt(dMg,' pp')}). El volumen boosteado todavía es pequeño.`;
-  else if(dMix<=0)msg=`El mix de boosteados no creció entre períodos (${fmt(dMix,' pp')}). El boost no está generando desplazamiento de volumen en este rango.`;
-  else msg=`Cambio marginal en mix (${fmt(dMix,' pp')}) con impacto de ${fmt(dMg,' pp')} en margen total. Se necesita más volumen boosteado para ver el efecto completo.`;
+  if(dMix>1&&dMg>0.05) msg=`Los SKUs boosteados subieron su participación ${dMix.toFixed(1)} pp (de ${s1.mixSkuBoost.toFixed(1)}% natural a ${s2.mixB.toFixed(1)}% con boost), jalando el margen total ${fmt(dMg,' pp')}. El boost está funcionando.`;
+  else if(dMix>0.5&&dMg<=0.05) msg=`Los SKUs boosteados ganaron ${dMix.toFixed(1)} pp de participación pero el impacto en margen total es mínimo (${fmt(dMg,' pp')}). El volumen todavía es pequeño.`;
+  else if(dMix<=0) msg=`Los SKUs boosteados no ganaron participación vs su nivel natural en P1 (${fmt(dMix,' pp')}). El boost no está moviendo el mix.`;
+  else msg=`Cambio marginal en mix (${fmt(dMix,' pp')}) con impacto de ${fmt(dMg,' pp')} en margen total.`;
   document.getElementById('insight').textContent=msg;
 
-  const labels=[
-    `P1: ${fmtCorta(r1.ini)} – ${fmtCorta(r1.fin)}`,
-    `P2: ${fmtCorta(r2.ini)} – ${fmtCorta(r2.fin)}`
-  ];
+  const labels=[`P1: ${fmtCorta(r1.ini)} – ${fmtCorta(r1.fin)}`,`P2: ${fmtCorta(r2.ini)} – ${fmtCorta(r2.fin)}`];
 
+  // ── Gráfica margen ponderado con etiqueta encima ──
   if(cMg)cMg.destroy();
-  cMg=new Chart(document.getElementById('chart-mg'),{type:'bar',data:{labels,datasets:[
-    {label:'Boosteado',   data:[s1.contribB,s2.contribB],backgroundColor:PURPLE,stack:'s',borderRadius:0},
-    {label:'No boosteado',data:[s1.contribN,s2.contribN],backgroundColor:GRAY,  stack:'s',borderRadius:4},
-  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{
-    label:ctx=>` ${ctx.dataset.label}: ${ctx.raw.toFixed(2)} pp`,
-    footer:items=>` Total: ${items.reduce((a,i)=>a+i.raw,0).toFixed(2)}%`
-  }}},scales:{
-    x:{stacked:true,grid:{display:false},ticks:{color:tick,font:{size:10}}},
-    y:{stacked:true,grid:{color:gridC},ticks:{color:tick,font:{size:10},callback:v=>v+'%'}}
-  }}});
+  cMg=new Chart(document.getElementById('chart-mg'),{
+    type:'bar',
+    plugins:[topLabelPlugin],
+    data:{labels,datasets:[
+      {label:'SKUs boosteados', data:[s1.contribB, s2.contribB], backgroundColor:PURPLE, stack:'s', borderRadius:0},
+      {label:'Resto',           data:[s1.contribN, s2.contribN], backgroundColor:GRAY,   stack:'s', borderRadius:4},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      layout:{padding:{top:24}},
+      plugins:{legend:{display:false},tooltip:{callbacks:{
+        label:ctx=>` ${ctx.dataset.label}: ${ctx.raw.toFixed(2)} pp`,
+        footer:items=>` Total: ${items.reduce((a,i)=>a+i.raw,0).toFixed(2)}%`
+      }}},
+      scales:{
+        x:{stacked:true,grid:{display:false},ticks:{color:tick,font:{size:10}}},
+        y:{stacked:true,grid:{color:gridC},ticks:{color:tick,font:{size:10},callback:v=>v+'%'}}
+      }
+    }
+  });
 
+  // ── Gráfica mix: P1 usa mixSkuBoost (participación natural), P2 usa mixB (con boost activo) ──
   if(cMix)cMix.destroy();
-  cMix=new Chart(document.getElementById('chart-mix'),{type:'bar',data:{labels,datasets:[
-    {label:'Boosteado',   data:[s1.mixB,s2.mixB],backgroundColor:PURPLE,stack:'s',borderRadius:0},
-    {label:'No boosteado',data:[s1.mixN,s2.mixN],backgroundColor:GRAY,  stack:'s',borderRadius:4},
-  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.raw.toFixed(1)}%`}}},
-  scales:{
-    x:{stacked:true,grid:{display:false},ticks:{color:tick,font:{size:10}}},
-    y:{stacked:true,min:0,max:100,grid:{color:gridC},ticks:{color:tick,font:{size:10},callback:v=>v+'%'}}
-  }}});
+  cMix=new Chart(document.getElementById('chart-mix'),{
+    type:'bar',
+    data:{labels,datasets:[
+      {
+        label:'SKUs boost (sin boost)',
+        data:[s1.mixSkuBoost, 0],
+        backgroundColor:PURPLE_LT, stack:'s', borderRadius:0
+      },
+      {
+        label:'SKUs boost (con boost)',
+        data:[0, s2.mixB],
+        backgroundColor:PURPLE, stack:'s', borderRadius:0
+      },
+      {
+        label:'Resto',
+        data:[s1.mixResto, s2.mixN],
+        backgroundColor:GRAY, stack:'s', borderRadius:4
+      },
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.raw.toFixed(1)}%`}}},
+      scales:{
+        x:{stacked:true,grid:{display:false},ticks:{color:tick,font:{size:10}}},
+        y:{stacked:true,min:0,max:100,grid:{color:gridC},ticks:{color:tick,font:{size:10},callback:v=>v+'%'}}
+      }
+    }
+  });
 }
 
 loadData();
