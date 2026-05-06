@@ -490,7 +490,12 @@ const topLabelPlugin={
 
 function buildSkuTable(p1mix,p2mix){
   tableData=[];
-  boostedSkus.forEach(sku=>{
+  // Solo mostrar SKUs que tuvieron redenciones en P1 o P2 con los filtros aplicados
+  const skusConActividad=new Set([
+    ...Object.keys(p1mix.bySkuBoost),
+    ...Object.keys(p2mix.bySkuBoost)
+  ]);
+  skusConActividad.forEach(sku=>{
     const c1=p1mix.bySkuBoost[sku]||0;
     const c2=p2mix.bySkuBoost[sku]||0;
     const m1=p1mix.tot>0?(c1/p1mix.tot*100):0;
