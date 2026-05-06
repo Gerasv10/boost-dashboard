@@ -14,17 +14,24 @@
   .status.ok    { color: #1D9E75; background: #E1F5EE; border-color: #1D9E75; }
   .status.error { color: #D85A30; background: #FCEBEB; border-color: #D85A30; }
 
+  /* Tabs */
+  .tabs { display: flex; gap: 0; border-bottom: 2px solid #D3D1C7; margin-bottom: 20px; }
+  .tab { font-size: 13px; font-weight: 500; padding: 8px 20px; cursor: pointer; color: #888780; border-bottom: 2px solid transparent; margin-bottom: -2px; }
+  .tab:hover { color: #2C2C2A; }
+  .tab.active { color: #534AB7; border-bottom-color: #534AB7; font-weight: 700; }
+  .view { display: none; }
+  .view.active { display: block; }
+
   /* Filtros */
   .filters { background: #fff; border: 1px solid #D3D1C7; border-radius: 10px; padding: 14px 16px; margin-bottom: 16px; }
   .filters-title { font-size: 11px; font-weight: 700; color: #888780; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 10px; }
   .filters-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
   .filter-field { position: relative; }
   .filter-field label { font-size: 10px; font-weight: 700; color: #888780; letter-spacing: 0.06em; text-transform: uppercase; display: block; margin-bottom: 4px; }
-  .filter-field select { width: 100%; font-size: 12px; padding: 6px 8px; border-radius: 6px; border: 1px solid #D3D1C7; background: #FAFAF8; color: #2C2C2A; }
 
-  /* Multiselect dropdown */
+  /* Multiselect */
   .ms-wrap { position: relative; }
-  .ms-btn { width: 100%; font-size: 12px; padding: 6px 28px 6px 8px; border-radius: 6px; border: 1px solid #D3D1C7; background: #FAFAF8; color: #2C2C2A; text-align: left; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; position: relative; }
+  .ms-btn { width: 100%; font-size: 12px; padding: 6px 28px 6px 8px; border-radius: 6px; border: 1px solid #D3D1C7; background: #FAFAF8; color: #2C2C2A; text-align: left; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; position: relative; font-family: Arial; }
   .ms-btn::after { content: '▾'; position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 10px; color: #888780; }
   .ms-dropdown { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #fff; border: 1px solid #D3D1C7; border-radius: 6px; max-height: 200px; overflow-y: auto; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-top: 2px; }
   .ms-dropdown.open { display: block; }
@@ -45,7 +52,7 @@
   .date-field input:focus { outline: none; border-color: #534AB7; }
   .date-field input.err { border-color: #D85A30; }
   .vs { font-size: 18px; font-weight: 700; color: #D3D1C7; text-align: center; padding-top: 50px; }
-  .apply-btn { display: block; width: 200px; margin: 0 auto 20px; font-size: 12px; font-weight: 700; padding: 8px; border-radius: 6px; border: none; background: #534AB7; color: #fff; cursor: pointer; }
+  .apply-btn { display: block; width: 200px; margin: 0 auto 20px; font-size: 12px; font-weight: 700; padding: 8px; border-radius: 6px; border: none; background: #534AB7; color: #fff; cursor: pointer; font-family: Arial; }
   .apply-btn:hover { background: #3C3489; }
   .period-info { font-size: 10px; color: #888780; margin-top: 6px; min-height: 14px; }
   .warn { font-size: 11px; color: #D85A30; margin-top: 4px; min-height: 16px; }
@@ -58,7 +65,7 @@
   .kpi-delta { font-size: 11px; font-weight: 600; }
   .up { color: #1D9E75; } .down { color: #D85A30; } .neu { color: #888780; }
 
-  /* Charts */
+  /* Cards */
   .charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
   .card { background: #fff; border: 1px solid #D3D1C7; border-radius: 10px; padding: 16px 18px; margin-bottom: 16px; }
   .card-title { font-size: 13px; font-weight: 700; color: #2C2C2A; margin-bottom: 4px; }
@@ -73,14 +80,25 @@
   .sku-table { width: 100%; border-collapse: collapse; font-size: 12px; }
   .sku-table th { font-size: 10px; font-weight: 700; color: #888780; letter-spacing: 0.07em; text-transform: uppercase; padding: 8px 10px; border-bottom: 1px solid #D3D1C7; text-align: left; cursor: pointer; user-select: none; white-space: nowrap; }
   .sku-table th:hover { color: #534AB7; }
-  .sku-table th.sorted { color: #534AB7; }
   .sku-table td { padding: 9px 10px; border-bottom: 1px solid #F1EFE8; color: #2C2C2A; }
   .sku-table tr:last-child td { border-bottom: none; }
   .sku-table tr:hover td { background: #F4F2EB; }
   .delta-up { color: #1D9E75; font-weight: 700; }
   .delta-down { color: #D85A30; font-weight: 700; }
   .delta-neu { color: #888780; }
-  .boost-badge { font-size: 9px; padding: 2px 6px; border-radius: 10px; background: #EEEDFE; color: #534AB7; font-weight: 700; margin-left: 4px; }
+
+  /* Paginación */
+  .pagination { display: flex; align-items: center; gap: 6px; margin-top: 12px; justify-content: center; flex-wrap: wrap; }
+  .page-btn { font-size: 12px; padding: 4px 10px; border-radius: 6px; border: 1px solid #D3D1C7; background: #FAFAF8; color: #2C2C2A; cursor: pointer; font-family: Arial; }
+  .page-btn:hover { background: #EEEDFE; border-color: #534AB7; color: #534AB7; }
+  .page-btn.active { background: #534AB7; color: #fff; border-color: #534AB7; font-weight: 700; }
+  .page-btn:disabled { opacity: 0.4; cursor: default; }
+  .page-info { font-size: 11px; color: #888780; }
+
+  /* Toggle semanal/mensual */
+  .toggle-row { display: flex; gap: 8px; margin-bottom: 16px; align-items: center; }
+  .toggle-btn { font-size: 12px; padding: 5px 14px; border-radius: 6px; border: 1px solid #D3D1C7; background: #FAFAF8; color: #888780; cursor: pointer; font-family: Arial; }
+  .toggle-btn.active { background: #534AB7; color: #fff; border-color: #534AB7; font-weight: 700; }
 </style>
 </head>
 <body>
@@ -91,122 +109,154 @@
 
 <div id="app" style="display:none;">
 
-  <div class="filters">
-    <div class="filters-title">Filtros globales — aplican a ambos períodos</div>
-    <div class="filters-row">
-      <div class="filter-field">
-        <label>Cliente</label>
-        <div class="ms-wrap">
-          <button class="ms-btn" id="btn-client" onclick="toggleDropdown('dd-client')">Todos</button>
-          <div class="ms-dropdown" id="dd-client">
-            <div class="ms-option ms-select-all" onclick="toggleAll('client')">
-              <input type="checkbox" id="chk-client-all" checked> Todos
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('boost',this)">Análisis de Boost</div>
+    <div class="tab" onclick="showTab('tendencia',this)">Tendencia</div>
+  </div>
+
+  <!-- ══ TAB BOOST ══ -->
+  <div id="view-boost" class="view active">
+
+    <div class="filters">
+      <div class="filters-title">Filtros globales — aplican a ambos períodos</div>
+      <div class="filters-row">
+        <div class="filter-field">
+          <label>Cliente</label>
+          <div class="ms-wrap">
+            <button class="ms-btn" id="btn-client" onclick="toggleDropdown('dd-client')">Todos</button>
+            <div class="ms-dropdown" id="dd-client">
+              <div class="ms-option ms-select-all" onclick="toggleAll('client')"><input type="checkbox" id="chk-client-all" checked> Todos</div>
+            </div>
+          </div>
+        </div>
+        <div class="filter-field">
+          <label>Categoría</label>
+          <div class="ms-wrap">
+            <button class="ms-btn" id="btn-category" onclick="toggleDropdown('dd-category')">Todas</button>
+            <div class="ms-dropdown" id="dd-category">
+              <div class="ms-option ms-select-all" onclick="toggleAll('category')"><input type="checkbox" id="chk-category-all" checked> Todas</div>
+            </div>
+          </div>
+        </div>
+        <div class="filter-field">
+          <label>Subcategoría</label>
+          <div class="ms-wrap">
+            <button class="ms-btn" id="btn-subcat" onclick="toggleDropdown('dd-subcat')">Todas</button>
+            <div class="ms-dropdown" id="dd-subcat">
+              <div class="ms-option ms-select-all" onclick="toggleAll('subcat')"><input type="checkbox" id="chk-subcat-all" checked> Todas</div>
             </div>
           </div>
         </div>
       </div>
-      <div class="filter-field">
-        <label>Categoría</label>
-        <div class="ms-wrap">
-          <button class="ms-btn" id="btn-category" onclick="toggleDropdown('dd-category')">Todas</button>
-          <div class="ms-dropdown" id="dd-category">
-            <div class="ms-option ms-select-all" onclick="toggleAll('category')">
-              <input type="checkbox" id="chk-category-all" checked> Todas
-            </div>
-          </div>
+    </div>
+
+    <div class="period-row">
+      <div class="period-card">
+        <div class="period-title">Período 1</div>
+        <span class="p1-badge">P1 — Referencia</span>
+        <div class="date-row">
+          <div class="date-field"><label>Inicio</label><input type="text" id="p1-ini" placeholder="DD/MM/YYYY"></div>
+          <div class="date-field"><label>Fin</label><input type="text" id="p1-fin" placeholder="DD/MM/YYYY"></div>
         </div>
+        <div class="warn" id="p1-warn"></div>
+        <div class="period-info" id="p1-info"></div>
       </div>
-      <div class="filter-field">
-        <label>Subcategoría</label>
-        <select id="f-subcat"><option value="">Todas</option></select>
+      <div class="vs">vs</div>
+      <div class="period-card">
+        <div class="period-title">Período 2</div>
+        <span class="p2-badge">P2 — Con boost</span>
+        <div class="date-row">
+          <div class="date-field"><label>Inicio</label><input type="text" id="p2-ini" placeholder="DD/MM/YYYY"></div>
+          <div class="date-field"><label>Fin</label><input type="text" id="p2-fin" placeholder="DD/MM/YYYY"></div>
+        </div>
+        <div class="warn" id="p2-warn"></div>
+        <div class="period-info" id="p2-info"></div>
       </div>
+    </div>
+
+    <button class="apply-btn" onclick="applyRanges()">Aplicar períodos</button>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="kpi-label">Δ Mix SKUs boosteados</div>
+        <div class="kpi-val" id="k-mix">—</div>
+        <div class="kpi-delta" id="k-mix-sub"></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Δ Margen % total</div>
+        <div class="kpi-val" id="k-mg">—</div>
+        <div class="kpi-delta" id="k-mg-sub"></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Impacto $ del boost</div>
+        <div class="kpi-val" id="k-impacto">—</div>
+        <div class="kpi-delta" id="k-impacto-sub"></div>
+      </div>
+    </div>
+
+    <div class="charts-row">
+      <div class="card" style="margin-bottom:0;">
+        <div class="card-title">Margen % total ponderado</div>
+        <div class="card-sub">Contribución de cada grupo al margen total del período</div>
+        <div class="legend">
+          <div class="leg"><div class="leg-sq" style="background:#534AB7;"></div>SKUs boosteados</div>
+          <div class="leg"><div class="leg-sq" style="background:#B4B2A9;"></div>Resto</div>
+        </div>
+        <div style="height:240px;position:relative;"><canvas id="chart-mg"></canvas></div>
+      </div>
+      <div class="card" style="margin-bottom:0;">
+        <div class="card-title">Mix de redenciones — SKUs boosteados</div>
+        <div class="card-sub">P1 participación natural · P2 con boost activo</div>
+        <div class="legend">
+          <div class="leg"><div class="leg-sq" style="background:#AFA9EC;border:1px solid #534AB7;"></div>SKUs boost P1 (sin boost)</div>
+          <div class="leg"><div class="leg-sq" style="background:#534AB7;"></div>SKUs boost P2 (con boost)</div>
+          <div class="leg"><div class="leg-sq" style="background:#B4B2A9;"></div>Resto</div>
+        </div>
+        <div style="height:240px;position:relative;"><canvas id="chart-mix"></canvas></div>
+      </div>
+    </div>
+
+    <div class="insight" id="insight" style="display:none;"></div>
+
+    <div class="card" id="sku-card" style="display:none;">
+      <div class="card-title">Detalle por SKU boosteado</div>
+      <div class="card-sub">Solo SKUs activos en el período seleccionado · Click en encabezado para ordenar</div>
+      <table class="sku-table">
+        <thead>
+          <tr>
+            <th onclick="sortTable(0)">SKU ↕</th>
+            <th onclick="sortTable(1)">Producto ↕</th>
+            <th onclick="sortTable(2)" style="text-align:right;">Mix P1 % ↕</th>
+            <th onclick="sortTable(3)" style="text-align:right;">Mix P2 % ↕</th>
+            <th onclick="sortTable(4)" style="text-align:right;">Δ pp ↕</th>
+          </tr>
+        </thead>
+        <tbody id="sku-tbody"></tbody>
+      </table>
+      <div class="pagination" id="pagination"></div>
+      <p class="note">* Todos los SKUs con boost activo en el período, incluidos los con 0 redenciones. Mix % = redenciones del SKU / total del período. Δ = P2 − P1.</p>
     </div>
   </div>
 
-  <div class="period-row">
-    <div class="period-card">
-      <div class="period-title">Período 1</div>
-      <span class="p1-badge">P1 — Referencia</span>
-      <div class="date-row">
-        <div class="date-field"><label>Inicio</label><input type="text" id="p1-ini" placeholder="DD/MM/YYYY"></div>
-        <div class="date-field"><label>Fin</label><input type="text" id="p1-fin" placeholder="DD/MM/YYYY"></div>
+  <!-- ══ TAB TENDENCIA ══ -->
+  <div id="view-tendencia" class="view">
+    <div class="toggle-row">
+      <span style="font-size:12px;color:#888780;font-weight:700;">Vista:</span>
+      <button class="toggle-btn active" id="btn-mensual" onclick="setTendencia('mensual',this)">Últimos 6 meses</button>
+      <button class="toggle-btn" id="btn-semanal" onclick="setTendencia('semanal',this)">Últimas 13 semanas</button>
+    </div>
+    <div class="charts-row">
+      <div class="card" style="margin-bottom:0;">
+        <div class="card-title">Revenue</div>
+        <div class="card-sub" id="rev-sub">Precio venta − precio flete</div>
+        <div style="height:260px;position:relative;"><canvas id="chart-rev"></canvas></div>
       </div>
-      <div class="warn" id="p1-warn"></div>
-      <div class="period-info" id="p1-info"></div>
-    </div>
-    <div class="vs">vs</div>
-    <div class="period-card">
-      <div class="period-title">Período 2</div>
-      <span class="p2-badge">P2 — Con boost</span>
-      <div class="date-row">
-        <div class="date-field"><label>Inicio</label><input type="text" id="p2-ini" placeholder="DD/MM/YYYY"></div>
-        <div class="date-field"><label>Fin</label><input type="text" id="p2-fin" placeholder="DD/MM/YYYY"></div>
+      <div class="card" style="margin-bottom:0;">
+        <div class="card-title">Margen %</div>
+        <div class="card-sub" id="mg-sub">Margen ponderado por período</div>
+        <div style="height:260px;position:relative;"><canvas id="chart-mg-tend"></canvas></div>
       </div>
-      <div class="warn" id="p2-warn"></div>
-      <div class="period-info" id="p2-info"></div>
     </div>
-  </div>
-
-  <button class="apply-btn" onclick="applyRanges()">Aplicar períodos</button>
-
-  <div class="kpi-row">
-    <div class="kpi">
-      <div class="kpi-label">Δ Mix SKUs boosteados</div>
-      <div class="kpi-val" id="k-mix">—</div>
-      <div class="kpi-delta" id="k-mix-sub"></div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-label">Δ Margen % total</div>
-      <div class="kpi-val" id="k-mg">—</div>
-      <div class="kpi-delta" id="k-mg-sub"></div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-label">Impacto $ del boost</div>
-      <div class="kpi-val" id="k-impacto">—</div>
-      <div class="kpi-delta" id="k-impacto-sub"></div>
-    </div>
-  </div>
-
-  <div class="charts-row">
-    <div class="card" style="margin-bottom:0;">
-      <div class="card-title">Margen % total ponderado</div>
-      <div class="card-sub">Contribución de cada grupo al margen total del período</div>
-      <div class="legend">
-        <div class="leg"><div class="leg-sq" style="background:#534AB7;"></div>SKUs boosteados</div>
-        <div class="leg"><div class="leg-sq" style="background:#B4B2A9;"></div>Resto</div>
-      </div>
-      <div style="height:240px;position:relative;"><canvas id="chart-mg"></canvas></div>
-    </div>
-    <div class="card" style="margin-bottom:0;">
-      <div class="card-title">Mix de redenciones — SKUs boosteados</div>
-      <div class="card-sub">P1 muestra participación natural · P2 con boost activo</div>
-      <div class="legend">
-        <div class="leg"><div class="leg-sq" style="background:#AFA9EC;border:1px solid #534AB7;"></div>SKUs boost en P1 (sin boost)</div>
-        <div class="leg"><div class="leg-sq" style="background:#534AB7;"></div>SKUs boost en P2 (con boost)</div>
-        <div class="leg"><div class="leg-sq" style="background:#B4B2A9;"></div>Resto</div>
-      </div>
-      <div style="height:240px;position:relative;"><canvas id="chart-mix"></canvas></div>
-    </div>
-  </div>
-
-  <div class="insight" id="insight" style="display:none;"></div>
-
-  <div class="card" id="sku-card" style="display:none;">
-    <div class="card-title">Detalle por SKU boosteado</div>
-    <div class="card-sub">Mix % = redenciones del SKU / total redenciones del período · Click en encabezado para ordenar</div>
-    <table class="sku-table" id="sku-table">
-      <thead>
-        <tr>
-          <th onclick="sortTable(0)">SKU ↕</th>
-          <th onclick="sortTable(1)">Producto ↕</th>
-          <th onclick="sortTable(2)" style="text-align:right;">Mix P1 % ↕</th>
-          <th onclick="sortTable(3)" style="text-align:right;">Mix P2 % ↕</th>
-          <th onclick="sortTable(4)" style="text-align:right;">Δ pp ↕</th>
-        </tr>
-      </thead>
-      <tbody id="sku-tbody"></tbody>
-    </table>
-    <p class="note">* Mix P1 = participación del SKU sin boost activo. Mix P2 = con boost activo. Δ = P2 − P1.</p>
   </div>
 
 </div>
@@ -216,10 +266,11 @@ const URL_REDENCIONES = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS7RDuE
 const URL_BOOST       = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS7RDuEY3wswKsF0uiXd7u_YYoOEupSVmUhZi_oHMKGREenfvdmXc1T1twiw_SizFlLK9xqg6gvFx5_/pub?gid=697415038&single=true&output=csv';
 
 const PURPLE='#534AB7', PURPLE_LT='#AFA9EC', GRAY='#B4B2A9', tick='#888780', gridC='rgba(0,0,0,0.06)';
-let allTagged=[], boostedSkus=new Set(), skuNames={}, subcatMap={}, cMg, cMix;
-let tableData=[], sortCol=4, sortAsc=false;
+let allTagged=[], boostedSkusByPeriod={}, boostedSkus=new Set(), skuNames={}, subcatMap={};
+let cMg, cMix, cRev, cMgTend;
+let tableData=[], sortCol=4, sortAsc=false, currentPage=1;
+const PAGE_SIZE=20;
 
-// ── CSV parser ──
 function parseCSV(text){
   const lines=text.trim().split('\n');
   const headers=lines[0].split(',').map(h=>h.trim().replace(/^"|"$/g,''));
@@ -245,6 +296,11 @@ function toFnum(str){
   return null;
 }
 
+function fnumToDate(n){
+  const y=Math.floor(n/10000),m=Math.floor((n%10000)/100)-1,d=n%100;
+  return new Date(y,m,d);
+}
+
 function fmtCorta(n){
   const y=Math.floor(n/10000),m=Math.floor((n%10000)/100),d=n%100;
   return `${String(d).padStart(2,'0')} ${['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'][m-1]} ${y}`;
@@ -252,66 +308,79 @@ function fmtCorta(n){
 
 function peso(n){
   const abs=Math.abs(n);
-  const fmt = abs>=1000000 ? (abs/1000000).toFixed(1)+'M' : abs>=1000 ? (abs/1000).toFixed(1)+'K' : abs.toFixed(0);
-  return (n<0?'-':'')+'$'+fmt;
+  const s=abs>=1000000?(abs/1000000).toFixed(1)+'M':abs>=1000?(abs/1000).toFixed(1)+'K':abs.toFixed(0);
+  return (n<0?'-':'')+'$'+s;
 }
 
-// ── Multiselect ──
-function isValidClient(val){ return val && !/\d/.test(val) && !val.includes(','); }
+function isValidClient(val){ return val&&!/\d/.test(val)&&!val.includes(','); }
 
+// ── Multiselect ──
 function buildMultiselect(type, values){
   const dd=document.getElementById('dd-'+type);
+  // Limpiar opciones previas excepto "Todos"
+  while(dd.children.length>1) dd.removeChild(dd.lastChild);
   values.forEach(v=>{
     const div=document.createElement('div');
     div.className='ms-option';
-    div.innerHTML=`<input type="checkbox" id="chk-${type}-${v}" value="${v}" checked onchange="updateMsBtn('${type}')"> ${v}`;
+    div.innerHTML=`<input type="checkbox" value="${v}" checked onchange="onMsChange('${type}')"> ${v}`;
     dd.appendChild(div);
   });
 }
 
 function toggleDropdown(id){
-  document.querySelectorAll('.ms-dropdown').forEach(d=>{ if(d.id!==id) d.classList.remove('open'); });
+  document.querySelectorAll('.ms-dropdown').forEach(d=>{if(d.id!==id)d.classList.remove('open');});
   document.getElementById(id).classList.toggle('open');
 }
 
-document.addEventListener('click', e=>{
-  if(!e.target.closest('.ms-wrap')) document.querySelectorAll('.ms-dropdown').forEach(d=>d.classList.remove('open'));
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.ms-wrap'))document.querySelectorAll('.ms-dropdown').forEach(d=>d.classList.remove('open'));
 });
 
 function toggleAll(type){
   const allChk=document.getElementById('chk-'+type+'-all');
-  const checked=allChk.checked;
-  document.querySelectorAll(`#dd-${type} input[type=checkbox]:not(#chk-${type}-all)`).forEach(c=>c.checked=checked);
+  document.querySelectorAll(`#dd-${type} input[type=checkbox]:not(#chk-${type}-all)`).forEach(c=>c.checked=allChk.checked);
   updateMsBtn(type);
+  if(type==='category')rebuildSubcats();
+}
+
+function onMsChange(type){
+  updateMsBtn(type);
+  if(type==='category')rebuildSubcats();
 }
 
 function updateMsBtn(type){
-  const all=document.querySelectorAll(`#dd-${type} input[type=checkbox]:not(#chk-${type}-all)`);
-  const checked=[...all].filter(c=>c.checked);
+  const all=[...document.querySelectorAll(`#dd-${type} input[type=checkbox]:not(#chk-${type}-all)`)];
+  const checked=all.filter(c=>c.checked);
   const allChk=document.getElementById('chk-'+type+'-all');
   allChk.checked=checked.length===all.length;
   const btn=document.getElementById('btn-'+type);
   if(checked.length===0||checked.length===all.length) btn.textContent=type==='client'?'Todos':'Todas';
   else if(checked.length===1) btn.textContent=checked[0].value;
   else btn.textContent=`${checked.length} seleccionados`;
-  // Si hay categoría seleccionada update subcat
-  if(type==='category') updateSubcatFromMs();
 }
 
 function getSelected(type){
   const all=[...document.querySelectorAll(`#dd-${type} input[type=checkbox]:not(#chk-${type}-all)`)];
   const checked=all.filter(c=>c.checked).map(c=>c.value);
-  return checked.length===all.length ? [] : checked; // [] = todos
+  return checked.length===all.length?[]:checked;
 }
 
-function updateSubcatFromMs(){
+function rebuildSubcats(){
   const cats=getSelected('category');
-  const sel=document.getElementById('f-subcat');
-  sel.innerHTML='<option value="">Todas</option>';
   const subcats=new Set();
-  if(cats.length===0){ Object.values(subcatMap).forEach(s=>s.forEach(v=>subcats.add(v))); }
-  else { cats.forEach(c=>{ if(subcatMap[c]) subcatMap[c].forEach(v=>subcats.add(v)); }); }
-  [...subcats].sort().forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;sel.appendChild(o);});
+  if(cats.length===0){Object.values(subcatMap).forEach(s=>s.forEach(v=>subcats.add(v)));}
+  else{cats.forEach(c=>{if(subcatMap[c])subcatMap[c].forEach(v=>subcats.add(v));});}
+  buildMultiselect('subcat',[...subcats].sort());
+  updateMsBtn('subcat');
+}
+
+// ── Tabs ──
+function showTab(id,el){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('view-'+id).classList.add('active');
+  el.classList.add('active');
+  if(id==='tendencia')buildTendencia('mensual');
 }
 
 // ── Load data ──
@@ -327,39 +396,40 @@ async function loadData(){
     const boostIdx={};
     boostedSkus=new Set();
     skuNames={};
-    boosts.forEach(b=>{
+    // Guardar boosts con sus rangos para lookup por período
+    boostedSkusByPeriod=boosts.reduce((acc,b)=>{
       const sku=b.part_number?.trim();
-      if(!sku)return;
+      if(!sku)return acc;
       boostedSkus.add(sku);
-      if(!boostIdx[sku])boostIdx[sku]=[];
-      boostIdx[sku].push({ini:toFnum(b.fecha_inicio),fin:toFnum(b.fecha_fin),alcance:b.alcance,cliente:(b.cliente||'').trim()});
-    });
+      if(!acc[sku])acc[sku]=[];
+      acc[sku].push({ini:toFnum(b.fecha_inicio),fin:toFnum(b.fecha_fin),alcance:b.alcance,cliente:(b.cliente||'').trim()});
+      return acc;
+    },{});
+    boostIdx; // alias
+    Object.assign(boostIdx,boostedSkusByPeriod);
 
     // Nombre más frecuente por SKU
-    const skuNameCount={};
+    const skuNC={};
     redenciones.forEach(r=>{
-      const sku=(r.part_number||'').trim();
-      const name=(r.product_name||'').trim();
+      const sku=(r.part_number||'').trim(),name=(r.product_name||'').trim();
       if(!sku||!name)return;
-      if(!skuNameCount[sku])skuNameCount[sku]={};
-      skuNameCount[sku][name]=(skuNameCount[sku][name]||0)+1;
+      if(!skuNC[sku])skuNC[sku]={};
+      skuNC[sku][name]=(skuNC[sku][name]||0)+1;
     });
-    Object.keys(skuNameCount).forEach(sku=>{
-      skuNames[sku]=Object.entries(skuNameCount[sku]).sort((a,b)=>b[1]-a[1])[0][0];
-    });
+    Object.keys(skuNC).forEach(sku=>{skuNames[sku]=Object.entries(skuNC[sku]).sort((a,b)=>b[1]-a[1])[0][0];});
 
-    // Filtros — validar cliente (sin números ni comas)
-    const clients=new Set(), cats=new Set();
+    // Filtros
+    const clients=new Set(),cats=new Set();
     subcatMap={};
     redenciones.forEach(r=>{
-      const client=(r.client||'').trim();
-      if(isValidClient(client)) clients.add(client);
-      const cat=(r.category||'').trim(), sub=(r.subcategory||'').trim();
-      if(cat){ cats.add(cat); if(sub){if(!subcatMap[cat])subcatMap[cat]=new Set();subcatMap[cat].add(sub);} }
+      const c=(r.client||'').trim();
+      if(isValidClient(c))clients.add(c);
+      const cat=(r.category||'').trim(),sub=(r.subcategory||'').trim();
+      if(cat){cats.add(cat);if(sub){if(!subcatMap[cat])subcatMap[cat]=new Set();subcatMap[cat].add(sub);}}
     });
     buildMultiselect('client',[...clients].sort());
     buildMultiselect('category',[...cats].sort());
-    updateSubcatFromMs();
+    rebuildSubcats();
 
     // Taggear
     let ignoradas=0;
@@ -374,14 +444,14 @@ async function loadData(){
       const costo=parseFloat(row.costo_final)||0;
       const neto=venta-flete;
       const mgP=venta-flete-costo;
-
       let esBoosteado=false;
       if(boostIdx[sku]){
         for(const b of boostIdx[sku]){
           if(b.ini&&b.fin&&fnum>=b.ini&&fnum<=b.fin&&(b.alcance==='GLOBAL'||b.cliente===client)){esBoosteado=true;break;}
         }
       }
-      return{fnum,mgP,neto,esBoosteado,esSkuBoost:boostedSkus.has(sku),sku,client,category:(row.category||'').trim(),subcategory:(row.subcategory||'').trim()};
+      return{fnum,mgP,neto,revenue:neto,esBoosteado,esSkuBoost:boostedSkus.has(sku),sku,client,
+             category:(row.category||'').trim(),subcategory:(row.subcategory||'').trim()};
     }).filter(r=>r!==null);
 
     document.getElementById('status').textContent=`✓ Datos cargados: ${allTagged.length} redenciones · ${boosts.length} SKUs en boost catalog`;
@@ -395,61 +465,49 @@ async function loadData(){
 }
 
 function getFilters(){
-  return{
-    clients:getSelected('client'),
-    cats:getSelected('category'),
-    subcat:document.getElementById('f-subcat').value,
-  };
+  return{clients:getSelected('client'),cats:getSelected('category'),subcats:getSelected('subcat')};
+}
+
+function applyFilters(rows,filters){
+  return rows.filter(r=>{
+    if(filters.clients.length&&!filters.clients.includes(r.client))return false;
+    if(filters.cats.length&&!filters.cats.includes(r.category))return false;
+    if(filters.subcats.length&&!filters.subcats.includes(r.subcategory))return false;
+    return true;
+  });
 }
 
 function statsForRange(ini,fin,filters){
-  const subset=allTagged.filter(r=>{
-    if(r.fnum<ini||r.fnum>fin)return false;
-    if(filters.clients.length&&!filters.clients.includes(r.client))return false;
-    if(filters.cats.length&&!filters.cats.includes(r.category))return false;
-    if(filters.subcat&&r.subcategory!==filters.subcat)return false;
-    return true;
-  });
+  const subset=applyFilters(allTagged.filter(r=>r.fnum>=ini&&r.fnum<=fin),filters);
   if(!subset.length)return null;
-  const actBoost=subset.filter(r=>r.esBoosteado);
-  const resto=subset.filter(r=>!r.esBoosteado);
-  const tot=subset.length;
+  const actBoost=subset.filter(r=>r.esBoosteado),resto=subset.filter(r=>!r.esBoosteado),tot=subset.length;
   const mg=arr=>{const sP=arr.reduce((s,r)=>s+r.mgP,0),sN=arr.reduce((s,r)=>s+r.neto,0);return sN!==0?(sP/sN*100):0;};
   const mgTot=mg(subset),mgB=mg(actBoost),mgN=mg(resto);
   const wB=actBoost.length/tot,wN=resto.length/tot;
   const skuBoostEnRango=subset.filter(r=>r.esSkuBoost);
   const sumNeto=subset.reduce((s,r)=>s+r.neto,0);
-  // Stats por SKU
-  const skuStats={};
-  subset.forEach(r=>{
-    if(!r.esSkuBoost&&!r.esBoosteado)return;
-    if(!skuStats[r.sku])skuStats[r.sku]={count:0};
-    skuStats[r.sku].count++;
-  });
-  return{
-    vActBoost:actBoost.length,vResto:resto.length,tot,
-    vSkuBoost:skuBoostEnRango.length,
-    mgB,mgN,mgTot,sumNeto,
-    mixB:wB*100,mixN:wN*100,
-    contribB:wB*mgB,contribN:wN*mgN,
-    mixSkuBoost:skuBoostEnRango.length/tot*100,
-    mixResto:(tot-skuBoostEnRango.length)/tot*100,
-    skuStats,
-  };
+  return{vActBoost:actBoost.length,vResto:resto.length,tot,vSkuBoost:skuBoostEnRango.length,
+    mgB,mgN,mgTot,sumNeto,mixB:wB*100,mixN:wN*100,contribB:wB*mgB,contribN:wN*mgN,
+    mixSkuBoost:skuBoostEnRango.length/tot*100,mixResto:(tot-skuBoostEnRango.length)/tot*100};
 }
 
-function skuMixInRange(ini,fin,filters){
-  const subset=allTagged.filter(r=>{
-    if(r.fnum<ini||r.fnum>fin)return false;
-    if(filters.clients.length&&!filters.clients.includes(r.client))return false;
-    if(filters.cats.length&&!filters.cats.includes(r.category))return false;
-    if(filters.subcat&&r.subcategory!==filters.subcat)return false;
-    return true;
+// SKUs activos en un rango = SKUs que tienen boost activo en algún día del rango
+function getActiveBoostSkus(ini,fin){
+  const active=new Set();
+  Object.entries(boostedSkusByPeriod).forEach(([sku,blist])=>{
+    blist.forEach(b=>{
+      if(b.ini&&b.fin&&b.ini<=fin&&b.fin>=ini) active.add(sku);
+    });
   });
+  return active;
+}
+
+function skuMixInRange(ini,fin,filters,activeSkus){
+  const subset=applyFilters(allTagged.filter(r=>r.fnum>=ini&&r.fnum<=fin),filters);
   const tot=subset.length;
   const bySkuBoost={};
   subset.forEach(r=>{
-    if(!boostedSkus.has(r.sku))return;
+    if(!activeSkus.has(r.sku))return;
     if(!bySkuBoost[r.sku])bySkuBoost[r.sku]=0;
     bySkuBoost[r.sku]++;
   });
@@ -478,8 +536,7 @@ const topLabelPlugin={
     const nD=data.datasets.length,nL=data.labels.length;
     ctx.save();
     for(let i=0;i<nL;i++){
-      let total=0;
-      for(let d=0;d<nD;d++) total+=data.datasets[d].data[i]||0;
+      let total=0;for(let d=0;d<nD;d++)total+=data.datasets[d].data[i]||0;
       const xPos=x.getPixelForValue(i),yPos=y.getPixelForValue(total);
       ctx.fillStyle='#2C2C2A';ctx.font='bold 11px Arial';ctx.textAlign='center';
       ctx.fillText(total.toFixed(1)+'%',xPos,yPos-6);
@@ -488,27 +545,23 @@ const topLabelPlugin={
   }
 };
 
-function buildSkuTable(p1mix,p2mix){
+// ── Tabla SKUs ──
+function buildSkuTable(p1mix,p2mix,activeSkus){
   tableData=[];
-  // Solo mostrar SKUs que tuvieron redenciones en P1 o P2 con los filtros aplicados
-  const skusConActividad=new Set([
-    ...Object.keys(p1mix.bySkuBoost),
-    ...Object.keys(p2mix.bySkuBoost)
-  ]);
-  skusConActividad.forEach(sku=>{
+  activeSkus.forEach(sku=>{
     const c1=p1mix.bySkuBoost[sku]||0;
     const c2=p2mix.bySkuBoost[sku]||0;
     const m1=p1mix.tot>0?(c1/p1mix.tot*100):0;
     const m2=p2mix.tot>0?(c2/p2mix.tot*100):0;
     tableData.push({sku,name:skuNames[sku]||sku,m1,m2,delta:m2-m1,c1,c2});
   });
+  sortCol=4;sortAsc=false;currentPage=1;
   renderTable();
 }
 
 function sortTable(col){
-  if(sortCol===col) sortAsc=!sortAsc;
-  else{sortCol=col;sortAsc=col<2;}
-  renderTable();
+  if(sortCol===col)sortAsc=!sortAsc; else{sortCol=col;sortAsc=col<2;}
+  currentPage=1;renderTable();
 }
 
 function renderTable(){
@@ -516,11 +569,14 @@ function renderTable(){
     const vals=[a.sku,a.name,a.m1,a.m2,a.delta];
     const bvals=[b.sku,b.name,b.m1,b.m2,b.delta];
     const va=vals[sortCol],vb=bvals[sortCol];
-    if(typeof va==='string') return sortAsc?va.localeCompare(vb):vb.localeCompare(va);
+    if(typeof va==='string')return sortAsc?va.localeCompare(vb):vb.localeCompare(va);
     return sortAsc?va-vb:vb-va;
   });
+  const totalPages=Math.ceil(tableData.length/PAGE_SIZE);
+  const start=(currentPage-1)*PAGE_SIZE, end=start+PAGE_SIZE;
+  const page=tableData.slice(start,end);
   const tbody=document.getElementById('sku-tbody');
-  tbody.innerHTML=tableData.map(r=>{
+  tbody.innerHTML=page.map(r=>{
     const dc=r.delta>0.05?'delta-up':r.delta<-0.05?'delta-down':'delta-neu';
     const ds=r.delta>=0?'+':'';
     return `<tr>
@@ -531,7 +587,21 @@ function renderTable(){
       <td style="text-align:right;" class="${dc}">${ds}${r.delta.toFixed(2)} pp</td>
     </tr>`;
   }).join('');
+  // Paginación
+  const pg=document.getElementById('pagination');
+  if(totalPages<=1){pg.innerHTML='';return;}
+  let html=`<span class="page-info">${tableData.length} SKUs · página ${currentPage} de ${totalPages}</span>`;
+  html+=`<button class="page-btn" onclick="goPage(1)" ${currentPage===1?'disabled':''}>«</button>`;
+  html+=`<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>‹</button>`;
+  for(let i=Math.max(1,currentPage-2);i<=Math.min(totalPages,currentPage+2);i++){
+    html+=`<button class="page-btn ${i===currentPage?'active':''}" onclick="goPage(${i})">${i}</button>`;
+  }
+  html+=`<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage===totalPages?'disabled':''}>›</button>`;
+  html+=`<button class="page-btn" onclick="goPage(${totalPages})" ${currentPage===totalPages?'disabled':''}>»</button>`;
+  pg.innerHTML=html;
 }
+
+function goPage(p){currentPage=p;renderTable();}
 
 function applyRanges(){
   const r1=validar('p1-ini','p1-fin','p1-warn');
@@ -541,27 +611,24 @@ function applyRanges(){
   const filters=getFilters();
   const s1=statsForRange(r1.ini,r1.fin,filters);
   const s2=statsForRange(r2.ini,r2.fin,filters);
-
   if(!s1){document.getElementById('p1-warn').textContent='Sin redenciones en ese rango.';return;}
   if(!s2){document.getElementById('p2-warn').textContent='Sin redenciones en ese rango.';return;}
+
+  // SKUs activos en P2 (período del boost)
+  const activeSkus=getActiveBoostSkus(r2.ini,r2.fin);
 
   document.getElementById('p1-info').textContent=`${s1.tot} redenciones · ${s1.vSkuBoost} SKUs boost (${s1.mixSkuBoost.toFixed(1)}% natural)`;
   document.getElementById('p2-info').textContent=`${s2.tot} redenciones · ${s2.vActBoost} activ. boost (${s2.mixB.toFixed(1)}%)`;
 
-  const dMix=s2.mixB-s1.mixSkuBoost;
-  const dMg=s2.mgTot-s1.mgTot;
-
-  // Impacto $ = Δ margen% × suma precio neto P2
+  const dMix=s2.mixB-s1.mixSkuBoost, dMg=s2.mgTot-s1.mgTot;
   const impacto=(dMg/100)*s2.sumNeto;
 
   const km=document.getElementById('k-mix');km.textContent=fmt(dMix,' pp');km.className='kpi-val '+cls(dMix);
   document.getElementById('k-mix-sub').textContent=`P1 ${s1.mixSkuBoost.toFixed(1)}% natural → P2 ${s2.mixB.toFixed(1)}% con boost`;
   document.getElementById('k-mix-sub').className='kpi-delta '+cls(dMix);
-
   const km2=document.getElementById('k-mg');km2.textContent=fmt(dMg,' pp');km2.className='kpi-val '+cls(dMg);
   document.getElementById('k-mg-sub').textContent=`P1 ${s1.mgTot.toFixed(1)}% → P2 ${s2.mgTot.toFixed(1)}%`;
   document.getElementById('k-mg-sub').className='kpi-delta '+cls(dMg);
-
   const ki=document.getElementById('k-impacto');ki.textContent=peso(impacto);ki.className='kpi-val '+cls(impacto);
   document.getElementById('k-impacto-sub').textContent=`Δ ${fmt(dMg,' pp')} × precio neto P2`;
   document.getElementById('k-impacto-sub').className='kpi-delta '+cls(impacto);
@@ -570,7 +637,7 @@ function applyRanges(){
   if(dMix>1&&dMg>0.05) msg=`Los SKUs boosteados subieron su participación ${dMix.toFixed(1)} pp (de ${s1.mixSkuBoost.toFixed(1)}% natural a ${s2.mixB.toFixed(1)}% con boost), jalando el margen total ${fmt(dMg,' pp')} y generando un impacto estimado de ${peso(impacto)}.`;
   else if(dMix>0.5&&dMg<=0.05) msg=`Los SKUs boosteados ganaron ${dMix.toFixed(1)} pp de participación pero el impacto en margen total es mínimo. El volumen todavía es pequeño para mover el promedio.`;
   else if(dMix<=0) msg=`Los SKUs boosteados no ganaron participación vs su nivel natural en P1 (${fmt(dMix,' pp')}). El boost no está moviendo el mix.`;
-  else msg=`Cambio de ${fmt(dMix,' pp')} en mix de SKUs boosteados con impacto de ${fmt(dMg,' pp')} en margen total (${peso(impacto)}).`;
+  else msg=`Cambio de ${fmt(dMix,' pp')} en mix con impacto de ${fmt(dMg,' pp')} en margen total (${peso(impacto)}).`;
   document.getElementById('insight').textContent=msg;
   document.getElementById('insight').style.display='block';
 
@@ -578,7 +645,7 @@ function applyRanges(){
 
   if(cMg)cMg.destroy();
   cMg=new Chart(document.getElementById('chart-mg'),{
-    type:'bar', plugins:[topLabelPlugin],
+    type:'bar',plugins:[topLabelPlugin],
     data:{labels,datasets:[
       {label:'SKUs boosteados',data:[s1.contribB,s2.contribB],backgroundColor:PURPLE,stack:'s',borderRadius:0},
       {label:'Resto',          data:[s1.contribN,s2.contribN],backgroundColor:GRAY,  stack:'s',borderRadius:4},
@@ -588,10 +655,8 @@ function applyRanges(){
         label:ctx=>` ${ctx.dataset.label}: ${ctx.raw.toFixed(2)} pp`,
         footer:items=>` Total: ${items.reduce((a,i)=>a+i.raw,0).toFixed(2)}%`
       }}},
-      scales:{
-        x:{stacked:true,grid:{display:false},ticks:{color:tick,font:{size:10}}},
-        y:{stacked:true,grid:{color:gridC},ticks:{color:tick,font:{size:10},callback:v=>v+'%'}}
-      }
+      scales:{x:{stacked:true,grid:{display:false},ticks:{color:tick,font:{size:10}}},
+              y:{stacked:true,grid:{color:gridC},ticks:{color:tick,font:{size:10},callback:v=>v+'%'}}}
     }
   });
 
@@ -599,24 +664,99 @@ function applyRanges(){
   cMix=new Chart(document.getElementById('chart-mix'),{
     type:'bar',
     data:{labels,datasets:[
-      {label:'SKUs boost P1 (sin boost)',data:[s1.mixSkuBoost,0],           backgroundColor:PURPLE_LT,stack:'s',borderRadius:0},
-      {label:'SKUs boost P2 (con boost)',data:[0,s2.mixB],                  backgroundColor:PURPLE,   stack:'s',borderRadius:0},
-      {label:'Resto',                    data:[s1.mixResto,s2.mixN],         backgroundColor:GRAY,     stack:'s',borderRadius:4},
+      {label:'SKUs boost P1 (sin boost)',data:[s1.mixSkuBoost,0],  backgroundColor:PURPLE_LT,stack:'s',borderRadius:0},
+      {label:'SKUs boost P2 (con boost)',data:[0,s2.mixB],          backgroundColor:PURPLE,   stack:'s',borderRadius:0},
+      {label:'Resto',                    data:[s1.mixResto,s2.mixN],backgroundColor:GRAY,     stack:'s',borderRadius:4},
     ]},
     options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.raw.toFixed(1)}%`}}},
-      scales:{
-        x:{stacked:true,grid:{display:false},ticks:{color:tick,font:{size:10}}},
-        y:{stacked:true,min:0,max:100,grid:{color:gridC},ticks:{color:tick,font:{size:10},callback:v=>v+'%'}}
-      }
+      scales:{x:{stacked:true,grid:{display:false},ticks:{color:tick,font:{size:10}}},
+              y:{stacked:true,min:0,max:100,grid:{color:gridC},ticks:{color:tick,font:{size:10},callback:v=>v+'%'}}}
     }
   });
 
-  // Tabla SKU
-  const p1mix=skuMixInRange(r1.ini,r1.fin,filters);
-  const p2mix=skuMixInRange(r2.ini,r2.fin,filters);
-  buildSkuTable(p1mix,p2mix);
+  const p1mix=skuMixInRange(r1.ini,r1.fin,filters,activeSkus);
+  const p2mix=skuMixInRange(r2.ini,r2.fin,filters,activeSkus);
+  buildSkuTable(p1mix,p2mix,activeSkus);
   document.getElementById('sku-card').style.display='block';
+}
+
+// ── Tendencia ──
+let tendenciaMode='mensual';
+
+function setTendencia(mode,el){
+  tendenciaMode=mode;
+  document.querySelectorAll('.toggle-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  buildTendencia(mode);
+}
+
+function buildTendencia(mode){
+  const n=mode==='mensual'?6:13;
+  const now=new Date();
+
+  // Agrupar datos
+  const groups={};
+  allTagged.forEach(r=>{
+    const d=fnumToDate(r.fnum);
+    let key;
+    if(mode==='mensual'){
+      key=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+    } else {
+      // Semana ISO — lunes como inicio
+      const tmp=new Date(d);
+      tmp.setHours(0,0,0,0);
+      tmp.setDate(tmp.getDate()-tmp.getDay()+1); // lunes
+      key=tmp.toISOString().slice(0,10);
+    }
+    if(!groups[key])groups[key]={rev:0,mgP:0,neto:0};
+    groups[key].rev+=r.revenue;
+    groups[key].mgP+=r.mgP;
+    groups[key].neto+=r.neto;
+  });
+
+  // Ordenar y tomar últimos n
+  const sorted=Object.keys(groups).sort().slice(-n);
+  const labels=sorted.map(k=>{
+    if(mode==='mensual'){
+      const[y,m]=k.split('-');
+      return ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'][parseInt(m)-1]+' '+y.slice(2);
+    }
+    const d=new Date(k);
+    return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}`;
+  });
+  const revData=sorted.map(k=>Math.round(groups[k].rev));
+  const mgData=sorted.map(k=>groups[k].neto!==0?(groups[k].mgP/groups[k].neto*100):0);
+
+  if(cRev)cRev.destroy();
+  cRev=new Chart(document.getElementById('chart-rev'),{
+    type:'bar',
+    data:{labels,datasets:[{
+      data:revData, backgroundColor:PURPLE, borderRadius:4,
+      label:'Revenue'
+    }]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${peso(ctx.raw)}`}}},
+      scales:{x:{grid:{display:false},ticks:{color:tick,font:{size:10}}},
+              y:{grid:{color:gridC},ticks:{color:tick,font:{size:10},callback:v=>peso(v)}}}
+    }
+  });
+
+  if(cMgTend)cMgTend.destroy();
+  cMgTend=new Chart(document.getElementById('chart-mg-tend'),{
+    type:'line',
+    data:{labels,datasets:[{
+      data:mgData.map(v=>parseFloat(v.toFixed(2))),
+      borderColor:PURPLE, backgroundColor:'rgba(83,74,183,0.1)',
+      borderWidth:2, pointRadius:4, pointBackgroundColor:PURPLE,
+      fill:true, tension:0.3, label:'Margen %'
+    }]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.raw.toFixed(1)}%`}}},
+      scales:{x:{grid:{display:false},ticks:{color:tick,font:{size:10}}},
+              y:{grid:{color:gridC},ticks:{color:tick,font:{size:10},callback:v=>v.toFixed(0)+'%'}}}
+    }
+  });
 }
 
 loadData();
