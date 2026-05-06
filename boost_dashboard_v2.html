@@ -13,12 +13,27 @@
   .status { font-size: 12px; margin-bottom: 20px; padding: 8px 12px; background: #fff; border-radius: 8px; border: 1px solid #D3D1C7; color: #888780; }
   .status.ok    { color: #1D9E75; background: #E1F5EE; border-color: #1D9E75; }
   .status.error { color: #D85A30; background: #FCEBEB; border-color: #D85A30; }
+
+  /* Filtros */
   .filters { background: #fff; border: 1px solid #D3D1C7; border-radius: 10px; padding: 14px 16px; margin-bottom: 16px; }
   .filters-title { font-size: 11px; font-weight: 700; color: #888780; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 10px; }
-  .filters-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .filters-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .filter-field { position: relative; }
   .filter-field label { font-size: 10px; font-weight: 700; color: #888780; letter-spacing: 0.06em; text-transform: uppercase; display: block; margin-bottom: 4px; }
   .filter-field select { width: 100%; font-size: 12px; padding: 6px 8px; border-radius: 6px; border: 1px solid #D3D1C7; background: #FAFAF8; color: #2C2C2A; }
-  .filter-field select:focus { outline: none; border-color: #534AB7; }
+
+  /* Multiselect dropdown */
+  .ms-wrap { position: relative; }
+  .ms-btn { width: 100%; font-size: 12px; padding: 6px 28px 6px 8px; border-radius: 6px; border: 1px solid #D3D1C7; background: #FAFAF8; color: #2C2C2A; text-align: left; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; position: relative; }
+  .ms-btn::after { content: '▾'; position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 10px; color: #888780; }
+  .ms-dropdown { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #fff; border: 1px solid #D3D1C7; border-radius: 6px; max-height: 200px; overflow-y: auto; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-top: 2px; }
+  .ms-dropdown.open { display: block; }
+  .ms-option { display: flex; align-items: center; gap: 8px; padding: 7px 10px; font-size: 12px; color: #2C2C2A; cursor: pointer; }
+  .ms-option:hover { background: #F4F2EB; }
+  .ms-option input[type=checkbox] { accent-color: #534AB7; flex-shrink: 0; }
+  .ms-select-all { border-bottom: 1px solid #F1EFE8; font-weight: 600; color: #534AB7; }
+
+  /* Períodos */
   .period-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: start; margin-bottom: 14px; }
   .period-card { background: #fff; border: 1px solid #D3D1C7; border-radius: 10px; padding: 14px 16px; }
   .period-title { font-size: 11px; font-weight: 700; color: #888780; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 6px; }
@@ -34,21 +49,38 @@
   .apply-btn:hover { background: #3C3489; }
   .period-info { font-size: 10px; color: #888780; margin-top: 6px; min-height: 14px; }
   .warn { font-size: 11px; color: #D85A30; margin-top: 4px; min-height: 16px; }
+
+  /* KPIs */
   .kpi-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 20px; }
   .kpi { background: #fff; border: 1px solid #D3D1C7; border-radius: 10px; padding: 14px 16px; }
   .kpi-label { font-size: 10px; font-weight: 700; color: #888780; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 6px; }
   .kpi-val { font-size: 24px; font-weight: 700; color: #2C2C2A; line-height: 1; margin-bottom: 4px; }
   .kpi-delta { font-size: 11px; font-weight: 600; }
   .up { color: #1D9E75; } .down { color: #D85A30; } .neu { color: #888780; }
+
+  /* Charts */
   .charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
-  .card { background: #fff; border: 1px solid #D3D1C7; border-radius: 10px; padding: 16px 18px; }
+  .card { background: #fff; border: 1px solid #D3D1C7; border-radius: 10px; padding: 16px 18px; margin-bottom: 16px; }
   .card-title { font-size: 13px; font-weight: 700; color: #2C2C2A; margin-bottom: 4px; }
   .card-sub { font-size: 11px; color: #888780; margin-bottom: 14px; }
   .legend { display: flex; gap: 14px; margin-bottom: 10px; flex-wrap: wrap; }
   .leg { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #888780; }
   .leg-sq { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
-  .insight { background: #EEEDFE; border-left: 3px solid #534AB7; border-radius: 0 8px 8px 0; padding: 12px 16px; font-size: 12px; color: #3C3489; line-height: 1.6; }
+  .insight { background: #EEEDFE; border-left: 3px solid #534AB7; border-radius: 0 8px 8px 0; padding: 12px 16px; font-size: 12px; color: #3C3489; line-height: 1.6; margin-bottom: 16px; }
   .note { font-size: 10px; color: #888780; margin-top: 10px; font-style: italic; }
+
+  /* Tabla SKUs */
+  .sku-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .sku-table th { font-size: 10px; font-weight: 700; color: #888780; letter-spacing: 0.07em; text-transform: uppercase; padding: 8px 10px; border-bottom: 1px solid #D3D1C7; text-align: left; cursor: pointer; user-select: none; white-space: nowrap; }
+  .sku-table th:hover { color: #534AB7; }
+  .sku-table th.sorted { color: #534AB7; }
+  .sku-table td { padding: 9px 10px; border-bottom: 1px solid #F1EFE8; color: #2C2C2A; }
+  .sku-table tr:last-child td { border-bottom: none; }
+  .sku-table tr:hover td { background: #F4F2EB; }
+  .delta-up { color: #1D9E75; font-weight: 700; }
+  .delta-down { color: #D85A30; font-weight: 700; }
+  .delta-neu { color: #888780; }
+  .boost-badge { font-size: 9px; padding: 2px 6px; border-radius: 10px; background: #EEEDFE; color: #534AB7; font-weight: 700; margin-left: 4px; }
 </style>
 </head>
 <body>
@@ -58,12 +90,36 @@
 <div class="status" id="status">⏳ Cargando datos desde Google Sheets...</div>
 
 <div id="app" style="display:none;">
+
   <div class="filters">
     <div class="filters-title">Filtros globales — aplican a ambos períodos</div>
     <div class="filters-row">
-      <div class="filter-field"><label>Cliente</label><select id="f-client"><option value="">Todos</option></select></div>
-      <div class="filter-field"><label>Categoría</label><select id="f-category" onchange="updateSubcat()"><option value="">Todas</option></select></div>
-      <div class="filter-field"><label>Subcategoría</label><select id="f-subcat"><option value="">Todas</option></select></div>
+      <div class="filter-field">
+        <label>Cliente</label>
+        <div class="ms-wrap">
+          <button class="ms-btn" id="btn-client" onclick="toggleDropdown('dd-client')">Todos</button>
+          <div class="ms-dropdown" id="dd-client">
+            <div class="ms-option ms-select-all" onclick="toggleAll('client')">
+              <input type="checkbox" id="chk-client-all" checked> Todos
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="filter-field">
+        <label>Categoría</label>
+        <div class="ms-wrap">
+          <button class="ms-btn" id="btn-category" onclick="toggleDropdown('dd-category')">Todas</button>
+          <div class="ms-dropdown" id="dd-category">
+            <div class="ms-option ms-select-all" onclick="toggleAll('category')">
+              <input type="checkbox" id="chk-category-all" checked> Todas
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="filter-field">
+        <label>Subcategoría</label>
+        <select id="f-subcat"><option value="">Todas</option></select>
+      </div>
     </div>
   </div>
 
@@ -105,14 +161,14 @@
       <div class="kpi-delta" id="k-mg-sub"></div>
     </div>
     <div class="kpi">
-      <div class="kpi-label">Margen % SKUs boosteados</div>
-      <div class="kpi-val" id="k-mg-boost">—</div>
-      <div class="kpi-delta neu">Promedio P1 + P2</div>
+      <div class="kpi-label">Impacto $ del boost</div>
+      <div class="kpi-val" id="k-impacto">—</div>
+      <div class="kpi-delta" id="k-impacto-sub"></div>
     </div>
   </div>
 
   <div class="charts-row">
-    <div class="card">
+    <div class="card" style="margin-bottom:0;">
       <div class="card-title">Margen % total ponderado</div>
       <div class="card-sub">Contribución de cada grupo al margen total del período</div>
       <div class="legend">
@@ -121,11 +177,11 @@
       </div>
       <div style="height:240px;position:relative;"><canvas id="chart-mg"></canvas></div>
     </div>
-    <div class="card">
+    <div class="card" style="margin-bottom:0;">
       <div class="card-title">Mix de redenciones — SKUs boosteados</div>
-      <div class="card-sub">P1 muestra participación de esos mismos SKUs sin boost · P2 con boost activo</div>
+      <div class="card-sub">P1 muestra participación natural · P2 con boost activo</div>
       <div class="legend">
-        <div class="leg"><div class="leg-sq" style="background:#AFA9EC;"></div>SKUs boost en P1 (sin boost)</div>
+        <div class="leg"><div class="leg-sq" style="background:#AFA9EC;border:1px solid #534AB7;"></div>SKUs boost en P1 (sin boost)</div>
         <div class="leg"><div class="leg-sq" style="background:#534AB7;"></div>SKUs boost en P2 (con boost)</div>
         <div class="leg"><div class="leg-sq" style="background:#B4B2A9;"></div>Resto</div>
       </div>
@@ -133,8 +189,26 @@
     </div>
   </div>
 
-  <div class="insight" id="insight"></div>
-  <p class="note">* Margen total ponderado = suma(margen $) / suma(precio neto). Mix P1 muestra qué % del volumen representaban los SKUs boosteados antes del boost, para comparar su participación natural vs con boost activo.</p>
+  <div class="insight" id="insight" style="display:none;"></div>
+
+  <div class="card" id="sku-card" style="display:none;">
+    <div class="card-title">Detalle por SKU boosteado</div>
+    <div class="card-sub">Mix % = redenciones del SKU / total redenciones del período · Click en encabezado para ordenar</div>
+    <table class="sku-table" id="sku-table">
+      <thead>
+        <tr>
+          <th onclick="sortTable(0)">SKU ↕</th>
+          <th onclick="sortTable(1)">Producto ↕</th>
+          <th onclick="sortTable(2)" style="text-align:right;">Mix P1 % ↕</th>
+          <th onclick="sortTable(3)" style="text-align:right;">Mix P2 % ↕</th>
+          <th onclick="sortTable(4)" style="text-align:right;">Δ pp ↕</th>
+        </tr>
+      </thead>
+      <tbody id="sku-tbody"></tbody>
+    </table>
+    <p class="note">* Mix P1 = participación del SKU sin boost activo. Mix P2 = con boost activo. Δ = P2 − P1.</p>
+  </div>
+
 </div>
 
 <script>
@@ -142,8 +216,10 @@ const URL_REDENCIONES = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS7RDuE
 const URL_BOOST       = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS7RDuEY3wswKsF0uiXd7u_YYoOEupSVmUhZi_oHMKGREenfvdmXc1T1twiw_SizFlLK9xqg6gvFx5_/pub?gid=697415038&single=true&output=csv';
 
 const PURPLE='#534AB7', PURPLE_LT='#AFA9EC', GRAY='#B4B2A9', tick='#888780', gridC='rgba(0,0,0,0.06)';
-let allTagged=[], boostedSkus=new Set(), subcatMap={}, cMg, cMix;
+let allTagged=[], boostedSkus=new Set(), skuNames={}, subcatMap={}, cMg, cMix;
+let tableData=[], sortCol=4, sortAsc=false;
 
+// ── CSV parser ──
 function parseCSV(text){
   const lines=text.trim().split('\n');
   const headers=lines[0].split(',').map(h=>h.trim().replace(/^"|"$/g,''));
@@ -164,23 +240,81 @@ function parseCSV(text){
 function toFnum(str){
   if(!str||str.trim()==='')return null;
   str=str.trim();
-  if(str.includes('/')){
-    const p=str.split('/');
-    if(p.length===3){const n=parseInt(p[2])*10000+parseInt(p[1])*100+parseInt(p[0]);return isNaN(n)?null:n;}
-  }
-  if(str.includes('-')){
-    const p=str.split('-');
-    if(p.length===3){const n=parseInt(p[0])*10000+parseInt(p[1])*100+parseInt(p[2]);return isNaN(n)?null:n;}
-  }
+  if(str.includes('/')){const p=str.split('/');if(p.length===3){const n=parseInt(p[2])*10000+parseInt(p[1])*100+parseInt(p[0]);return isNaN(n)?null:n;}}
+  if(str.includes('-')){const p=str.split('-');if(p.length===3){const n=parseInt(p[0])*10000+parseInt(p[1])*100+parseInt(p[2]);return isNaN(n)?null:n;}}
   return null;
 }
 
 function fmtCorta(n){
   const y=Math.floor(n/10000),m=Math.floor((n%10000)/100),d=n%100;
-  const ms=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
-  return `${String(d).padStart(2,'0')} ${ms[m-1]} ${y}`;
+  return `${String(d).padStart(2,'0')} ${['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'][m-1]} ${y}`;
 }
 
+function peso(n){
+  const abs=Math.abs(n);
+  const fmt = abs>=1000000 ? (abs/1000000).toFixed(1)+'M' : abs>=1000 ? (abs/1000).toFixed(1)+'K' : abs.toFixed(0);
+  return (n<0?'-':'')+'$'+fmt;
+}
+
+// ── Multiselect ──
+function isValidClient(val){ return val && !/\d/.test(val) && !val.includes(','); }
+
+function buildMultiselect(type, values){
+  const dd=document.getElementById('dd-'+type);
+  values.forEach(v=>{
+    const div=document.createElement('div');
+    div.className='ms-option';
+    div.innerHTML=`<input type="checkbox" id="chk-${type}-${v}" value="${v}" checked onchange="updateMsBtn('${type}')"> ${v}`;
+    dd.appendChild(div);
+  });
+}
+
+function toggleDropdown(id){
+  document.querySelectorAll('.ms-dropdown').forEach(d=>{ if(d.id!==id) d.classList.remove('open'); });
+  document.getElementById(id).classList.toggle('open');
+}
+
+document.addEventListener('click', e=>{
+  if(!e.target.closest('.ms-wrap')) document.querySelectorAll('.ms-dropdown').forEach(d=>d.classList.remove('open'));
+});
+
+function toggleAll(type){
+  const allChk=document.getElementById('chk-'+type+'-all');
+  const checked=allChk.checked;
+  document.querySelectorAll(`#dd-${type} input[type=checkbox]:not(#chk-${type}-all)`).forEach(c=>c.checked=checked);
+  updateMsBtn(type);
+}
+
+function updateMsBtn(type){
+  const all=document.querySelectorAll(`#dd-${type} input[type=checkbox]:not(#chk-${type}-all)`);
+  const checked=[...all].filter(c=>c.checked);
+  const allChk=document.getElementById('chk-'+type+'-all');
+  allChk.checked=checked.length===all.length;
+  const btn=document.getElementById('btn-'+type);
+  if(checked.length===0||checked.length===all.length) btn.textContent=type==='client'?'Todos':'Todas';
+  else if(checked.length===1) btn.textContent=checked[0].value;
+  else btn.textContent=`${checked.length} seleccionados`;
+  // Si hay categoría seleccionada update subcat
+  if(type==='category') updateSubcatFromMs();
+}
+
+function getSelected(type){
+  const all=[...document.querySelectorAll(`#dd-${type} input[type=checkbox]:not(#chk-${type}-all)`)];
+  const checked=all.filter(c=>c.checked).map(c=>c.value);
+  return checked.length===all.length ? [] : checked; // [] = todos
+}
+
+function updateSubcatFromMs(){
+  const cats=getSelected('category');
+  const sel=document.getElementById('f-subcat');
+  sel.innerHTML='<option value="">Todas</option>';
+  const subcats=new Set();
+  if(cats.length===0){ Object.values(subcatMap).forEach(s=>s.forEach(v=>subcats.add(v))); }
+  else { cats.forEach(c=>{ if(subcatMap[c]) subcatMap[c].forEach(v=>subcats.add(v)); }); }
+  [...subcats].sort().forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;sel.appendChild(o);});
+}
+
+// ── Load data ──
 async function loadData(){
   try{
     const[r1,r2]=await Promise.all([
@@ -190,73 +324,67 @@ async function loadData(){
     const redenciones=parseCSV(r1);
     const boosts=parseCSV(r2);
 
-    // Índice de boosts y set de SKUs boosteados
     const boostIdx={};
     boostedSkus=new Set();
+    skuNames={};
     boosts.forEach(b=>{
       const sku=b.part_number?.trim();
       if(!sku)return;
       boostedSkus.add(sku);
       if(!boostIdx[sku])boostIdx[sku]=[];
-      boostIdx[sku].push({
-        ini:toFnum(b.fecha_inicio), fin:toFnum(b.fecha_fin),
-        alcance:b.alcance, cliente:(b.cliente||'').trim(),
-      });
+      boostIdx[sku].push({ini:toFnum(b.fecha_inicio),fin:toFnum(b.fecha_fin),alcance:b.alcance,cliente:(b.cliente||'').trim()});
     });
 
-    // Filtros
+    // Nombre más frecuente por SKU
+    const skuNameCount={};
+    redenciones.forEach(r=>{
+      const sku=(r.part_number||'').trim();
+      const name=(r.product_name||'').trim();
+      if(!sku||!name)return;
+      if(!skuNameCount[sku])skuNameCount[sku]={};
+      skuNameCount[sku][name]=(skuNameCount[sku][name]||0)+1;
+    });
+    Object.keys(skuNameCount).forEach(sku=>{
+      skuNames[sku]=Object.entries(skuNameCount[sku]).sort((a,b)=>b[1]-a[1])[0][0];
+    });
+
+    // Filtros — validar cliente (sin números ni comas)
     const clients=new Set(), cats=new Set();
     subcatMap={};
     redenciones.forEach(r=>{
-      if(r.client)clients.add(r.client.trim());
-      const cat=(r.category||'').trim();
-      const sub=(r.subcategory||'').trim();
-      if(cat){
-        cats.add(cat);
-        if(sub){if(!subcatMap[cat])subcatMap[cat]=new Set();subcatMap[cat].add(sub);}
-      }
+      const client=(r.client||'').trim();
+      if(isValidClient(client)) clients.add(client);
+      const cat=(r.category||'').trim(), sub=(r.subcategory||'').trim();
+      if(cat){ cats.add(cat); if(sub){if(!subcatMap[cat])subcatMap[cat]=new Set();subcatMap[cat].add(sub);} }
     });
-    const fClient=document.getElementById('f-client');
-    [...clients].sort().forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;fClient.appendChild(o);});
-    const fCat=document.getElementById('f-category');
-    [...cats].sort().forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;fCat.appendChild(o);});
+    buildMultiselect('client',[...clients].sort());
+    buildMultiselect('category',[...cats].sort());
+    updateSubcatFromMs();
 
-    // Taggear — estado_boost es si estuvo ACTIVAMENTE boosteado en su fecha
-    // es_sku_boost es si el SKU pertenece al catálogo de boosts (independiente de fecha)
+    // Taggear
     let ignoradas=0;
     allTagged=redenciones.map(row=>{
+      const client=(row.client||'').trim();
+      if(!isValidClient(client)){ignoradas++;return null;}
       const fnum=toFnum(row.redemption_date);
       if(!fnum){ignoradas++;return null;}
       const sku=(row.part_number||'').trim();
-      const client=(row.client||'').trim();
       const venta=parseFloat(row.precio_venta)||0;
       const flete=parseFloat(row.precio_flete)||0;
       const costo=parseFloat(row.costo_final)||0;
       const neto=venta-flete;
       const mgP=venta-flete-costo;
-      const mgPct=neto!==0?(mgP/neto*100):0;
 
-      // ¿Está activamente boosteado en esta fecha?
       let esBoosteado=false;
       if(boostIdx[sku]){
         for(const b of boostIdx[sku]){
-          if(b.ini&&b.fin&&fnum>=b.ini&&fnum<=b.fin&&(b.alcance==='GLOBAL'||b.cliente===client)){
-            esBoosteado=true; break;
-          }
+          if(b.ini&&b.fin&&fnum>=b.ini&&fnum<=b.fin&&(b.alcance==='GLOBAL'||b.cliente===client)){esBoosteado=true;break;}
         }
       }
-
-      return{
-        fnum, mgP, mgPct, neto,
-        esBoosteado,                        // activamente boosteado en su fecha
-        esSkuBoost: boostedSkus.has(sku),   // pertenece al catálogo de boosts
-        client, category:(row.category||'').trim(),
-        subcategory:(row.subcategory||'').trim()
-      };
+      return{fnum,mgP,neto,esBoosteado,esSkuBoost:boostedSkus.has(sku),sku,client,category:(row.category||'').trim(),subcategory:(row.subcategory||'').trim()};
     }).filter(r=>r!==null);
 
-    const msg=`✓ Datos cargados: ${allTagged.length} redenciones · ${boosts.length} SKUs en boost catalog${ignoradas>0?' · '+ignoradas+' ignoradas':''}`;
-    document.getElementById('status').textContent=msg;
+    document.getElementById('status').textContent=`✓ Datos cargados: ${allTagged.length} redenciones · ${boosts.length} SKUs en boost catalog`;
     document.getElementById('status').className='status ok';
     document.getElementById('app').style.display='block';
 
@@ -266,66 +394,69 @@ async function loadData(){
   }
 }
 
-function updateSubcat(){
-  const cat=document.getElementById('f-category').value;
-  const sel=document.getElementById('f-subcat');
-  sel.innerHTML='<option value="">Todas</option>';
-  if(cat&&subcatMap[cat]){
-    [...subcatMap[cat]].sort().forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;sel.appendChild(o);});
-  }
-}
-
 function getFilters(){
   return{
-    client:document.getElementById('f-client').value,
-    category:document.getElementById('f-category').value,
+    clients:getSelected('client'),
+    cats:getSelected('category'),
     subcat:document.getElementById('f-subcat').value,
   };
 }
 
-function statsForRange(ini, fin, filters){
+function statsForRange(ini,fin,filters){
   const subset=allTagged.filter(r=>{
     if(r.fnum<ini||r.fnum>fin)return false;
-    if(filters.client&&r.client!==filters.client)return false;
-    if(filters.category&&r.category!==filters.category)return false;
+    if(filters.clients.length&&!filters.clients.includes(r.client))return false;
+    if(filters.cats.length&&!filters.cats.includes(r.category))return false;
     if(filters.subcat&&r.subcategory!==filters.subcat)return false;
     return true;
   });
   if(!subset.length)return null;
-
-  // Grupos para margen
-  const actBoost = subset.filter(r=>r.esBoosteado);    // activamente boosteados
-  const resto    = subset.filter(r=>!r.esBoosteado);
-  const tot      = subset.length;
-
-  // Margen ponderado por pesos reales
-  const mg = arr => {
-    const sP=arr.reduce((s,r)=>s+r.mgP,0);
-    const sN=arr.reduce((s,r)=>s+r.neto,0);
-    return sN!==0?(sP/sN*100):0;
-  };
-  const mgTot = mg(subset);
-  const mgB   = mg(actBoost);
-  const mgN   = mg(resto);
-
-  const wB=actBoost.length/tot, wN=resto.length/tot;
-
-  // Mix de SKUs boost (incluyendo los que no estaban activos en este período)
-  const skuBoostEnRango = subset.filter(r=>r.esSkuBoost);
-  const mixSkuBoost     = skuBoostEnRango.length/tot*100;
-  const mixResto        = (tot - skuBoostEnRango.length)/tot*100;
-
+  const actBoost=subset.filter(r=>r.esBoosteado);
+  const resto=subset.filter(r=>!r.esBoosteado);
+  const tot=subset.length;
+  const mg=arr=>{const sP=arr.reduce((s,r)=>s+r.mgP,0),sN=arr.reduce((s,r)=>s+r.neto,0);return sN!==0?(sP/sN*100):0;};
+  const mgTot=mg(subset),mgB=mg(actBoost),mgN=mg(resto);
+  const wB=actBoost.length/tot,wN=resto.length/tot;
+  const skuBoostEnRango=subset.filter(r=>r.esSkuBoost);
+  const sumNeto=subset.reduce((s,r)=>s+r.neto,0);
+  // Stats por SKU
+  const skuStats={};
+  subset.forEach(r=>{
+    if(!r.esSkuBoost&&!r.esBoosteado)return;
+    if(!skuStats[r.sku])skuStats[r.sku]={count:0};
+    skuStats[r.sku].count++;
+  });
   return{
-    vActBoost:actBoost.length, vResto:resto.length, tot,
-    vSkuBoost: skuBoostEnRango.length,
-    mgB, mgN, mgTot,
-    mixB: wB*100, mixN: wN*100,
-    contribB: wB*mgB, contribN: wN*mgN,
-    mixSkuBoost, mixResto,
+    vActBoost:actBoost.length,vResto:resto.length,tot,
+    vSkuBoost:skuBoostEnRango.length,
+    mgB,mgN,mgTot,sumNeto,
+    mixB:wB*100,mixN:wN*100,
+    contribB:wB*mgB,contribN:wN*mgN,
+    mixSkuBoost:skuBoostEnRango.length/tot*100,
+    mixResto:(tot-skuBoostEnRango.length)/tot*100,
+    skuStats,
   };
 }
 
-function validar(iniId, finId, warnId){
+function skuMixInRange(ini,fin,filters){
+  const subset=allTagged.filter(r=>{
+    if(r.fnum<ini||r.fnum>fin)return false;
+    if(filters.clients.length&&!filters.clients.includes(r.client))return false;
+    if(filters.cats.length&&!filters.cats.includes(r.category))return false;
+    if(filters.subcat&&r.subcategory!==filters.subcat)return false;
+    return true;
+  });
+  const tot=subset.length;
+  const bySkuBoost={};
+  subset.forEach(r=>{
+    if(!boostedSkus.has(r.sku))return;
+    if(!bySkuBoost[r.sku])bySkuBoost[r.sku]=0;
+    bySkuBoost[r.sku]++;
+  });
+  return{tot,bySkuBoost};
+}
+
+function validar(iniId,finId,warnId){
   const ini=toFnum(document.getElementById(iniId).value);
   const fin=toFnum(document.getElementById(finId).value);
   const w=document.getElementById(warnId);
@@ -340,29 +471,62 @@ function validar(iniId, finId, warnId){
 function fmt(n,u){return(n>=0?'+':'')+n.toFixed(1)+u;}
 function cls(n){return n>0.05?'up':n<-0.05?'down':'neu';}
 
-// Plugin para mostrar etiqueta encima de barra apilada
-const topLabelPlugin = {
-  id: 'topLabel',
+const topLabelPlugin={
+  id:'topLabel',
   afterDatasetsDraw(chart){
-    const{ctx, data, scales:{x,y}}=chart;
-    const nDatasets=data.datasets.length;
-    const nLabels=data.labels.length;
+    const{ctx,data,scales:{x,y}}=chart;
+    const nD=data.datasets.length,nL=data.labels.length;
     ctx.save();
-    for(let i=0;i<nLabels;i++){
+    for(let i=0;i<nL;i++){
       let total=0;
-      for(let d=0;d<nDatasets;d++){
-        total+=data.datasets[d].data[i]||0;
-      }
-      const xPos=x.getPixelForValue(i);
-      const yPos=y.getPixelForValue(total);
-      ctx.fillStyle='#2C2C2A';
-      ctx.font='bold 11px Arial';
-      ctx.textAlign='center';
-      ctx.fillText(total.toFixed(1)+'%', xPos, yPos-6);
+      for(let d=0;d<nD;d++) total+=data.datasets[d].data[i]||0;
+      const xPos=x.getPixelForValue(i),yPos=y.getPixelForValue(total);
+      ctx.fillStyle='#2C2C2A';ctx.font='bold 11px Arial';ctx.textAlign='center';
+      ctx.fillText(total.toFixed(1)+'%',xPos,yPos-6);
     }
     ctx.restore();
   }
 };
+
+function buildSkuTable(p1mix,p2mix){
+  tableData=[];
+  boostedSkus.forEach(sku=>{
+    const c1=p1mix.bySkuBoost[sku]||0;
+    const c2=p2mix.bySkuBoost[sku]||0;
+    const m1=p1mix.tot>0?(c1/p1mix.tot*100):0;
+    const m2=p2mix.tot>0?(c2/p2mix.tot*100):0;
+    tableData.push({sku,name:skuNames[sku]||sku,m1,m2,delta:m2-m1,c1,c2});
+  });
+  renderTable();
+}
+
+function sortTable(col){
+  if(sortCol===col) sortAsc=!sortAsc;
+  else{sortCol=col;sortAsc=col<2;}
+  renderTable();
+}
+
+function renderTable(){
+  tableData.sort((a,b)=>{
+    const vals=[a.sku,a.name,a.m1,a.m2,a.delta];
+    const bvals=[b.sku,b.name,b.m1,b.m2,b.delta];
+    const va=vals[sortCol],vb=bvals[sortCol];
+    if(typeof va==='string') return sortAsc?va.localeCompare(vb):vb.localeCompare(va);
+    return sortAsc?va-vb:vb-va;
+  });
+  const tbody=document.getElementById('sku-tbody');
+  tbody.innerHTML=tableData.map(r=>{
+    const dc=r.delta>0.05?'delta-up':r.delta<-0.05?'delta-down':'delta-neu';
+    const ds=r.delta>=0?'+':'';
+    return `<tr>
+      <td style="font-family:monospace;font-size:11px;">${r.sku}</td>
+      <td>${r.name}</td>
+      <td style="text-align:right;">${r.m1.toFixed(2)}%<br><span style="font-size:10px;color:#888780;">${r.c1} red.</span></td>
+      <td style="text-align:right;">${r.m2.toFixed(2)}%<br><span style="font-size:10px;color:#888780;">${r.c2} red.</span></td>
+      <td style="text-align:right;" class="${dc}">${ds}${r.delta.toFixed(2)} pp</td>
+    </tr>`;
+  }).join('');
+}
 
 function applyRanges(){
   const r1=validar('p1-ini','p1-fin','p1-warn');
@@ -376,40 +540,45 @@ function applyRanges(){
   if(!s1){document.getElementById('p1-warn').textContent='Sin redenciones en ese rango.';return;}
   if(!s2){document.getElementById('p2-warn').textContent='Sin redenciones en ese rango.';return;}
 
-  document.getElementById('p1-info').textContent=`${s1.tot} redenciones · ${s1.vActBoost} activ. boost (${s1.mixB.toFixed(1)}%) · ${s1.vSkuBoost} SKUs boost en rango (${s1.mixSkuBoost.toFixed(1)}%)`;
+  document.getElementById('p1-info').textContent=`${s1.tot} redenciones · ${s1.vSkuBoost} SKUs boost (${s1.mixSkuBoost.toFixed(1)}% natural)`;
   document.getElementById('p2-info').textContent=`${s2.tot} redenciones · ${s2.vActBoost} activ. boost (${s2.mixB.toFixed(1)}%)`;
 
-  // KPI mix usa SKUs boost en P1 vs activamente boosteados en P2
-  const dMix=s2.mixB - s1.mixSkuBoost;
-  const dMg =s2.mgTot - s1.mgTot;
-  const mgBoostAvg=(s1.mgB+s2.mgB)/2;
+  const dMix=s2.mixB-s1.mixSkuBoost;
+  const dMg=s2.mgTot-s1.mgTot;
+
+  // Impacto $ = Δ margen% × suma precio neto P2
+  const impacto=(dMg/100)*s2.sumNeto;
 
   const km=document.getElementById('k-mix');km.textContent=fmt(dMix,' pp');km.className='kpi-val '+cls(dMix);
-  const kms=document.getElementById('k-mix-sub');kms.textContent=`P1 ${s1.mixSkuBoost.toFixed(1)}% natural → P2 ${s2.mixB.toFixed(1)}% con boost`;kms.className='kpi-delta '+cls(dMix);
+  document.getElementById('k-mix-sub').textContent=`P1 ${s1.mixSkuBoost.toFixed(1)}% natural → P2 ${s2.mixB.toFixed(1)}% con boost`;
+  document.getElementById('k-mix-sub').className='kpi-delta '+cls(dMix);
+
   const km2=document.getElementById('k-mg');km2.textContent=fmt(dMg,' pp');km2.className='kpi-val '+cls(dMg);
-  const km2s=document.getElementById('k-mg-sub');km2s.textContent=`P1 ${s1.mgTot.toFixed(1)}% → P2 ${s2.mgTot.toFixed(1)}%`;km2s.className='kpi-delta '+cls(dMg);
-  document.getElementById('k-mg-boost').textContent=s2.mgB.toFixed(1)+'%';
+  document.getElementById('k-mg-sub').textContent=`P1 ${s1.mgTot.toFixed(1)}% → P2 ${s2.mgTot.toFixed(1)}%`;
+  document.getElementById('k-mg-sub').className='kpi-delta '+cls(dMg);
+
+  const ki=document.getElementById('k-impacto');ki.textContent=peso(impacto);ki.className='kpi-val '+cls(impacto);
+  document.getElementById('k-impacto-sub').textContent=`Δ ${fmt(dMg,' pp')} × precio neto P2`;
+  document.getElementById('k-impacto-sub').className='kpi-delta '+cls(impacto);
 
   let msg='';
-  if(dMix>1&&dMg>0.05) msg=`Los SKUs boosteados subieron su participación ${dMix.toFixed(1)} pp (de ${s1.mixSkuBoost.toFixed(1)}% natural a ${s2.mixB.toFixed(1)}% con boost), jalando el margen total ${fmt(dMg,' pp')}. El boost está funcionando.`;
-  else if(dMix>0.5&&dMg<=0.05) msg=`Los SKUs boosteados ganaron ${dMix.toFixed(1)} pp de participación pero el impacto en margen total es mínimo (${fmt(dMg,' pp')}). El volumen todavía es pequeño.`;
+  if(dMix>1&&dMg>0.05) msg=`Los SKUs boosteados subieron su participación ${dMix.toFixed(1)} pp (de ${s1.mixSkuBoost.toFixed(1)}% natural a ${s2.mixB.toFixed(1)}% con boost), jalando el margen total ${fmt(dMg,' pp')} y generando un impacto estimado de ${peso(impacto)}.`;
+  else if(dMix>0.5&&dMg<=0.05) msg=`Los SKUs boosteados ganaron ${dMix.toFixed(1)} pp de participación pero el impacto en margen total es mínimo. El volumen todavía es pequeño para mover el promedio.`;
   else if(dMix<=0) msg=`Los SKUs boosteados no ganaron participación vs su nivel natural en P1 (${fmt(dMix,' pp')}). El boost no está moviendo el mix.`;
-  else msg=`Cambio marginal en mix (${fmt(dMix,' pp')}) con impacto de ${fmt(dMg,' pp')} en margen total.`;
+  else msg=`Cambio de ${fmt(dMix,' pp')} en mix de SKUs boosteados con impacto de ${fmt(dMg,' pp')} en margen total (${peso(impacto)}).`;
   document.getElementById('insight').textContent=msg;
+  document.getElementById('insight').style.display='block';
 
   const labels=[`P1: ${fmtCorta(r1.ini)} – ${fmtCorta(r1.fin)}`,`P2: ${fmtCorta(r2.ini)} – ${fmtCorta(r2.fin)}`];
 
-  // ── Gráfica margen ponderado con etiqueta encima ──
   if(cMg)cMg.destroy();
   cMg=new Chart(document.getElementById('chart-mg'),{
-    type:'bar',
-    plugins:[topLabelPlugin],
+    type:'bar', plugins:[topLabelPlugin],
     data:{labels,datasets:[
-      {label:'SKUs boosteados', data:[s1.contribB, s2.contribB], backgroundColor:PURPLE, stack:'s', borderRadius:0},
-      {label:'Resto',           data:[s1.contribN, s2.contribN], backgroundColor:GRAY,   stack:'s', borderRadius:4},
+      {label:'SKUs boosteados',data:[s1.contribB,s2.contribB],backgroundColor:PURPLE,stack:'s',borderRadius:0},
+      {label:'Resto',          data:[s1.contribN,s2.contribN],backgroundColor:GRAY,  stack:'s',borderRadius:4},
     ]},
-    options:{responsive:true,maintainAspectRatio:false,
-      layout:{padding:{top:24}},
+    options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:24}},
       plugins:{legend:{display:false},tooltip:{callbacks:{
         label:ctx=>` ${ctx.dataset.label}: ${ctx.raw.toFixed(2)} pp`,
         footer:items=>` Total: ${items.reduce((a,i)=>a+i.raw,0).toFixed(2)}%`
@@ -421,26 +590,13 @@ function applyRanges(){
     }
   });
 
-  // ── Gráfica mix: P1 usa mixSkuBoost (participación natural), P2 usa mixB (con boost activo) ──
   if(cMix)cMix.destroy();
   cMix=new Chart(document.getElementById('chart-mix'),{
     type:'bar',
     data:{labels,datasets:[
-      {
-        label:'SKUs boost (sin boost)',
-        data:[s1.mixSkuBoost, 0],
-        backgroundColor:PURPLE_LT, stack:'s', borderRadius:0
-      },
-      {
-        label:'SKUs boost (con boost)',
-        data:[0, s2.mixB],
-        backgroundColor:PURPLE, stack:'s', borderRadius:0
-      },
-      {
-        label:'Resto',
-        data:[s1.mixResto, s2.mixN],
-        backgroundColor:GRAY, stack:'s', borderRadius:4
-      },
+      {label:'SKUs boost P1 (sin boost)',data:[s1.mixSkuBoost,0],           backgroundColor:PURPLE_LT,stack:'s',borderRadius:0},
+      {label:'SKUs boost P2 (con boost)',data:[0,s2.mixB],                  backgroundColor:PURPLE,   stack:'s',borderRadius:0},
+      {label:'Resto',                    data:[s1.mixResto,s2.mixN],         backgroundColor:GRAY,     stack:'s',borderRadius:4},
     ]},
     options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.raw.toFixed(1)}%`}}},
@@ -450,6 +606,12 @@ function applyRanges(){
       }
     }
   });
+
+  // Tabla SKU
+  const p1mix=skuMixInRange(r1.ini,r1.fin,filters);
+  const p2mix=skuMixInRange(r2.ini,r2.fin,filters);
+  buildSkuTable(p1mix,p2mix);
+  document.getElementById('sku-card').style.display='block';
 }
 
 loadData();
