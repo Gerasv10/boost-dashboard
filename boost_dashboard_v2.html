@@ -703,10 +703,12 @@ function buildTendencia(mode){
     if(mode==='mensual'){
       key=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
     } else {
-      // Semana ISO — lunes como inicio
+      // Semana con inicio el lunes
       const tmp=new Date(d);
       tmp.setHours(0,0,0,0);
-      tmp.setDate(tmp.getDate()-tmp.getDay()+1); // lunes
+      const dow=tmp.getDay(); // 0=dom,1=lun,...,6=sab
+      const diff=dow===0?-6:1-dow; // retroceder al lunes
+      tmp.setDate(tmp.getDate()+diff);
       key=tmp.toISOString().slice(0,10);
     }
     if(!groups[key])groups[key]={rev:0,mgP:0,neto:0};
@@ -754,7 +756,7 @@ function buildTendencia(mode){
     options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.raw.toFixed(1)}%`}}},
       scales:{x:{grid:{display:false},ticks:{color:tick,font:{size:10}}},
-              y:{grid:{color:gridC},ticks:{color:tick,font:{size:10},callback:v=>v.toFixed(0)+'%'}}}
+              y:{min:0,max:80,grid:{color:gridC},ticks:{color:tick,font:{size:10},callback:v=>v+'%'}}}
     }
   });
 }
