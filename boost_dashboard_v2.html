@@ -529,14 +529,17 @@ function applyFilters(rows,filters){
   });
 }
 
-function statsForRange(ini,fin,filters){
+function statsForRange(ini,fin,filters,activeSkus){
   const subset=applyFilters(allTagged.filter(r=>r.fnum>=ini&&r.fnum<=fin),filters);
   if(!subset.length)return null;
   const actBoost=subset.filter(r=>r.esBoosteado),resto=subset.filter(r=>!r.esBoosteado),tot=subset.length;
   const mg=arr=>{const sP=arr.reduce((s,r)=>s+r.mgP,0),sN=arr.reduce((s,r)=>s+r.neto,0);return sN!==0?(sP/sN*100):0;};
   const mgTot=mg(subset),mgB=mg(actBoost),mgN=mg(resto);
   const wB=actBoost.length/tot,wN=resto.length/tot;
-  const skuBoostEnRango=subset.filter(r=>r.esSkuBoost);
+  // Si hay activeSkus, usar esos para el mix; si no, usar esSkuBoost del catálogo completo
+  const skuBoostEnRango=activeSkus
+    ? subset.filter(r=>activeSkus.has(r.sku))
+    : subset.filter(r=>r.esSkuBoost);
   const sumNeto=subset.reduce((s,r)=>s+r.neto,0);
   return{vActBoost:actBoost.length,vResto:resto.length,tot,vSkuBoost:skuBoostEnRango.length,
     mgB,mgN,mgTot,sumNeto,mixB:wB*100,mixN:wN*100,contribB:wB*mgB,contribN:wN*mgN,
@@ -661,13 +664,11 @@ function applyRanges(){
   if(!r1||!r2)return;
 
   const filters=getFilters();
-  const s1=statsForRange(r1.ini,r1.fin,filters);
-  const s2=statsForRange(r2.ini,r2.fin,filters);
+  const activeSkus=getActiveBoostSkus(r2.ini,r2.fin);
+  const s1=statsForRange(r1.ini,r1.fin,filters,activeSkus);
+  const s2=statsForRange(r2.ini,r2.fin,filters,activeSkus);
   if(!s1){document.getElementById('p1-warn').textContent='Sin redenciones en ese rango.';return;}
   if(!s2){document.getElementById('p2-warn').textContent='Sin redenciones en ese rango.';return;}
-
-  // SKUs activos en P2 (período del boost)
-  const activeSkus=getActiveBoostSkus(r2.ini,r2.fin);
 
   document.getElementById('p1-info').textContent=`${s1.tot} redenciones · ${s1.vSkuBoost} SKUs boost (${s1.mixSkuBoost.toFixed(1)}% natural)`;
   document.getElementById('p2-info').textContent=`${s2.tot} redenciones · ${s2.vActBoost} activ. boost (${s2.mixB.toFixed(1)}%)`;
