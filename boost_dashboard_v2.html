@@ -713,8 +713,33 @@ function applyRanges(){
   });
 
   if(cMix)cMix.destroy();
+  const segLabelPlugin={
+    id:'segLabel',
+    afterDatasetsDraw(chart){
+      const{ctx,data,scales:{x,y}}=chart;
+      ctx.save();
+      chart.data.datasets.forEach((dataset,di)=>{
+        const meta=chart.getDatasetMeta(di);
+        meta.data.forEach((bar,i)=>{
+          const val=dataset.data[i];
+          if(!val||val<3)return; // no pintar si el segmento es muy pequeño
+          const cx=bar.x;
+          const cy=(bar.y+bar.base)/2; // centro vertical del segmento
+          // Color del texto según fondo
+          ctx.fillStyle=dataset.backgroundColor===PURPLE?'#FFFFFF':'#2C2C2A';
+          ctx.font='bold 11px Arial';
+          ctx.textAlign='center';
+          ctx.textBaseline='middle';
+          ctx.fillText(val.toFixed(1)+'%',cx,cy);
+        });
+      });
+      ctx.restore();
+    }
+  };
+
   cMix=new Chart(document.getElementById('chart-mix'),{
     type:'bar',
+    plugins:[segLabelPlugin],
     data:{labels,datasets:[
       {label:'SKUs boost P1 (sin boost)',data:[s1.mixSkuBoost,0],  backgroundColor:PURPLE_LT,stack:'s',borderRadius:0},
       {label:'SKUs boost P2 (con boost)',data:[0,s2.mixB],          backgroundColor:PURPLE,   stack:'s',borderRadius:0},
