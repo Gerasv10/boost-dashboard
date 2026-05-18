@@ -200,11 +200,7 @@
     <div class="charts-row">
       <div class="card" style="margin-bottom:0;">
         <div class="card-title">Margen % total ponderado</div>
-        <div class="card-sub">Contribución de cada grupo al margen total del período</div>
-        <div class="legend">
-          <div class="leg"><div class="leg-sq" style="background:#534AB7;"></div>SKUs boosteados</div>
-          <div class="leg"><div class="leg-sq" style="background:#B4B2A9;"></div>Resto</div>
-        </div>
+        <div class="card-sub">Margen total del período — P1 vs P2</div>
         <div style="height:240px;position:relative;"><canvas id="chart-mg"></canvas></div>
       </div>
       <div class="card" style="margin-bottom:0;">
@@ -757,18 +753,18 @@ function applyRanges(){
 
   if(cMg)cMg.destroy();
   cMg=new Chart(document.getElementById('chart-mg'),{
-    type:'bar',plugins:[topLabelPlugin],
+    type:'bar',
+    plugins:[topLabelPlugin],
     data:{labels,datasets:[
-      {label:'SKUs boosteados',data:[s1.contribB,s2.contribB],backgroundColor:PURPLE,stack:'s',borderRadius:0},
-      {label:'Resto',          data:[s1.contribN,s2.contribN],backgroundColor:GRAY,  stack:'s',borderRadius:4},
+      {label:'Margen % total',data:[parseFloat(s1.mgTot.toFixed(2)),parseFloat(s2.mgTot.toFixed(2))],
+       backgroundColor:[PURPLE_LT,PURPLE],borderRadius:6},
     ]},
     options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:24}},
-      plugins:{legend:{display:false},tooltip:{callbacks:{
-        label:ctx=>` ${ctx.dataset.label}: ${ctx.raw.toFixed(2)} pp`,
-        footer:items=>` Total: ${items.reduce((a,i)=>a+i.raw,0).toFixed(2)}%`
-      }}},
-      scales:{x:{stacked:true,grid:{display:false},ticks:{color:tick,font:{size:10}}},
-              y:{stacked:true,grid:{color:gridC},ticks:{color:tick,font:{size:10},callback:v=>v+'%'}}}
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` Margen: ${ctx.raw.toFixed(1)}%`}}},
+      scales:{
+        x:{grid:{display:false},ticks:{color:tick,font:{size:10}}},
+        y:{min:0,grid:{color:gridC},ticks:{color:tick,font:{size:10},callback:v=>v+'%'}}
+      }
     }
   });
 
