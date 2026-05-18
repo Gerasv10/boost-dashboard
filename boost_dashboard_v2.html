@@ -221,25 +221,6 @@
 
     <div class="insight" id="insight" style="display:none;"></div>
 
-    <div class="card" id="sku-card" style="display:none;">
-      <div class="card-title">Detalle por SKU boosteado</div>
-      <div class="card-sub">Solo SKUs activos en el período seleccionado · Click en encabezado para ordenar</div>
-      <table class="sku-table">
-        <thead>
-          <tr>
-            <th onclick="sortTable(0)">SKU ↕</th>
-            <th onclick="sortTable(1)">Producto ↕</th>
-            <th onclick="sortTable(2)" style="text-align:right;">Mix P1 % ↕</th>
-            <th onclick="sortTable(3)" style="text-align:right;">Mix P2 % ↕</th>
-            <th onclick="sortTable(4)" style="text-align:right;">Δ pp ↕</th>
-          </tr>
-        </thead>
-        <tbody id="sku-tbody"></tbody>
-      </table>
-      <div class="pagination" id="pagination"></div>
-      <p class="note">* Todos los SKUs con boost activo en el período, incluidos los con 0 redenciones. Mix % = redenciones del SKU / total del período. Δ = P2 − P1.</p>
-    </div>
-
     <div class="card" id="contrib-card" style="display:none;">
       <div class="card-title">Contribución del boost al negocio</div>
       <div class="card-sub">Margen $ generado por SKUs boosteados / Revenue total del período · Métrica que aísla el efecto del boost del comportamiento del resto</div>
@@ -299,6 +280,25 @@
       </div>
       <div style="height:220px;position:relative;"><canvas id="chart-contrib"></canvas></div>
       <p class="note">* Contribución = (Σ margen $ SKUs boosteados) / (Σ revenue total período) × 100. Si sube de P1 a P2, el boost está generando más margen por cada peso de revenue, independientemente del comportamiento del resto.</p>
+    </div>
+
+    <div class="card" id="sku-card" style="display:none;">
+      <div class="card-title">Detalle por SKU boosteado</div>
+      <div class="card-sub">Solo SKUs activos en el período seleccionado · Click en encabezado para ordenar</div>
+      <table class="sku-table">
+        <thead>
+          <tr>
+            <th onclick="sortTable(0)">SKU ↕</th>
+            <th onclick="sortTable(1)">Producto ↕</th>
+            <th onclick="sortTable(2)" style="text-align:right;">Mix P1 % ↕</th>
+            <th onclick="sortTable(3)" style="text-align:right;">Mix P2 % ↕</th>
+            <th onclick="sortTable(4)" style="text-align:right;">Δ pp ↕</th>
+          </tr>
+        </thead>
+        <tbody id="sku-tbody"></tbody>
+      </table>
+      <div class="pagination" id="pagination"></div>
+      <p class="note">* Todos los SKUs con boost activo en el período, incluidos los con 0 redenciones. Mix % = redenciones del SKU / total del período. Δ = P2 − P1.</p>
     </div>
   </div>
 
