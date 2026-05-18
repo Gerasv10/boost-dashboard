@@ -277,6 +277,23 @@
           <div class="kpi-delta" id="k-vol-delta-sub"></div>
         </div>
       </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;">
+        <div class="kpi" style="border-top:3px solid #534AB7;">
+          <div class="kpi-label">Redenciones SKUs boost P1</div>
+          <div class="kpi-val" id="k-volb-p1" style="font-size:18px;">—</div>
+          <div class="kpi-delta neu" id="k-volb-p1-sub"></div>
+        </div>
+        <div class="kpi" style="border-top:3px solid #534AB7;">
+          <div class="kpi-label">Redenciones SKUs boost P2</div>
+          <div class="kpi-val" id="k-volb-p2" style="font-size:18px;">—</div>
+          <div class="kpi-delta neu" id="k-volb-p2-sub"></div>
+        </div>
+        <div class="kpi" style="border-top:3px solid #534AB7;">
+          <div class="kpi-label">Δ Volumen SKUs boost</div>
+          <div class="kpi-val" id="k-volb-delta" style="font-size:18px;">—</div>
+          <div class="kpi-delta" id="k-volb-delta-sub"></div>
+        </div>
+      </div>
       <div class="legend">
         <div class="leg"><div class="leg-sq" style="background:#534AB7;"></div>Margen $ boost / Revenue total</div>
       </div>
@@ -838,6 +855,22 @@ function applyRanges(){
   const kvds=document.getElementById('k-vol-delta-sub');
   kvds.textContent=`${dVol>=0?'+':''}${dVol.toLocaleString('es-MX')} redenciones`;
   kvds.className='kpi-delta '+cls(dVol);
+
+  // Volumen SKUs boosteados
+  const volBoostP1=boostRowsP1.length;
+  const volBoostP2=boostRowsP2.length;
+  const dVolBoost=volBoostP2-volBoostP1;
+  const dVolBoostPct=volBoostP1>0?(dVolBoost/volBoostP1*100):0;
+  document.getElementById('k-volb-p1').textContent=volBoostP1.toLocaleString('es-MX');
+  document.getElementById('k-volb-p1-sub').textContent=`${(volBoostP1/s1.tot*100).toFixed(1)}% del total P1`;
+  document.getElementById('k-volb-p2').textContent=volBoostP2.toLocaleString('es-MX');
+  document.getElementById('k-volb-p2-sub').textContent=`${(volBoostP2/s2.tot*100).toFixed(1)}% del total P2`;
+  const kvbd=document.getElementById('k-volb-delta');
+  kvbd.textContent=fmt(dVolBoostPct,'%');
+  kvbd.className='kpi-val '+cls(dVolBoostPct);
+  const kvbds=document.getElementById('k-volb-delta-sub');
+  kvbds.textContent=`${dVolBoost>=0?'+':''}${dVolBoost.toLocaleString('es-MX')} redenciones boost`;
+  kvbds.className='kpi-delta '+cls(dVolBoost);
 
   if(cContrib)cContrib.destroy();
   cContrib=new Chart(document.getElementById('chart-contrib'),{
