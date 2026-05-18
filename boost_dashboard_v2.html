@@ -729,7 +729,7 @@ function applyRanges(){
   document.getElementById('p2-info').textContent=`${s2.tot} redenciones · ${s2.vActBoost} activ. boost (${s2.mixB.toFixed(1)}%)`;
 
   const dMix=s2.mixB-s1.mixSkuBoost, dMg=s2.mgTot-s1.mgTot;
-  const impacto=(dMg/100)*s2.sumNeto;
+  const impacto=mgBoostP2-((contribP1/100)*s2.sumNeto);
 
   const km=document.getElementById('k-mix');km.textContent=fmt(dMix,' pp');km.className='kpi-val '+cls(dMix);
   document.getElementById('k-mix-sub').textContent=`P1 ${s1.mixSkuBoost.toFixed(1)}% natural → P2 ${s2.mixB.toFixed(1)}% con boost`;
@@ -738,7 +738,7 @@ function applyRanges(){
   document.getElementById('k-mg-sub').textContent=`P1 ${s1.mgTot.toFixed(1)}% → P2 ${s2.mgTot.toFixed(1)}%`;
   document.getElementById('k-mg-sub').className='kpi-delta '+cls(dMg);
   const ki=document.getElementById('k-impacto');ki.textContent=peso(impacto);ki.className='kpi-val '+cls(impacto);
-  document.getElementById('k-impacto-sub').textContent=`Δ ${fmt(dMg,' pp')} × precio neto P2`;
+  document.getElementById('k-impacto-sub').textContent=`Margen boost P2 − (contrib P1 × rev P2)`;
   document.getElementById('k-impacto-sub').className='kpi-delta '+cls(impacto);
 
   let msg='';
