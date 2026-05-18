@@ -239,6 +239,33 @@
       <div class="pagination" id="pagination"></div>
       <p class="note">* Todos los SKUs con boost activo en el período, incluidos los con 0 redenciones. Mix % = redenciones del SKU / total del período. Δ = P2 − P1.</p>
     </div>
+
+    <div class="card" id="contrib-card" style="display:none;">
+      <div class="card-title">Contribución del boost al negocio</div>
+      <div class="card-sub">Margen $ generado por SKUs boosteados / Revenue total del período · Métrica que aísla el efecto del boost del comportamiento del resto</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;">
+        <div class="kpi">
+          <div class="kpi-label">Contribución boost P1</div>
+          <div class="kpi-val" id="k-contrib-p1">—</div>
+          <div class="kpi-delta neu" id="k-contrib-p1-sub"></div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Contribución boost P2</div>
+          <div class="kpi-val" id="k-contrib-p2">—</div>
+          <div class="kpi-delta neu" id="k-contrib-p2-sub"></div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Δ Contribución boost</div>
+          <div class="kpi-val" id="k-contrib-delta">—</div>
+          <div class="kpi-delta" id="k-contrib-delta-sub"></div>
+        </div>
+      </div>
+      <div class="legend">
+        <div class="leg"><div class="leg-sq" style="background:#534AB7;"></div>Margen $ boost / Revenue total</div>
+      </div>
+      <div style="height:220px;position:relative;"><canvas id="chart-contrib"></canvas></div>
+      <p class="note">* Contribución = (Σ margen $ SKUs boosteados) / (Σ revenue total período) × 100. Si sube de P1 a P2, el boost está generando más margen por cada peso de revenue, independientemente del comportamiento del resto.</p>
+    </div>
   </div>
 
   <!-- ══ TAB TENDENCIA ══ -->
@@ -302,7 +329,7 @@ const URL_BOOST       = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS7RDuE
 
 const PURPLE='#534AB7', PURPLE_LT='#AFA9EC', GRAY='#B4B2A9', tick='#888780', gridC='rgba(0,0,0,0.06)';
 let allTagged=[], boostedSkusByPeriod={}, boostedSkus=new Set(), skuNames={}, subcatMap={};
-let cMg, cMix, cRev, cMgTend;
+let cMg, cMix, cRev, cMgTend, cContrib;
 let tableData=[], sortCol=4, sortAsc=false, currentPage=1;
 const PAGE_SIZE=20;
 
@@ -759,6 +786,51 @@ function applyRanges(){
   const p2mix=skuMixInRange(r2.ini,r2.fin,filters,activeSkus);
   buildSkuTable(p1mix,p2mix,activeSkus);
   document.getElementById('sku-card').style.display='block';
+
+  // ── Contribución del boost ──
+  const boostRowsP1=applyFilters(allTagged.filter(r=>r.fnum>=r1.ini&&r.fnum<=r1.fin),filters).filter(r=>activeSkus.has(r.sku));
+  const boostRowsP2=applyFilters(allTagged.filter(r=>r.fnum>=r2.ini&&r.fnum<=r2.fin),filters).filter(r=>activeSkus.has(r.sku));
+  const mgBoostP1=boostRowsP1.reduce((s,r)=>s+r.mgP,0);
+  const mgBoostP2=boostRowsP2.reduce((s,r)=>s+r.mgP,0);
+  const contribP1=s1.sumNeto>0?(mgBoostP1/s1.sumNeto*100):0;
+  const contribP2=s2.sumNeto>0?(mgBoostP2/s2.sumNeto*100):0;
+  const dContrib=contribP2-contribP1;
+
+  document.getElementById('k-contrib-p1').textContent=contribP1.toFixed(2)+'%';
+  document.getElementById('k-contrib-p1-sub').textContent=`${peso(mgBoostP1)} margen boost / ${peso(s1.sumNeto)} rev total`;
+  document.getElementById('k-contrib-p2').textContent=contribP2.toFixed(2)+'%';
+  document.getElementById('k-contrib-p2-sub').textContent=`${peso(mgBoostP2)} margen boost / ${peso(s2.sumNeto)} rev total`;
+
+  const kcd=document.getElementById('k-contrib-delta');
+  kcd.textContent=fmt(dContrib,' pp');
+  kcd.className='kpi-val '+cls(dContrib);
+  const kcds=document.getElementById('k-contrib-delta-sub');
+  kcds.textContent=`P1 ${contribP1.toFixed(2)}% → P2 ${contribP2.toFixed(2)}%`;
+  kcds.className='kpi-delta '+cls(dContrib);
+
+  if(cContrib)cContrib.destroy();
+  cContrib=new Chart(document.getElementById('chart-contrib'),{
+    type:'bar',
+    plugins:[topLabelPlugin],
+    data:{
+      labels:[`P1: ${fmtCorta(r1.ini)} – ${fmtCorta(r1.fin)}`,`P2: ${fmtCorta(r2.ini)} – ${fmtCorta(r2.fin)}`],
+      datasets:[{
+        label:'Contribución boost',
+        data:[parseFloat(contribP1.toFixed(2)),parseFloat(contribP2.toFixed(2))],
+        backgroundColor:[PURPLE_LT,PURPLE],
+        borderRadius:6,
+      }]
+    },
+    options:{responsive:true,maintainAspectRatio:false,
+      layout:{padding:{top:24}},
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.raw.toFixed(2)}%`}}},
+      scales:{
+        x:{grid:{display:false},ticks:{color:tick,font:{size:10}}},
+        y:{min:0,grid:{color:gridC},ticks:{color:tick,font:{size:10},callback:v=>v+'%'}}
+      }
+    }
+  });
+  document.getElementById('contrib-card').style.display='block';
 }
 
 // ── Tendencia ──
@@ -821,14 +893,32 @@ function buildTendencia(mode){
   cRev=new Chart(document.getElementById('chart-rev'),{
     type:'bar',
     data:{labels,datasets:[{
-      data:revData, backgroundColor:PURPLE, borderRadius:4,
-      label:'Revenue'
+      data:revData, backgroundColor:PURPLE, borderRadius:4, label:'Revenue'
     }]},
     options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${peso(ctx.raw)}`}}},
+      layout:{padding:{top:20}},
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>` ${peso(ctx.raw)}`}},
+        datalabels:{display:false}
+      },
       scales:{x:{grid:{display:false},ticks:{color:tick,font:{size:10}}},
               y:{grid:{color:gridC},ticks:{color:tick,font:{size:10},callback:v=>peso(v)}}}
-    }
+    },
+    plugins:[{
+      id:'revLabels',
+      afterDatasetsDraw(chart){
+        const{ctx,data,scales:{x,y}}=chart;
+        ctx.save();
+        data.datasets[0].data.forEach((val,i)=>{
+          const bar=chart.getDatasetMeta(0).data[i];
+          ctx.fillStyle='#2C2C2A';
+          ctx.font='bold 10px Arial';
+          ctx.textAlign='center';
+          ctx.fillText(peso(val),bar.x,bar.y-6);
+        });
+        ctx.restore();
+      }
+    }]
   });
 
   if(cMgTend)cMgTend.destroy();
@@ -841,10 +931,26 @@ function buildTendencia(mode){
       fill:true, tension:0.3, label:'Margen %'
     }]},
     options:{responsive:true,maintainAspectRatio:false,
+      layout:{padding:{top:20}},
       plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.raw.toFixed(1)}%`}}},
       scales:{x:{grid:{display:false},ticks:{color:tick,font:{size:10}}},
               y:{min:0,max:80,grid:{color:gridC},ticks:{color:tick,font:{size:10},callback:v=>v+'%'}}}
-    }
+    },
+    plugins:[{
+      id:'mgLabels',
+      afterDatasetsDraw(chart){
+        const{ctx,data,scales:{x,y}}=chart;
+        ctx.save();
+        data.datasets[0].data.forEach((val,i)=>{
+          const pt=chart.getDatasetMeta(0).data[i];
+          ctx.fillStyle='#534AB7';
+          ctx.font='bold 10px Arial';
+          ctx.textAlign='center';
+          ctx.fillText(val.toFixed(1)+'%',pt.x,pt.y-10);
+        });
+        ctx.restore();
+      }
+    }]
   });
 }
 
