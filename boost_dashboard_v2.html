@@ -260,6 +260,23 @@
           <div class="kpi-delta" id="k-contrib-delta-sub"></div>
         </div>
       </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;">
+        <div class="kpi" style="border-top:3px solid #D3D1C7;">
+          <div class="kpi-label">Redenciones totales P1</div>
+          <div class="kpi-val" id="k-vol-p1" style="font-size:18px;">—</div>
+          <div class="kpi-delta neu" id="k-vol-p1-sub"></div>
+        </div>
+        <div class="kpi" style="border-top:3px solid #D3D1C7;">
+          <div class="kpi-label">Redenciones totales P2</div>
+          <div class="kpi-val" id="k-vol-p2" style="font-size:18px;">—</div>
+          <div class="kpi-delta neu" id="k-vol-p2-sub"></div>
+        </div>
+        <div class="kpi" style="border-top:3px solid #D3D1C7;">
+          <div class="kpi-label">Δ Volumen total</div>
+          <div class="kpi-val" id="k-vol-delta" style="font-size:18px;">—</div>
+          <div class="kpi-delta" id="k-vol-delta-sub"></div>
+        </div>
+      </div>
       <div class="legend">
         <div class="leg"><div class="leg-sq" style="background:#534AB7;"></div>Margen $ boost / Revenue total</div>
       </div>
@@ -807,6 +824,20 @@ function applyRanges(){
   const kcds=document.getElementById('k-contrib-delta-sub');
   kcds.textContent=`P1 ${contribP1.toFixed(2)}% → P2 ${contribP2.toFixed(2)}%`;
   kcds.className='kpi-delta '+cls(dContrib);
+
+  // Contexto de volumen
+  const dVol=s2.tot-s1.tot;
+  const dVolPct=s1.tot>0?(dVol/s1.tot*100):0;
+  document.getElementById('k-vol-p1').textContent=s1.tot.toLocaleString('es-MX');
+  document.getElementById('k-vol-p1-sub').textContent=`${peso(s1.sumNeto)} revenue total`;
+  document.getElementById('k-vol-p2').textContent=s2.tot.toLocaleString('es-MX');
+  document.getElementById('k-vol-p2-sub').textContent=`${peso(s2.sumNeto)} revenue total`;
+  const kvd=document.getElementById('k-vol-delta');
+  kvd.textContent=fmt(dVolPct,'%');
+  kvd.className='kpi-val '+cls(dVolPct);
+  const kvds=document.getElementById('k-vol-delta-sub');
+  kvds.textContent=`${dVol>=0?'+':''}${dVol.toLocaleString('es-MX')} redenciones`;
+  kvds.className='kpi-delta '+cls(dVol);
 
   if(cContrib)cContrib.destroy();
   cContrib=new Chart(document.getElementById('chart-contrib'),{
