@@ -737,18 +737,9 @@ function applyRanges(){
   const km2=document.getElementById('k-mg');km2.textContent=fmt(dMg,' pp');km2.className='kpi-val '+cls(dMg);
   document.getElementById('k-mg-sub').textContent=`P1 ${s1.mgTot.toFixed(1)}% → P2 ${s2.mgTot.toFixed(1)}%`;
   document.getElementById('k-mg-sub').className='kpi-delta '+cls(dMg);
-  const ki=document.getElementById('k-impacto');ki.textContent=peso(impactoReal);ki.className='kpi-val '+cls(impactoReal);
-  document.getElementById('k-impacto-sub').textContent=`Margen boost P2 − (contrib P1 × rev P2)`;
-  document.getElementById('k-impacto-sub').className='kpi-delta '+cls(impactoReal);
+  // impacto KPI se actualiza abajo después de calcular boostRows
 
   let msg='';
-  if(dMix>1&&dMg>0.05) msg=`Los SKUs boosteados subieron su participación ${dMix.toFixed(1)} pp (de ${s1.mixSkuBoost.toFixed(1)}% natural a ${s2.mixB.toFixed(1)}% con boost), jalando el margen total ${fmt(dMg,' pp')} y generando un impacto estimado de ${peso(impactoReal)}.`;
-  else if(dMix>0.5&&dMg<=0.05) msg=`Los SKUs boosteados ganaron ${dMix.toFixed(1)} pp de participación pero el impacto en margen total es mínimo. El volumen todavía es pequeño para mover el promedio.`;
-  else if(dMix<=0) msg=`Los SKUs boosteados no ganaron participación vs su nivel natural en P1 (${fmt(dMix,' pp')}). El boost no está moviendo el mix.`;
-  else msg=`Cambio de ${fmt(dMix,' pp')} en mix con impacto de ${fmt(dMg,' pp')} en margen total (${peso(impactoReal)}).`;
-  document.getElementById('insight').textContent=msg;
-  document.getElementById('insight').style.display='block';
-
   const labels=[`P1: ${fmtCorta(r1.ini)} – ${fmtCorta(r1.fin)}`,`P2: ${fmtCorta(r2.ini)} – ${fmtCorta(r2.fin)}`];
 
   if(cMg)cMg.destroy();
@@ -822,6 +813,20 @@ function applyRanges(){
   const contribP2=s2.sumNeto>0?(mgBoostP2/s2.sumNeto*100):0;
   const dContrib=contribP2-contribP1;
   const impactoReal=mgBoostP2-((contribP1/100)*s2.sumNeto);
+
+  // Actualizar KPI impacto ahora que tenemos el valor correcto
+  const ki=document.getElementById('k-impacto');ki.textContent=peso(impactoReal);ki.className='kpi-val '+cls(impactoReal);
+  document.getElementById('k-impacto-sub').textContent=`Margen boost P2 − (contrib P1 × rev P2)`;
+  document.getElementById('k-impacto-sub').className='kpi-delta '+cls(impactoReal);
+
+  // Insight
+  let msg='';
+  if(dMix>1&&dMg>0.05) msg=`Los SKUs boosteados subieron su participación ${dMix.toFixed(1)} pp (de ${s1.mixSkuBoost.toFixed(1)}% natural a ${s2.mixB.toFixed(1)}% con boost), jalando el margen total ${fmt(dMg,' pp')} y generando un impacto estimado de ${peso(impactoReal)}.`;
+  else if(dMix>0.5&&dMg<=0.05) msg=`Los SKUs boosteados ganaron ${dMix.toFixed(1)} pp de participación pero el impacto en margen total es mínimo. El volumen todavía es pequeño para mover el promedio.`;
+  else if(dMix<=0) msg=`Los SKUs boosteados no ganaron participación vs su nivel natural en P1 (${fmt(dMix,' pp')}). El boost no está moviendo el mix.`;
+  else msg=`Cambio de ${fmt(dMix,' pp')} en mix con impacto de ${fmt(dMg,' pp')} en margen total (${peso(impactoReal)}).`;
+  document.getElementById('insight').textContent=msg;
+  document.getElementById('insight').style.display='block';
 
   document.getElementById('k-contrib-p1').textContent=contribP1.toFixed(2)+'%';
   document.getElementById('k-contrib-p1-sub').textContent=`${peso(mgBoostP1)} margen boost / ${peso(s1.sumNeto)} rev total`;
@@ -1015,3 +1020,4 @@ loadData();
 </script>
 </body>
 </html>
+
