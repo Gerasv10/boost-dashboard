@@ -293,6 +293,23 @@
       <div class="pagination" id="pagination"></div>
       <p class="note">* Todos los SKUs con boost activo en el período, incluidos los con 0 redenciones. Mix % = redenciones del SKU / total del período. Δ = P2 − P1.</p>
     </div>
+
+    <div class="card" id="margin-breakdown-card" style="display:none;">
+      <div class="card-title">Margen % por grupo</div>
+      <div class="card-sub">Margen promedio ponderado de SKUs boosteados vs resto — mismos SKUs del boost activo en P2</div>
+      <table class="sku-table" style="max-width:500px;">
+        <thead>
+          <tr>
+            <th>Grupo</th>
+            <th style="text-align:right;">Margen % P1</th>
+            <th style="text-align:right;">Margen % P2</th>
+            <th style="text-align:right;">Δ pp</th>
+          </tr>
+        </thead>
+        <tbody id="margin-breakdown-tbody"></tbody>
+      </table>
+      <p class="note">* El margen % de SKUs boosteados en P1 es su margen natural sin boost activo. En P2 con boost activo. Si el Δ del Resto es negativo pero el total subió, fueron los SKUs boosteados los que jalaron el margen general.</p>
+    </div>
   </div>
 
   <!-- ══ TAB TENDENCIA ══ -->
@@ -905,6 +922,47 @@ function applyRanges(){
   const p2mix=skuMixInRange(r2.ini,r2.fin,filters,activeSkus);
   buildSkuTable(p1mix,p2mix,activeSkus);
   document.getElementById('sku-card').style.display='block';
+
+  // ── Tabla margen % por grupo ──
+  const mg = (rows) => {
+    const sP=rows.reduce((s,r)=>s+r.mgP,0);
+    const sN=rows.reduce((s,r)=>s+r.neto,0);
+    return sN!==0?(sP/sN*100):0;
+  };
+
+  const filteredP1=applyFilters(allTagged.filter(r=>r.fnum>=r1.ini&&r.fnum<=r1.fin),filters);
+  const filteredP2=applyFilters(allTagged.filter(r=>r.fnum>=r2.ini&&r.fnum<=r2.fin),filters);
+
+  // SKUs boosteados activos en P2 — ver su margen en P1 y P2
+  const boostP1rows = filteredP1.filter(r=>activeSkus.has(r.sku));
+  const boostP2rows = filteredP2.filter(r=>activeSkus.has(r.sku));
+  const restoP1rows = filteredP1.filter(r=>!activeSkus.has(r.sku));
+  const restoP2rows = filteredP2.filter(r=>!activeSkus.has(r.sku));
+
+  const mgBoostP1grp = mg(boostP1rows);
+  const mgBoostP2grp = mg(boostP2rows);
+  const mgRestoP1    = mg(restoP1rows);
+  const mgRestoP2    = mg(restoP2rows);
+
+  const rows = [
+    { label:'SKUs boosteados', p1: mgBoostP1grp, p2: mgBoostP2grp },
+    { label:'Resto',           p1: mgRestoP1,    p2: mgRestoP2    },
+  ];
+
+  const tbody = document.getElementById('margin-breakdown-tbody');
+  tbody.innerHTML = rows.map(r => {
+    const delta = r.p2 - r.p1;
+    const dc = delta > 0.05 ? 'delta-up' : delta < -0.05 ? 'delta-down' : 'delta-neu';
+    const ds = delta >= 0 ? '+' : '';
+    return `<tr>
+      <td style="font-weight:600;">${r.label}</td>
+      <td style="text-align:right;">${r.p1.toFixed(1)}%</td>
+      <td style="text-align:right;">${r.p2.toFixed(1)}%</td>
+      <td style="text-align:right;" class="${dc}">${ds}${delta.toFixed(1)} pp</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('margin-breakdown-card').style.display='block';
 
   // ── Contribución del boost ──
   const boostRowsP1=applyFilters(allTagged.filter(r=>r.fnum>=r1.ini&&r.fnum<=r1.fin),filters).filter(r=>activeSkus.has(r.sku));
