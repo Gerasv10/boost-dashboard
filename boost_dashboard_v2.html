@@ -218,6 +218,23 @@
 
     <div class="insight" id="insight" style="display:none;"></div>
 
+    <div class="card" id="margin-breakdown-card" style="display:none;">
+      <div class="card-title">Margen % por grupo</div>
+      <div class="card-sub">Margen promedio ponderado de SKUs boosteados vs resto · La fila Total debe coincidir con la gráfica de barras</div>
+      <table class="sku-table" style="max-width:500px;">
+        <thead>
+          <tr>
+            <th>Grupo</th>
+            <th style="text-align:right;">Margen % P1</th>
+            <th style="text-align:right;">Margen % P2</th>
+            <th style="text-align:right;">Δ pp</th>
+          </tr>
+        </thead>
+        <tbody id="margin-breakdown-tbody"></tbody>
+      </table>
+      <p class="note">* El margen % de SKUs boosteados en P1 es su margen natural sin boost activo. En P2 con boost activo. Si el Δ del Resto es negativo pero el Total subió, fueron los SKUs boosteados los que jalaron el margen general.</p>
+    </div>
+
     <div class="card" id="contrib-card" style="display:none;">
       <div class="card-title">Contribución del boost al negocio</div>
       <div class="card-sub">Margen $ generado por SKUs boosteados / Revenue total del período · Métrica que aísla el efecto del boost del comportamiento del resto</div>
@@ -292,23 +309,6 @@
       </table>
       <div class="pagination" id="pagination"></div>
       <p class="note">* Todos los SKUs con boost activo en el período, incluidos los con 0 redenciones. Mix % = redenciones del SKU / total del período. Δ = P2 − P1.</p>
-    </div>
-
-    <div class="card" id="margin-breakdown-card" style="display:none;">
-      <div class="card-title">Margen % por grupo</div>
-      <div class="card-sub">Margen promedio ponderado de SKUs boosteados vs resto — mismos SKUs del boost activo en P2</div>
-      <table class="sku-table" style="max-width:500px;">
-        <thead>
-          <tr>
-            <th>Grupo</th>
-            <th style="text-align:right;">Margen % P1</th>
-            <th style="text-align:right;">Margen % P2</th>
-            <th style="text-align:right;">Δ pp</th>
-          </tr>
-        </thead>
-        <tbody id="margin-breakdown-tbody"></tbody>
-      </table>
-      <p class="note">* El margen % de SKUs boosteados en P1 es su margen natural sin boost activo. En P2 con boost activo. Si el Δ del Resto es negativo pero el total subió, fueron los SKUs boosteados los que jalaron el margen general.</p>
     </div>
   </div>
 
@@ -454,7 +454,17 @@
       </div>
 
       <div class="card">
-        <div style="font-size:12px;font-weight:700;color:#534AB7;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:14px;">Tabla de detalle por SKU</div>
+        <div style="font-size:12px;font-weight:700;color:#534AB7;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:14px;">Tabla: Margen % por grupo</div>
+        <div style="font-size:12px;color:#888780;margin-bottom:8px;">Desglosa el margen ponderado del período en tres filas: SKUs boosteados, Resto y Total. Permite ver si el cambio en el margen general fue jalado por los boosteados, por el resto, o por ambos.</div>
+        <div style="background:#F4F2EB;border-radius:6px;padding:10px 12px;font-family:monospace;font-size:11px;color:#2C2C2A;line-height:1.8;">
+          SKUs boosteados = Σ margen $ de SKUs boost / Σ neto de SKUs boost × 100<br>
+          Resto = Σ margen $ de no boosteados / Σ neto de no boosteados × 100<br>
+          <strong>Total = Σ margen $ de todos / Σ neto de todos × 100</strong>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:#888780;font-style:italic;">* El Total coincide con la gráfica de barras de Margen % total ponderado. Si Resto baja pero Total sube, fueron los SKUs boosteados los que jalaron el margen general.</div>
+      </div>
+
+      <div class="card">
         <div style="font-size:12px;color:#888780;margin-bottom:8px;">Comportamiento individual de cada SKU con boost activo en P2. Permite identificar cuáles respondieron mejor al boost y cuáles no movieron su participación.</div>
         <div style="background:#F4F2EB;border-radius:6px;padding:10px 12px;font-family:monospace;font-size:11px;color:#2C2C2A;line-height:1.8;">
           Mix P1 % = redenciones del SKU en P1 / redenciones totales P1 × 100<br>
@@ -947,6 +957,7 @@ function applyRanges(){
   const rows = [
     { label:'SKUs boosteados', p1: mgBoostP1grp, p2: mgBoostP2grp },
     { label:'Resto',           p1: mgRestoP1,    p2: mgRestoP2    },
+    { label:'Total',           p1: s1.mgTot,     p2: s2.mgTot,    isTotal: true },
   ];
 
   const tbody = document.getElementById('margin-breakdown-tbody');
@@ -954,11 +965,12 @@ function applyRanges(){
     const delta = r.p2 - r.p1;
     const dc = delta > 0.05 ? 'delta-up' : delta < -0.05 ? 'delta-down' : 'delta-neu';
     const ds = delta >= 0 ? '+' : '';
+    const rowStyle = r.isTotal ? 'style="border-top:2px solid #D3D1C7;font-weight:700;"' : '';
     return `<tr>
-      <td style="font-weight:600;">${r.label}</td>
-      <td style="text-align:right;">${r.p1.toFixed(1)}%</td>
-      <td style="text-align:right;">${r.p2.toFixed(1)}%</td>
-      <td style="text-align:right;" class="${dc}">${ds}${delta.toFixed(1)} pp</td>
+      <td ${rowStyle} style="font-weight:${r.isTotal?'700':'600'};">${r.label}</td>
+      <td ${rowStyle} style="text-align:right;">${r.p1.toFixed(1)}%</td>
+      <td ${rowStyle} style="text-align:right;">${r.p2.toFixed(1)}%</td>
+      <td ${rowStyle} style="text-align:right;" class="${dc}">${ds}${delta.toFixed(1)} pp</td>
     </tr>`;
   }).join('');
 
