@@ -115,6 +115,7 @@
   <div class="tabs">
     <div class="tab active" onclick="showTab('boost',this)">Análisis de Boost</div>
     <div class="tab" onclick="showTab('tendencia',this)">Tendencia</div>
+    <div class="tab" onclick="showTab('glosario',this)">Glosario</div>
   </div>
 
   <!-- ══ TAB BOOST ══ -->
@@ -344,6 +345,108 @@
         <div class="card-sub" id="mg-sub">Margen ponderado por período</div>
         <div style="height:260px;position:relative;"><canvas id="chart-mg-tend"></canvas></div>
       </div>
+    </div>
+  </div>
+
+  <!-- ══ TAB GLOSARIO ══ -->
+  <div id="view-glosario" class="view">
+    <div style="max-width:800px;">
+
+      <div class="card">
+        <div class="card-title" style="font-size:15px;margin-bottom:2px;">Glosario de métricas</div>
+        <div class="card-sub">Explicación de cómo se calcula cada indicador del dashboard</div>
+      </div>
+
+      <div class="card">
+        <div style="font-size:12px;font-weight:700;color:#534AB7;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:14px;">KPIs principales</div>
+        <div style="margin-bottom:20px;">
+          <div style="font-size:13px;font-weight:700;color:#2C2C2A;margin-bottom:4px;">Δ Mix SKUs boosteados</div>
+          <div style="font-size:12px;color:#888780;margin-bottom:8px;">Compara la participación de los SKUs boosteados en el volumen total entre períodos. En P1 se toma su participación natural sin boost. En P2 con boost activo.</div>
+          <div style="background:#F4F2EB;border-radius:6px;padding:10px 12px;font-family:monospace;font-size:11px;color:#2C2C2A;line-height:1.8;">
+            Mix P1 = redenciones SKUs boost en P1 / redenciones totales P1 × 100<br>
+            Mix P2 = redenciones SKUs boost en P2 / redenciones totales P2 × 100<br>
+            <strong>Δ Mix = Mix P2 − Mix P1</strong>
+          </div>
+        </div>
+        <div style="margin-bottom:20px;">
+          <div style="font-size:13px;font-weight:700;color:#2C2C2A;margin-bottom:4px;">Δ Margen % total</div>
+          <div style="font-size:12px;color:#888780;margin-bottom:8px;">Diferencia del margen ponderado total de la plataforma entre períodos. Incluye todos los productos, boosteados y no boosteados. No aísla el efecto del boost del resto.</div>
+          <div style="background:#F4F2EB;border-radius:6px;padding:10px 12px;font-family:monospace;font-size:11px;color:#2C2C2A;line-height:1.8;">
+            Margen % = Σ(precio_venta − precio_flete − costo_final) / Σ(precio_venta − precio_flete) × 100<br>
+            <strong>Δ Margen = Margen % P2 − Margen % P1</strong>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#2C2C2A;margin-bottom:4px;">Impacto $ del boost</div>
+          <div style="font-size:12px;color:#888780;margin-bottom:8px;">Margen incremental generado por el boost, controlado por el crecimiento general de la plataforma. Responde: ¿cuánto generaron los SKUs boosteados en P2 por encima de lo que hubieran generado si su participación se hubiera mantenido igual que en P1?</div>
+          <div style="background:#F4F2EB;border-radius:6px;padding:10px 12px;font-family:monospace;font-size:11px;color:#2C2C2A;line-height:1.8;">
+            Baseline P2 = (Contribución P1 / 100) × Revenue total P2<br>
+            <strong>Impacto $ = Margen $ boost real P2 − Baseline P2</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="font-size:12px;font-weight:700;color:#534AB7;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:14px;">Gráficas</div>
+        <div style="margin-bottom:20px;">
+          <div style="font-size:13px;font-weight:700;color:#2C2C2A;margin-bottom:4px;">Margen % total ponderado</div>
+          <div style="font-size:12px;color:#888780;">Dos barras con el margen total ponderado de cada período. El margen excluye el flete cobrado al cliente — usa precio neto (precio_venta − precio_flete) como base tanto en el numerador como en el denominador.</div>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#2C2C2A;margin-bottom:4px;">Mix de redenciones</div>
+          <div style="font-size:12px;color:#888780;margin-bottom:8px;">Barra apilada al 100%. Muestra qué proporción del volumen total representaron los SKUs boosteados en cada período.</div>
+          <div style="background:#F4F2EB;border-radius:6px;padding:10px 12px;font-family:monospace;font-size:11px;color:#2C2C2A;line-height:1.8;">
+            <span style="color:#AFA9EC;font-weight:700;">■</span> P1 lila = participación natural de SKUs boost sin boost activo<br>
+            <span style="color:#534AB7;font-weight:700;">■</span> P2 morado = participación de SKUs boost con boost activo<br>
+            <span style="color:#B4B2A9;font-weight:700;">■</span> Gris = todos los demás productos
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="font-size:12px;font-weight:700;color:#534AB7;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:14px;">Sección: Contribución del boost</div>
+        <div style="margin-bottom:20px;">
+          <div style="font-size:13px;font-weight:700;color:#2C2C2A;margin-bottom:4px;">Contribución boost P1 y P2</div>
+          <div style="font-size:12px;color:#888780;margin-bottom:8px;">Por cada $100 de revenue que entró a la plataforma, ¿cuántos pesos de margen generaron los SKUs boosteados? Normaliza por el tamaño del período, lo que permite comparar períodos con distinto volumen.</div>
+          <div style="background:#F4F2EB;border-radius:6px;padding:10px 12px;font-family:monospace;font-size:11px;color:#2C2C2A;">
+            <strong>Contribución % = Σ margen $ SKUs boosteados / Σ(precio_venta − precio_flete) total × 100</strong>
+          </div>
+        </div>
+        <div style="margin-bottom:20px;">
+          <div style="font-size:13px;font-weight:700;color:#2C2C2A;margin-bottom:4px;">Δ Contribución</div>
+          <div style="font-size:12px;color:#888780;margin-bottom:8px;">Si sube de P1 a P2, el boost generó más margen por cada peso de revenue, independientemente del comportamiento del resto. Es la métrica más limpia para aislar el efecto del boost.</div>
+          <div style="background:#F4F2EB;border-radius:6px;padding:10px 12px;font-family:monospace;font-size:11px;color:#2C2C2A;">
+            <strong>Δ Contribución = Contribución P2 − Contribución P1</strong>
+          </div>
+        </div>
+        <div style="margin-bottom:20px;">
+          <div style="font-size:13px;font-weight:700;color:#2C2C2A;margin-bottom:4px;">Redenciones totales P1 y P2 — contexto plataforma</div>
+          <div style="font-size:12px;color:#888780;margin-bottom:8px;">Conteo total de todas las redenciones de la plataforma, incluyendo productos no boosteados. Sirve para detectar si el crecimiento entre períodos es estacional o atribuible al boost.</div>
+          <div style="background:#F4F2EB;border-radius:6px;padding:10px 12px;font-family:monospace;font-size:11px;color:#2C2C2A;">
+            <strong>Δ Volumen = (total P2 − total P1) / total P1 × 100</strong>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#2C2C2A;margin-bottom:4px;">Redenciones SKUs boost P1 y P2 — contexto boost</div>
+          <div style="font-size:12px;color:#888780;margin-bottom:8px;">Volumen específico de los SKUs boosteados. Si crece más que el Δ Volumen general de la plataforma, el boost generó demanda incremental por encima de la estacionalidad.</div>
+          <div style="background:#F4F2EB;border-radius:6px;padding:10px 12px;font-family:monospace;font-size:11px;color:#2C2C2A;line-height:1.8;">
+            % del total = redenciones boost / redenciones totales del período × 100<br>
+            <strong>Δ Volumen boost = (boost P2 − boost P1) / boost P1 × 100</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="font-size:12px;font-weight:700;color:#534AB7;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:14px;">Tabla de detalle por SKU</div>
+        <div style="font-size:12px;color:#888780;margin-bottom:8px;">Comportamiento individual de cada SKU con boost activo en P2. Permite identificar cuáles respondieron mejor al boost y cuáles no movieron su participación.</div>
+        <div style="background:#F4F2EB;border-radius:6px;padding:10px 12px;font-family:monospace;font-size:11px;color:#2C2C2A;line-height:1.8;">
+          Mix P1 % = redenciones del SKU en P1 / redenciones totales P1 × 100<br>
+          Mix P2 % = redenciones del SKU en P2 / redenciones totales P2 × 100<br>
+          <strong>Δ pp = Mix P2 % − Mix P1 %</strong>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:#888780;font-style:italic;">* Mix P1 refleja la participación natural del SKU antes del boost. Mix P2 refleja su participación con boost activo.</div>
+      </div>
+
     </div>
   </div>
 
